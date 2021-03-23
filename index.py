@@ -40,7 +40,7 @@ def newf(event=None):
         else:
             showinfo("New file ...", "Your text wasn't deleted.")
 def savef(event=None):
-    print("savef")
+    #print("savef")
     if file.get() == "None":
         saveasf()
     else:
@@ -53,17 +53,17 @@ def saveasf(event=None):
     filet = asksaveasfile(mode='w',defaultextension=".md")
     try:
         file.set(filet.name)
+        filet.write(markdowncode_box.get(1.0, END))
+        saved.set(1)
+        filet.close()
     except AttributeError:
         pass
-    filet.write(markdowncode_box.get(1.0, END))
-    saved.set(1)
-    filet.close()
     refreshtitle()
 def htmlasf(event=None):
     filet = asksaveasfile(mode='w',defaultextension=".html")
     markdowntxt = markdowncode_box.get("1.0", END)
     htmltext = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/transitional.dtd"><html><head></head><body>'
-    htmltext += markdown(markdowntxt, extensions=['extra'])
+    htmltext += markdown(markdowntxt, extensions=['extra', 'toc', 'smarty', 'legacy_attrs', 'meta'])
     htmltext += "</body></html>"
     htmltext = htmltext.replace("<table>",'<table border="2" >')
     htmltext = htmltext.replace("<code>",'<code bgcolor="#DCDCDC" >')
@@ -72,8 +72,11 @@ def htmlasf(event=None):
     filet.close()
 def saveacaf():
     filet = asksaveasfile(mode='w',defaultextension=".md")
-    filet.write(markdowncode_box.get(1.0, END))
-    filet.close()
+    try:
+        filet.write(markdowncode_box.get(1.0, END))
+        filet.close()
+    except AttributeError:
+        pass
 def openf(event=None):
     if saved.get() == 0:
         if askyesno("Open a file ...", "Your text isn't saved. Do you really want to open a file ?"):
@@ -144,6 +147,10 @@ def askexit(event=None):
             root.quit()
     else:
         root.quit()
+def undot():
+    markdowncode_box.edit_undo()
+def redot():
+    markdowncode_box.edit_redo()
 #---
 menubar = Menu(root)
 
@@ -177,6 +184,9 @@ headers_menu.add_command(label="Header 6", command=h6t)
 menu2.add_cascade(label="Headers", menu=headers_menu)
 menu2.add_separator()
 menu2.add_command(label="Line", command=linet)
+menu2.add_separator()
+menu2.add_command(label="Undo      Ctrl+Z", command=undot)
+menu2.add_command(label="Redo      Ctrl+Y", command=redot)
 menubar.add_cascade(label="Edit (Insert)", menu=menu2)
 
 menu3 = Menu(menubar, tearoff=0)
@@ -186,13 +196,19 @@ menubar.add_cascade(label="Help", menu=menu3)
 #---
 root.config(menu=menubar)
 #===
+mainpanel = PanedWindow(root, orient=HORIZONTAL)
+#===
 markdowncode = LabelFrame(root, text="Markdown source")
 markdowncode.pack(side=LEFT, expand=True, fill="both")
+mainpanel.add(markdowncode)
 #---
 htmlpreview = LabelFrame(root, text="Html preview")
 htmlpreview.pack(side=RIGHT, expand=True, fill="both")
+mainpanel.add(htmlpreview)
 #---
-markdowncode_box = ScrolledText(markdowncode)
+mainpanel.pack(expand=True, fill="both")
+#---
+markdowncode_box = ScrolledText(markdowncode, wrap="word", undo=True)
 markdowncode_box.pack(expand=True, fill="both")
 #---
 def refreshth(event):
@@ -202,7 +218,7 @@ def refresh():
     sleep(0.1)
     markdowntxt = markdowncode_box.get("1.0", END)
     htmltext = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/transitional.dtd"><html><head></head><body>'
-    htmltext += markdown(markdowntxt, extensions=['extra'])
+    htmltext += markdown(markdowntxt, extensions=['extra', 'toc', 'smarty', 'legacy_attrs', 'meta'])
     htmltext += "</body></html>"
     htmltext = htmltext.replace("<table>",'<table border="2" >')
     htmltext = htmltext.replace("<code>",'<code bgcolor="#DCDCDC" >')
@@ -222,13 +238,11 @@ root.bind_all('<Control-B>', boldt)
 root.bind_all('<Control-I>', italict)
 root.bind_all('<Control-H>', helpwin)
 root.bind_all('<Control-N>', newf)
+root.protocol("WM_DELETE_WINDOW", askexit)
 #---
 preview = HtmlFrame(htmlpreview, horizontal_scrollbar="auto")
 preview.pack(expand=True, fill="both")
 
 #print(frame.html.cget("zoom"))
 
-
-root.columnconfigure(0, weight=1)
-root.rowconfigure(0, weight=1)
 root.mainloop()
