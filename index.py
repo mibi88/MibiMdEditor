@@ -230,7 +230,7 @@ def modified(event):
 
 #---
 markdowncode_box.bind("<Key>", refreshth)
-markdowncode_box.bind("<Modified>", modified)
+markdowncode_box.bind("<<Modified>>", modified)
 #---
 root.bind_all('<Control-S>', savef)
 root.bind_all('<Control-Shift-S>', saveasf)
