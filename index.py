@@ -227,6 +227,7 @@ def refreshth(event_r_a):
     mainthread.start()
 def refresh():
     global event_r
+    global saved
     sleep(0.1)
     markdowntxt = markdowncode_box.get("1.0", END)
     htmltext = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/transitional.dtd"><html><head></head><body>'
