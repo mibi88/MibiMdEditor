@@ -48,10 +48,13 @@ def savef(event = None):
     if file == "None":
         saveasf()
     else:
-        filet = open(file, "w")
-        filet.write(markdowncode_box.get(1.0, END))
-        saved = 1
-        filet.close()
+        try:
+            filet = open(file, "w")
+            filet.write(markdowncode_box.get(1.0, END))
+            saved = 1
+            filet.close()
+        except:
+            showerror("File error", "File error.")
         refreshtitle()
 def saveasf(event=None):
     global file
@@ -63,7 +66,7 @@ def saveasf(event=None):
         saved = 1
         filet.close()
     except AttributeError:
-        pass
+        showerror("File error", "File error.")
     refreshtitle()
 def htmlasf(event=None):
     filet = asksaveasfile(mode='w',defaultextension=".html")
@@ -74,15 +77,18 @@ def htmlasf(event=None):
     htmltext = htmltext.replace("<table>",'<table border="2" >')
     htmltext = htmltext.replace("<code>",'<code bgcolor="#DCDCDC" >')
     # print(htmltext)
-    filet.write(htmltext)
-    filet.close()
+    try:
+        filet.write(htmltext)
+        filet.close()
+    except:
+        showerror("File error", "File error.")
 def saveacaf():
     filet = asksaveasfile(mode='w',defaultextension=".md")
     try:
         filet.write(markdowncode_box.get(1.0, END))
         filet.close()
-    except AttributeError:
-        pass
+    except:
+        showerror("File error", "File error.")
 def openf(event=None):
     global saved
     global file
@@ -114,7 +120,8 @@ def openf(event=None):
     saved = 1
     filet.close()
     refreshtitle()
-#---
+    refreshth()
+    #---
 def boldt(event=None):
     cursor_pos = markdowncode_box.index(INSERT)
     markdowncode_box.insert(cursor_pos, "**")
@@ -220,9 +227,10 @@ mainpanel.pack(expand=True, fill="both")
 markdowncode_box = ScrolledText(markdowncode, wrap="word", undo=True)
 markdowncode_box.pack(expand=True, fill="both")
 #---
-def refreshth(event_r_a):
+def refreshth(event_r_a = None):
     global event_r
-    event_r = event_r_a
+    if event_r_a != None:
+        event_r = event_r_a
     mainthread=Thread(target = refresh)
     mainthread.start()
 def refresh():
@@ -237,7 +245,9 @@ def refresh():
     htmltext = htmltext.replace("<code>",'<code bgcolor="#DCDCDC" >')
     # print(htmltext)
     preview.set_content(htmltext)
-    if not "Control" in event_r.keysym:
+    print(event_r.keysym)
+    if "Control" not in event_r.keysym:
+        print("Control is not pressed.")
         saved = 0
         refreshtitle()
 
@@ -246,17 +256,17 @@ markdowncode_box.bind("<Key>", refreshth)
 #---
 root.bind_all('<Control-s>', savef)
 root.bind_all('<Control-S>', saveasf)
+root.bind_all('<Control-o>', openf)
 root.bind_all('<Control-q>', askexit)
 root.bind_all('<Control-e>', htmlasf)
 root.bind_all('<Control-b>', boldt)
 root.bind_all('<Control-i>', italict)
 root.bind_all('<Control-h>', helpwin)
 root.bind_all('<Control-n>', newf)
-root.protocol("WM_DELETE_WINDOW", askexit)
 #---
 preview = HtmlFrame(htmlpreview, horizontal_scrollbar="auto")
 preview.pack(expand=True, fill="both")
 
-#print(frame.html.cget("zoom"))
+root.protocol("WM_DELETE_WINDOW", askexit)
 
 root.mainloop()
