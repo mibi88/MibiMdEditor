@@ -109,7 +109,7 @@ def openf(event=None):
         saved = 1
         file = filename
     #---
-    file = filename)
+    file = filename
     saved = 1
     filet.close()
     refreshtitle()
