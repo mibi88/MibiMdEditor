@@ -132,7 +132,16 @@ def linet():
     cursor_pos = markdowncode_box.index(INSERT)
     markdowncode_box.insert(cursor_pos, "---")
 def aboutwin():
-    showinfo("About", "MibiMdEditor\n_______________\nby mibi88\n_______________\nVersion : v.0.1\nLicense :\nGNU GPL v2\n_______________\nThank you for\nusing this app !")
+    showinfo("About", """MibiMdEditor
+    _______________
+    by mibi88
+    _______________
+    Version : v.0.3
+    License :
+    GNU GPL v2
+    _______________
+    Thank you for
+    using this app !""")
 def helpwin(event=None):
     showinfo("Help", "MibiMdEditor\n_______________\nby mibi88\n_______________\nSee README.md\n_______________")
 
