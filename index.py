@@ -13,6 +13,7 @@ root.title("MibiMdEditor")
 #===
 saved = 1
 file = "None"
+event_r = None
 #===
 def refreshtitle():
     global saved
@@ -219,10 +220,13 @@ mainpanel.pack(expand=True, fill="both")
 markdowncode_box = ScrolledText(markdowncode, wrap="word", undo=True)
 markdowncode_box.pack(expand=True, fill="both")
 #---
-def refreshth(event):
+def refreshth(event_r_a):
+    global event_r
+    event_r = event_r_a
     mainthread=Thread(target = refresh)
     mainthread.start()
 def refresh():
+    global event_r
     sleep(0.1)
     markdowntxt = markdowncode_box.get("1.0", END)
     htmltext = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/transitional.dtd"><html><head></head><body>'
@@ -232,7 +236,7 @@ def refresh():
     htmltext = htmltext.replace("<code>",'<code bgcolor="#DCDCDC" >')
     # print(htmltext)
     preview.set_content(htmltext)
-    if not "Control" in event.keysym:
+    if not "Control" in event_r.keysym:
         saved = 0
         refreshtitle()
 
