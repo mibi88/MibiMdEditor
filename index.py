@@ -233,7 +233,7 @@ def refresh():
     # print(htmltext)
     preview.set_content(htmltext)
 def modified(event):
-    saved.set(0)
+    saved = 0
     refreshtitle()
 
 #---
