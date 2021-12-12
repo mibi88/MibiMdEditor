@@ -11,22 +11,23 @@ root = Tk()
 #---
 root.title("MibiMdEditor")
 #===
-saved = IntVar()
-file = StringVar()
-file.set("None")
-
+saved = 1
+file = "None"
 #===
 def refreshtitle():
-    if saved.get() == 0:
-        title = "* MibiMdEditor - file : " + file.get() + "*"
+    global saved
+    global file
+    if saved == 0:
+        title = "* MibiMdEditor - file : " + file + "*"
         root.title(title)
     else:
-        title = "MibiMdEditor - file : " + file.get()
+        title = "MibiMdEditor - file : " + file
         root.title(title)
 refreshtitle()
-def newf(event=None):
-    savedvar = saved.get()
-    if savedvar == 1:
+def newf(event = None):
+    global saved
+    global file
+    if saved == 1:
         markdowncode_box.delete(1.0,"end")
         file.set("None")
         saved.set(1)
@@ -34,27 +35,31 @@ def newf(event=None):
     else:
         if askyesno("New file ...", "The text isn't saved. Do you really like to make a new file ?"):
             markdowncode_box.delete(1.0,"end")
-            file.set("None")
-            saved.set(1)
+            file = "None"
+            saved. = 1
             refreshtitle()
         else:
             showinfo("New file ...", "Your text wasn't deleted.")
-def savef(event=None):
+def savef(event = None):
+    global file
+    global saved
     #print("savef")
-    if file.get() == "None":
+    if file == "None":
         saveasf()
     else:
-        filet = open(file.get(), "w")
+        filet = open(file, "w")
         filet.write(markdowncode_box.get(1.0, END))
-        saved.set(1)
+        saved = 1
         filet.close()
         refreshtitle()
 def saveasf(event=None):
+    global file
+    global saved
     filet = asksaveasfile(mode='w',defaultextension=".md")
     try:
-        file.set(filet.name)
+        file = filet.name
         filet.write(markdowncode_box.get(1.0, END))
-        saved.set(1)
+        saved = 1
         filet.close()
     except AttributeError:
         pass
@@ -78,7 +83,9 @@ def saveacaf():
     except AttributeError:
         pass
 def openf(event=None):
-    if saved.get() == 0:
+    global saved
+    global file
+    if saved == 0:
         if askyesno("Open a file ...", "Your text isn't saved. Do you really want to open a file ?"):
             filename = askopenfilename(title="Ouvrir votre document",filetypes=[("Markdown Files",".md"),("Markdown Files",".markdown"),("all files",".*"), ("all files","*")])
             filet = open(filename, "r")
@@ -88,8 +95,8 @@ def openf(event=None):
                 showerror("UnicodeDecodeError", "Broken file.")
             markdowncode_box.delete(1.0, END)
             markdowncode_box.insert(1.0, text)
-            saved.set(1)
-            file.set(filename)
+            saved = 1
+            file = filename
     else:
         filename = askopenfilename(title="Ouvrir votre document",filetypes=[("Markdown Files",".md"),("Markdown Files",".markdown"),("all files",".*"), ("all files","*")])
         filet = open(filename, "r")
@@ -99,11 +106,11 @@ def openf(event=None):
             showerror("UnicodeDecodeError", "Broken file.")
         markdowncode_box.delete(1.0, END)
         markdowncode_box.insert(1.0, text)
-        saved.set(1)
-        file.set(filename)
+        saved = 1
+        file = filename
     #---
-    file.set(filename)
-    saved.set(1)
+    file = filename)
+    saved = 1
     filet.close()
     refreshtitle()
 #---
@@ -117,7 +124,7 @@ def linet():
     cursor_pos = markdowncode_box.index(INSERT)
     markdowncode_box.insert(cursor_pos, "---")
 def aboutwin():
-    showinfo("About", "MibiMdEditor\n_______________\nby mibi88\n_______________\nVersion : v.0.1\nLicense :\nThe Unlicense\n_______________\nThank you for\nusing this app !")
+    showinfo("About", "MibiMdEditor\n_______________\nby mibi88\n_______________\nVersion : v.0.1\nLicense :\nGNU GPL v2\n_______________\nThank you for\nusing this app !")
 def helpwin(event=None):
     showinfo("Help", "MibiMdEditor\n_______________\nby mibi88\n_______________\nSee README.md\n_______________")
 
@@ -142,7 +149,8 @@ def h6t():
     markdowncode_box.insert(cursor_pos, "######")
 #---
 def askexit(event=None):
-    if saved.get() == 0:
+    global saved
+    if saved == 0:
         if askyesno("Quit ...", "Your file isn't saved ! Do you really want to quit ?"):
             root.quit()
     else:
@@ -229,7 +237,7 @@ def modified(event):
     refreshtitle()
 
 #---
-markdowncode_box.bind("<Key>", refreshth)
+markdowncode_box.bind("<<Modified>>", refreshth)
 markdowncode_box.bind("<<Modified>>", modified)
 #---
 root.bind_all('<Control-S>', savef)
