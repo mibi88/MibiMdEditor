@@ -243,14 +243,14 @@ def refresh():
 #---
 markdowncode_box.bind("<Key>", refreshth)
 #---
-root.bind_all('<Control-S>', savef)
-root.bind_all('<Control-Shift-S>', saveasf)
-root.bind_all('<Control-Q>', askexit)
-root.bind_all('<Control-E>', htmlasf)
-root.bind_all('<Control-B>', boldt)
-root.bind_all('<Control-I>', italict)
-root.bind_all('<Control-H>', helpwin)
-root.bind_all('<Control-N>', newf)
+root.bind_all('<Control-s>', savef)
+root.bind_all('<Control-S>', saveasf)
+root.bind_all('<Control-q>', askexit)
+root.bind_all('<Control-e>', htmlasf)
+root.bind_all('<Control-b>', boldt)
+root.bind_all('<Control-i>', italict)
+root.bind_all('<Control-h>', helpwin)
+root.bind_all('<Control-n>', newf)
 root.protocol("WM_DELETE_WINDOW", askexit)
 #---
 preview = HtmlFrame(htmlpreview, horizontal_scrollbar="auto")
