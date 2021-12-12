@@ -29,14 +29,14 @@ def newf(event = None):
     global file
     if saved == 1:
         markdowncode_box.delete(1.0,"end")
-        file.set("None")
-        saved.set(1)
+        file = "None"
+        saved = 1
         refreshtitle()
     else:
         if askyesno("New file ...", "The text isn't saved. Do you really like to make a new file ?"):
             markdowncode_box.delete(1.0,"end")
             file = "None"
-            saved. = 1
+            saved = 1
             refreshtitle()
         else:
             showinfo("New file ...", "Your text wasn't deleted.")
