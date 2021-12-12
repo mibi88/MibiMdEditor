@@ -232,11 +232,12 @@ def refresh():
     htmltext = htmltext.replace("<code>",'<code bgcolor="#DCDCDC" >')
     # print(htmltext)
     preview.set_content(htmltext)
-    saved = 0
-    refreshtitle()
+    if not "Control" in event.keysym:
+        saved = 0
+        refreshtitle()
 
 #---
-markdowncode_box.bind("<<Modified>>", refreshth)
+markdowncode_box.bind("<Key>", refreshth)
 #---
 root.bind_all('<Control-S>', savef)
 root.bind_all('<Control-Shift-S>', saveasf)
