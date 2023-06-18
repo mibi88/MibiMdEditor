@@ -10,6 +10,10 @@ See TODO.md for upcoming features.
 
 ## Screenshots
 
+### v.0.4-a2 : Syntax highlighting and undo/redo buttons + shotcuts
+
+![v.0.4-a2](screenshots/mibimdeditor_v04a2.png)
+
 ### v.0.4-a1 : First version of MibiMdEditor written in vala
 
 ![v.0.4-a1](screenshots/mibimdeditor_v04a1.png)

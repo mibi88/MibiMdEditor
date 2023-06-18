@@ -9,6 +9,7 @@ mibimdeditor_deps = [
   dependency('gobject-2.0'),
   dependency('gtk+-3.0'),
   dependency('webkit2gtk-4.0'),
+  dependency('gtksourceview-4'),
 ]
 
 executable('mibimdeditor', mibimdeditor_sources,

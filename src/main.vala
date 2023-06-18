@@ -32,9 +32,11 @@ public class MibiMdEditor : Gtk.ApplicationWindow {
     //// WIDGETS ////
     // All widgets are in a horizontal box, except the headerbar
     private Paned hbox;
-    // TextView that will contain the source text
+    // SourceView that will contain the source text
     private ScrolledWindow textwindow;
-    private TextView text;
+    private SourceLanguageManager language;
+    private SourceBuffer text_buffer;
+    private SourceView text;
     // WebView that previews the rendered source text
     private WebView preview;
     // Headerbar
@@ -53,6 +55,10 @@ public class MibiMdEditor : Gtk.ApplicationWindow {
     private Image saved_icon;
     // File chooser dialog
     private FileChooserDialog file_chooser;
+    // Undo Button
+    private Button undo_button;
+    // Redo Button
+    private Button redo_button;
     //// OTHER VARIABLES ////
     // True if a file is open
     private bool file_open = false;
@@ -77,17 +83,17 @@ public class MibiMdEditor : Gtk.ApplicationWindow {
                     Gtk.ButtonsType.OK_CANCEL,
                     """Your file isn't saved!
 Do you really want to quit?""");
-		    cancel_dialog.response.connect ((response_id) => {
-		        switch (response_id) {
-			        case Gtk.ResponseType.OK:
-				        Gtk.main_quit();
-				        break;
-			        case Gtk.ResponseType.CANCEL:
-				        stdout.puts ("Quit cancelled\n");
-				        break;
-		        }
-		        cancel_dialog.destroy();
-		    });
+            cancel_dialog.response.connect ((response_id) => {
+                switch (response_id) {
+                    case Gtk.ResponseType.OK:
+                        Gtk.main_quit();
+                        break;
+                    case Gtk.ResponseType.CANCEL:
+                        stdout.puts ("Quit cancelled\n");
+                        break;
+                }
+                cancel_dialog.destroy();
+            });
             cancel_dialog.show ();
         } else {
             Gtk.main_quit();
@@ -109,6 +115,18 @@ Do you really want to quit?""");
         }
         headerbar.set_subtitle (file_name);
     }
+    private void update_undo_redo_buttons () {
+        if (text_buffer.can_undo) {
+            undo_button.set_sensitive (true);
+        } else {
+            undo_button.set_sensitive (false);
+        }
+        if (text_buffer.can_redo) {
+            redo_button.set_sensitive (true);
+        } else {
+            redo_button.set_sensitive (false);
+        }
+    }
     // PREVIEW //
     // Generate html from source code
     private void generate_html () {
@@ -120,6 +138,7 @@ Do you really want to quit?""");
         generate_html ();
         preview.load_html (html_data, null);
         update_saved_icon ();
+        update_undo_redo_buttons ();
     }
     // FILE //
     // Create a new file
@@ -131,21 +150,21 @@ Do you really want to quit?""");
                     Gtk.ButtonsType.OK_CANCEL,
                     """Your file isn't saved!
 Do you really want to create a new file?""");
-			cancel_dialog.response.connect ((response_id) => {
-			    switch (response_id) {
-				    case Gtk.ResponseType.OK:
-					    text.buffer.text = "";
+            cancel_dialog.response.connect ((response_id) => {
+                switch (response_id) {
+                    case Gtk.ResponseType.OK:
+                        text.buffer.text = "";
                         file_open = false;
                         file_saved = true;
                         file_name = NOTHING_OPEN_TEXT;
                         file = null;
-					    break;
-				    case Gtk.ResponseType.CANCEL:
-					    stdout.puts ("New file creation cancelled\n");
-					    break;
-			    }
-			    cancel_dialog.destroy();
-			});
+                        break;
+                    case Gtk.ResponseType.CANCEL:
+                        stdout.puts ("New file creation cancelled\n");
+                        break;
+                }
+                cancel_dialog.destroy();
+            });
             cancel_dialog.show ();
         } else {
             text.buffer.text = "";
@@ -166,10 +185,10 @@ Do you really want to create a new file?""");
                     Gtk.ButtonsType.OK_CANCEL,
                     """Your file isn't saved!
 Do you really want to open a file?""");
-			cancel_dialog.response.connect ((response_id) => {
-			    switch (response_id) {
-				    case Gtk.ResponseType.OK:
-					    file_chooser = new Gtk.FileChooserDialog (
+            cancel_dialog.response.connect ((response_id) => {
+                switch (response_id) {
+                    case Gtk.ResponseType.OK:
+                        file_chooser = new Gtk.FileChooserDialog (
                                     "Select a file to open",
                                     this, Gtk.FileChooserAction.OPEN,
                                     "Cancel", Gtk.ResponseType.CANCEL,
@@ -188,20 +207,20 @@ Do you really want to open a file?""");
                                 text.buffer.text = (string) contents;
                                 file_open = true;
                                 file_saved = true;
-	                        } catch (Error error) {
-		                        stderr.printf ("Error when loading file: %s\n",
-		                                       error.message);
-	                        }
+                            } catch (Error error) {
+                                stderr.printf ("Error when loading file: %s\n",
+                                               error.message);
+                            }
                         } else {
                             stdout.puts ("Action cancelled !\n");
                         }
-					    break;
-				    case Gtk.ResponseType.CANCEL:
-					    stdout.puts ("New file creation cancelled\n");
-					    break;
-			    }
-			    cancel_dialog.destroy();
-			});
+                        break;
+                    case Gtk.ResponseType.CANCEL:
+                        stdout.puts ("New file creation cancelled\n");
+                        break;
+                }
+                cancel_dialog.destroy();
+            });
             cancel_dialog.show ();
         } else {
             file_chooser = new Gtk.FileChooserDialog (
@@ -222,10 +241,10 @@ Do you really want to open a file?""");
                     text.buffer.text = (string) contents;
                     file_open = true;
                     file_saved = true;
-	            } catch (Error error) {
-		            stderr.printf ("Error when loading file: %s\n",
-		                           error.message);
-	            }
+                } catch (Error error) {
+                    stderr.printf ("Error when loading file: %s\n",
+                                   error.message);
+                }
             } else {
                 stdout.puts ("Action cancelled !\n");
             }
@@ -240,9 +259,9 @@ Do you really want to open a file?""");
                 file.replace_contents (text.buffer.text.data, null, true,
                                        FileCreateFlags.NONE, null, null);
                 file_saved = true;
-	        } catch (Error error) {
-		        stderr.printf ("Error when saving file: %s\n", error.message);
-	        }
+            } catch (Error error) {
+                stderr.printf ("Error when saving file: %s\n", error.message);
+            }
         } else {
             save_as_file ();
         }
@@ -268,9 +287,9 @@ Do you really want to open a file?""");
                                        FileCreateFlags.NONE, null, null);
                 file_open = true;
                 file_saved = true;
-	        } catch (Error error) {
-		        stderr.printf ("Error when saving file: %s\n", error.message);
-	        }
+            } catch (Error error) {
+                stderr.printf ("Error when saving file: %s\n", error.message);
+            }
         } else {
             stdout.puts ("Action cancelled !\n");
         }
@@ -294,18 +313,27 @@ Do you really want to open a file?""");
                 generate_html ();
                 export_file.replace_contents (html_data.data, null, true,
                                        FileCreateFlags.NONE, null, null);
-	        } catch (Error error) {
-		        stderr.printf ("Error when saving file: %s\n", error.message);
-	        }
+            } catch (Error error) {
+                stderr.printf ("Error when saving file: %s\n", error.message);
+            }
         } else {
             stdout.puts ("Action cancelled !\n");
         }
         update_saved_icon ();
         update_subtitle ();
     }
+    public void editor_undo () {
+        text.undo ();
+        update_undo_redo_buttons ();
+    }
+    public void editor_redo () {
+        text.redo ();
+        update_undo_redo_buttons ();
+    }
     public MibiMdEditor () {
         // TODO: Let the user choose the markup language
         generator = new Generator_MD ();
+        language = new SourceLanguageManager ();
         // Let the user choose, if he wants to allow html.
         generator.allow_html = true;
         // Create the headerbar
@@ -315,21 +343,21 @@ Do you really want to open a file?""");
         // Set the file name to the subtitle
         headerbar.set_subtitle(file_name);
         headerbar.set_show_close_button (true); // Show the close button
-        this.set_titlebar (headerbar); // Add the HeaderBar to the window
+        set_titlebar (headerbar); // Add the HeaderBar to the window
         // Add buttons to the headerbar
         // New file button
-        new_button = new Button.from_icon_name("list-add-symbolic");
+        new_button = new Button.from_icon_name ("list-add-symbolic");
         new_button.clicked.connect (new_file);
         // Add the button at the start of the headerbar
         headerbar.pack_start(new_button);
         // Open file button
-        open_button = new Button.from_icon_name("document-open-symbolic");
+        open_button = new Button.from_icon_name ("document-open-symbolic");
         open_button.clicked.connect (open_file);
         // Add the button at the start of the headerbar
         headerbar.pack_start(open_button);
         // Save file button
         save_menu = new MenuButton();
-        save_menu.add(new Gtk.Image.from_icon_name("document-save-symbolic",
+        save_menu.add(new Gtk.Image.from_icon_name ("document-save-symbolic",
                       Gtk.IconSize.BUTTON));
         // Create the popup menu
         save_popup = new GLib.Menu ();
@@ -345,20 +373,32 @@ Do you really want to open a file?""");
         // Add the button at the start of the headerbar
         headerbar.pack_start(save_menu);
         // Export html button
-        export_button = new Button.from_icon_name("x-office-document-symbolic");
+        export_button = new Button.from_icon_name (
+                                            "x-office-document-symbolic");
         export_button.clicked.connect (export_html);
         headerbar.pack_start(export_button);
         // Saved file icon
         saved_icon = new Gtk.Image ();
         update_saved_icon ();
         headerbar.pack_start(saved_icon);
+        // Redo button
+        redo_button = new Button.from_icon_name ("edit-redo-symbolic");
+        redo_button.clicked.connect (editor_redo);
+        headerbar.pack_end (redo_button);
+        // Undo button
+        undo_button = new Button.from_icon_name ("edit-undo-symbolic");
+        undo_button.clicked.connect (editor_undo);
+        headerbar.pack_end (undo_button);
         // Create the horizontal box
         hbox = new Paned (Orientation.HORIZONTAL);
-        // Create the TextView
+        // Create the SourceView
         textwindow = new ScrolledWindow (null, null);
-        text = new TextView (); // Create a scrolled window for the text view
+        text_buffer = new SourceBuffer.with_language (
+                                        language.get_language ("markdown"));
+        // Create a scrolled window for the text view
+        text = new SourceView.with_buffer (text_buffer);
         text.wrap_mode = WrapMode.WORD; // Wrap on words
-        text.buffer.changed.connect (update_preview);
+        text_buffer.end_user_action.connect (update_preview);
         textwindow.add (text);
         hbox.add (textwindow); // Add it to the horizontal box
         // Create the WebView
@@ -368,6 +408,7 @@ Do you really want to open a file?""");
         add (hbox);
         // Center the handle of hbox
         // hbox.set_position(hbox.max_position/2);
+        update_undo_redo_buttons ();
     }
     public static int main (string[] args) {
         Gtk.init (ref args);

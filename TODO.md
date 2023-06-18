@@ -3,13 +3,13 @@
 ## Main app
 
 - [ ] Add shotcuts
-- [ ] Add undo and redo
+- [x] Add undo and redo
 - [ ] Allow html ToggleButton
 - [ ] Choose language
 - [x] Markdown support
 - [ ] BBcode support
 - [ ] Translations
-- [ ] Syntax highlighting
+- [x] Syntax highlighting
 - [ ] 80 columns ruler?
 - [ ] Preferences window
 - [ ] Add custom CSS
