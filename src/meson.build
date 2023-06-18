@@ -1,4 +1,4 @@
-mibimdeditor_sources = [
+mibimdeditor_sources += [
   'main.vala',
   'generator.vala',
   'generator_markdown.vala',

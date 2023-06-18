@@ -4,8 +4,12 @@ project('mibimdeditor', ['c', 'vala'],
   default_options: [ 'warning_level=2', 'werror=false', ],
 )
 
+gnome = import('gnome')
 
-
+mibimdeditor_sources = gnome.compile_resources(
+    'mibimdeditor-resources',
+    'data/gresource.xml',
+    source_dir: 'data',
+)
 
 subdir('src')
-

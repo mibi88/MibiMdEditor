@@ -27,6 +27,8 @@ using WebKit;
 public class MibiMdEditor : Gtk.ApplicationWindow {
     // Some constants of the app
     private const string TITLE = "MibiMdEditor"; // App title
+    private const string APPICON =
+        "/MibiMdEditor/icons/hicolor/128x128/apps/MibiMdEditor.png";
     // Subtitle of the window if no file is opened :
     private const string NOTHING_OPEN_TEXT = "New file";
     //// WIDGETS ////
@@ -413,7 +415,15 @@ Do you really want to open a file?""");
     public static int main (string[] args) {
         Gtk.init (ref args);
         var window = new MibiMdEditor ();
-        window.destroy.connect (window.quit);
+        try {
+            window.set_icon (new Pixbuf.from_resource (APPICON));
+        } catch (Error error) {
+            stderr.printf ("Error when setting app icon: %s\n", error.message);
+        }
+        window.delete_event.connect ((widget, event) => {
+            window.quit();
+            return true;
+        });
         window.show_all ();
         Gtk.main ();
         return 0;
