@@ -29,6 +29,8 @@ public class MibiMdEditor : Gtk.ApplicationWindow {
     private const string TITLE = "MibiMdEditor"; // App title
     private const string APPICON =
         "/MibiMdEditor/icons/hicolor/scalable/apps/MibiMdEditor.svg";
+    private const int WIDTH = 640;
+    private const int HEIGHT = 480;
     // Subtitle of the window if no file is opened :
     private const string NOTHING_OPEN_TEXT = "New file";
     //// WIDGETS ////
@@ -103,11 +105,40 @@ public class MibiMdEditor : Gtk.ApplicationWindow {
         dialog.website = "https://github.com/mibi88/MibiMdEditor";
         dialog.website_label = "GitHub repository";
         dialog.response.connect ((response_id) => {
-            if (response_id == Gtk.ResponseType.CANCEL || response_id == Gtk.ResponseType.DELETE_EVENT) {
+            if (response_id == Gtk.ResponseType.CANCEL ||
+                response_id == Gtk.ResponseType.DELETE_EVENT) {
                 dialog.hide_on_delete ();
             }
         });
         dialog.present ();
+    }
+    private void preferences_dialog () {
+        // Create the dialog
+        PreferencesDialog dialog = new PreferencesDialog (this);
+        dialog.bg_grid.gswitch.state = text.background_pattern ==
+            SourceBackgroundPatternType.GRID;
+        dialog.lhighlight.gswitch.state = text.highlight_current_line;
+        dialog.indent.gswitch.state = text.auto_indent;
+        dialog.mono_font.gswitch.state = text.monospace;
+        // Handle response
+        dialog.response.connect ((response_id) => {
+            if (response_id != Gtk.ResponseType.CANCEL &&
+                response_id == Gtk.ResponseType.DELETE_EVENT) {
+                dialog.hide_on_delete ();
+                text.background_pattern = dialog.bg_grid.gswitch.state ?
+                                          SourceBackgroundPatternType.GRID :
+                                          SourceBackgroundPatternType.NONE;
+                text.highlight_current_line = dialog.lhighlight.gswitch.state;
+                text.auto_indent = dialog.indent.gswitch.state;
+                text.monospace = dialog.mono_font.gswitch.state;
+            }
+            if (response_id == Gtk.ResponseType.CANCEL ||
+                response_id == Gtk.ResponseType.DELETE_EVENT) {
+                dialog.hide_on_delete ();
+            }
+        });
+        // Show the dialog
+        dialog.show_all ();
     }
     // WINDOW //
     public void quit() {
@@ -367,6 +398,7 @@ Do you really want to open a file?""");
         update_undo_redo_buttons ();
     }
     public MibiMdEditor () {
+        this.set_default_size (WIDTH, HEIGHT);
         // TODO: Let the user choose the markup language
         generator = new Generator_MD ();
         language = new SourceLanguageManager ();
@@ -423,6 +455,13 @@ Do you really want to open a file?""");
                       Gtk.IconSize.BUTTON));
         // Create the popup menu
         burger_popup = new GLib.Menu ();
+        // Preferences item
+        burger_popup.append ("Preferences", "win.preferences");
+        SimpleAction preferences_action = new SimpleAction ("preferences",
+                                                            null);
+        preferences_action.activate.connect (preferences_dialog);
+        add_action (preferences_action);
+        // About item
         burger_popup.append ("About", "win.about");
         SimpleAction about_action = new SimpleAction ("about", null);
         about_action.activate.connect (about_dialog);
@@ -459,7 +498,7 @@ Do you really want to open a file?""");
         // Add the horizontal box to the window
         add (hbox);
         // Center the handle of hbox
-        // hbox.set_position(hbox.max_position/2);
+        hbox.set_position(WIDTH/2);
         update_undo_redo_buttons ();
     }
     public static int main (string[] args) {

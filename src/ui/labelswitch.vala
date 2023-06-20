@@ -1,4 +1,4 @@
-/* generator.vala
+/* labelswitch.vala
  *
  * Copyright 2023 Mibi88
  *
@@ -20,8 +20,20 @@
  */
 
 using GLib;
+using Gtk;
 
-public abstract class Generator {
-    public bool allow_html;
-    public abstract string generate_html (string data);
+public class LabelSwitch : Gtk.Box {
+    public Switch gswitch;
+    public Label glabel;
+    public LabelSwitch (string label, bool selection) {
+        Object (orientation: Orientation.HORIZONTAL, spacing: 4);
+        glabel = new Label (label);
+        gswitch = new Switch ();
+        gswitch.state = selection;
+        gswitch.valign = Align.CENTER;
+        halign = Align.FILL;
+        add (glabel);
+        add (gswitch);
+    }
 }
+

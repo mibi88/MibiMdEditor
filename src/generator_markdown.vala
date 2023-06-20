@@ -1,4 +1,4 @@
-/* renderer_markdown.vala
+/* generator_markdown.vala
  *
  * Copyright 2023 Mibi88
  *

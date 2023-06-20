@@ -11,7 +11,8 @@
 - [ ] Translations
 - [x] Syntax highlighting
 - [ ] 80 columns ruler?
-- [ ] Preferences window
+- [x] Preferences window
+- [ ] Save preferences
 - [ ] Add custom CSS
 - [ ] Add custom elements (for example that `[TOC]` generates a table of
 contents in markdown)
