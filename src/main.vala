@@ -28,7 +28,7 @@ public class MibiMdEditor : Gtk.ApplicationWindow {
     // Some constants of the app
     private const string TITLE = "MibiMdEditor"; // App title
     private const string APPICON =
-        "/MibiMdEditor/icons/hicolor/128x128/apps/MibiMdEditor.png";
+        "/MibiMdEditor/icons/hicolor/scalable/apps/MibiMdEditor.svg";
     // Subtitle of the window if no file is opened :
     private const string NOTHING_OPEN_TEXT = "New file";
     //// WIDGETS ////
@@ -61,6 +61,10 @@ public class MibiMdEditor : Gtk.ApplicationWindow {
     private Button undo_button;
     // Redo Button
     private Button redo_button;
+    // Headerbar burger
+    private MenuButton burger_menu;
+    // Burger Menu
+    private GLib.Menu burger_popup;
     //// OTHER VARIABLES ////
     // True if a file is open
     private bool file_open = false;
@@ -75,6 +79,36 @@ public class MibiMdEditor : Gtk.ApplicationWindow {
     // The html generator
     private Generator generator;
     //// METHODS ////
+    // DIALOGS //
+    private void about_dialog () {
+        Gtk.AboutDialog dialog = new Gtk.AboutDialog ();
+        dialog.transient_for = this;
+        dialog.modal = true;
+        dialog.destroy_with_parent = true;
+        dialog.artists = {"mibi88"};
+        dialog.authors = {"mibi88"};
+        dialog.documenters = null;
+        dialog.translator_credits = null;
+        dialog.program_name = TITLE;
+        try {
+            dialog.logo = new Pixbuf.from_resource (APPICON);
+        } catch (Error error) {
+            stderr.printf ("Error when loading icon: %s\n", error.message);
+        }
+        dialog.comments = "Prepare your texts for the web";
+        dialog.copyright = "Copyright © 2023 mibi88";
+        dialog.version = "v.0.4";
+        dialog.license_type = Gtk.License.GPL_2_0;
+        dialog.wrap_license = false;
+        dialog.website = "https://github.com/mibi88/MibiMdEditor";
+        dialog.website_label = "GitHub repository";
+        dialog.response.connect ((response_id) => {
+            if (response_id == Gtk.ResponseType.CANCEL || response_id == Gtk.ResponseType.DELETE_EVENT) {
+                dialog.hide_on_delete ();
+            }
+        });
+        dialog.present ();
+    }
     // WINDOW //
     public void quit() {
         stdout.puts ("User tried to quit.\n");
@@ -383,6 +417,18 @@ Do you really want to open a file?""");
         saved_icon = new Gtk.Image ();
         update_saved_icon ();
         headerbar.pack_start(saved_icon);
+        // Burger menubutton
+        burger_menu = new MenuButton();
+        burger_menu.add(new Gtk.Image.from_icon_name ("open-menu-symbolic",
+                      Gtk.IconSize.BUTTON));
+        // Create the popup menu
+        burger_popup = new GLib.Menu ();
+        burger_popup.append ("About", "win.about");
+        SimpleAction about_action = new SimpleAction ("about", null);
+        about_action.activate.connect (about_dialog);
+        add_action (about_action);
+        burger_menu.set_menu_model (burger_popup); // Set the popup menu"
+        headerbar.pack_end (burger_menu);
         // Redo button
         redo_button = new Button.from_icon_name ("edit-redo-symbolic");
         redo_button.clicked.connect (editor_redo);
@@ -400,6 +446,10 @@ Do you really want to open a file?""");
         // Create a scrolled window for the text view
         text = new SourceView.with_buffer (text_buffer);
         text.wrap_mode = WrapMode.WORD; // Wrap on words
+        text.auto_indent = true;
+        text.highlight_current_line = true;
+        text.background_pattern = SourceBackgroundPatternType.GRID;
+        text.monospace = true;
         text_buffer.end_user_action.connect (update_preview);
         textwindow.add (text);
         hbox.add (textwindow); // Add it to the horizontal box
