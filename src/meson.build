@@ -1,6 +1,6 @@
 mibimdeditor_sources += [
   'main.vala',
-  'ui/labelswitch.vala',
+  'ui/preferencesswitch.vala',
   'ui/preferences.vala',
   'generator.vala',
   'generator_markdown.vala',
@@ -12,6 +12,7 @@ mibimdeditor_deps = [
   dependency('gtk+-3.0'),
   dependency('webkit2gtk-4.0'),
   dependency('gtksourceview-4'),
+  dependency('libhandy-1'),
 ]
 
 executable('mibimdeditor', mibimdeditor_sources,

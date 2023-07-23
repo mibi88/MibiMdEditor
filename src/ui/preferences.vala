@@ -21,52 +21,59 @@
 
 using GLib;
 using Gtk;
+using Hdy;
 
-public class PreferencesDialog : Gtk.Dialog {
-    private HeaderBar dialogbar;
-    private Stack stack;
-    private ScrolledWindow scroll;
+public class PreferencesDialog : Hdy.PreferencesWindow {
     // Editor settings
-    private Box editor;
-    public LabelSwitch bg_grid;
-    public LabelSwitch lhighlight;
-    public LabelSwitch indent;
-    public LabelSwitch mono_font;
+    private PreferencesPage editor;
+    public PreferencesGroup text_edition;
+    public PreferencesSwitch bg_grid;
+    public PreferencesSwitch lhighlight;
+    public PreferencesSwitch auto_indent;
+    public PreferencesSwitch mono_font;
     // Generator settings
-    private Box generator;
-    private StackSwitcher switcher;
+    private PreferencesPage generator;
+    // Settings saving
+    private GLib.Settings settings;
     public PreferencesDialog (Gtk.Window window) {
+        settings = new GLib.Settings ("io.github.mibi88.MibiMdEditor");
         transient_for = window;
         modal = true;
         destroy_with_parent = true;
         set_default_size (320, 240);
-        scroll = new ScrolledWindow (null, null);
-        stack = new Stack ();
-        scroll.add (stack);
-        get_content_area ().add (scroll);
-        // Add a headerbar with a stackswitcher
-        dialogbar = new HeaderBar ();
-        dialogbar.show_close_button = true;
-        set_titlebar (dialogbar);
-        // Editor stack child
-        editor = new Box (Orientation.VERTICAL, 4);
-        stack.add_titled (editor, "editor", "Editor");
-        bg_grid = new LabelSwitch ("Grid background", true);
-        lhighlight = new LabelSwitch ("Line highlight", true);
-        indent = new LabelSwitch ("Auto indent", true);
-        mono_font = new LabelSwitch ("Monospace font", true);
-        editor.add (bg_grid);
-        editor.add (lhighlight);
-        editor.add (indent);
-        editor.add (mono_font);
-        editor.expand = true;
-        // Generator stack child
-        generator = new Box (Orientation.VERTICAL, 4);
-        generator.expand = true;
-        stack.add_titled (generator, "generator", "Generator");
-        switcher = new StackSwitcher ();
-        switcher.set_stack (stack);
-        dialogbar.set_custom_title (switcher);
+        editor = new PreferencesPage();
+        editor.title = "Editor";
+        editor.icon_name = "text-editor-symbolic";
+        // Editor page content
+        text_edition = new PreferencesGroup ();
+        text_edition.title = "Text edition";
+        // Text edition group content
+        bg_grid = new PreferencesSwitch ("Grid background",
+                                         settings.get_boolean ("bg-grid"));
+        text_edition.add (bg_grid);
+        lhighlight = new PreferencesSwitch ("Line highlight",
+                                         settings.get_boolean ("lhighlight"));
+        text_edition.add (lhighlight);
+        auto_indent = new PreferencesSwitch ("Auto indent",
+                                         settings.get_boolean ("auto-indent"));
+        text_edition.add (auto_indent);
+        mono_font = new PreferencesSwitch ("Monospace font",
+                                         settings.get_boolean ("mono-font"));
+        text_edition.add (mono_font);
+        // Add the text edition group
+        editor.add (text_edition);
+        // Add the editor page
+        add(editor);
+        generator = new PreferencesPage();
+        generator.title = "Generator";
+        generator.icon_name = "x-office-document-symbolic";
+        add(generator);
+    }
+    public void save () {
+        settings.set_boolean ("bg-grid", bg_grid.gswitch.state);
+        settings.set_boolean ("lhighlight", lhighlight.gswitch.state);
+        settings.set_boolean ("auto-indent", auto_indent.gswitch.state);
+        settings.set_boolean ("mono-font", mono_font.gswitch.state);
     }
 }
 

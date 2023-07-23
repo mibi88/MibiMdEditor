@@ -23,6 +23,7 @@ See TODO.md for upcoming features.
 This project requires
 * Vala
 * GTK+ 3
+* Handy 1
 
 Compile it using meson :
 

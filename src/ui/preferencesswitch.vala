@@ -1,4 +1,4 @@
-/* labelswitch.vala
+/* preferencesswitch.vala
  *
  * Copyright 2023 Mibi88
  *
@@ -21,19 +21,26 @@
 
 using GLib;
 using Gtk;
+using Hdy;
 
-public class LabelSwitch : Gtk.Box {
+public class PreferencesSwitch : Hdy.PreferencesRow {
+    private Box gbox;
+    private Label glabel;
     public Switch gswitch;
-    public Label glabel;
-    public LabelSwitch (string label, bool selection) {
-        Object (orientation: Orientation.HORIZONTAL, spacing: 4);
-        glabel = new Label (label);
+    public PreferencesSwitch (string name, bool b) {
+        this.title = name;
+        gbox = new Box (Orientation.HORIZONTAL, 0);
+        gbox.expand = true;
+        glabel = new Label (name);
+        glabel.halign = Align.START;
+        glabel.expand = true;
         gswitch = new Switch ();
-        gswitch.state = selection;
-        gswitch.valign = Align.CENTER;
-        halign = Align.FILL;
-        add (glabel);
-        add (gswitch);
+        gswitch.halign = Align.END;
+        gswitch.expand = true;
+        gswitch.state = b;
+        gbox.add (glabel);
+        gbox.add (gswitch);
+        add (gbox);
     }
 }
 

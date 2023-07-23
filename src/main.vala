@@ -23,8 +23,9 @@ using GLib;
 using Gtk;
 using Gdk;
 using WebKit;
+using Hdy;
 
-public class MibiMdEditor : Gtk.ApplicationWindow {
+public class MibiMdEditor : Hdy.ApplicationWindow {
     // Some constants of the app
     private const string TITLE = "MibiMdEditor"; // App title
     private const string APPICON =
@@ -34,6 +35,8 @@ public class MibiMdEditor : Gtk.ApplicationWindow {
     // Subtitle of the window if no file is opened :
     private const string NOTHING_OPEN_TEXT = "New file";
     //// WIDGETS ////
+    // Box that contains everything
+    private Box vbox;
     // All widgets are in a horizontal box, except the headerbar
     private Paned hbox;
     // SourceView that will contain the source text
@@ -44,7 +47,7 @@ public class MibiMdEditor : Gtk.ApplicationWindow {
     // WebView that previews the rendered source text
     private WebView preview;
     // Headerbar
-    private HeaderBar headerbar;
+    private Hdy.HeaderBar headerbar;
     // Headerbar new button
     private Button new_button;
     // Headerbar open button
@@ -115,30 +118,14 @@ public class MibiMdEditor : Gtk.ApplicationWindow {
     private void preferences_dialog () {
         // Create the dialog
         PreferencesDialog dialog = new PreferencesDialog (this);
-        dialog.bg_grid.gswitch.state = text.background_pattern ==
-            SourceBackgroundPatternType.GRID;
-        dialog.lhighlight.gswitch.state = text.highlight_current_line;
-        dialog.indent.gswitch.state = text.auto_indent;
-        dialog.mono_font.gswitch.state = text.monospace;
-        // Handle response
-        dialog.response.connect ((response_id) => {
-            if (response_id != Gtk.ResponseType.CANCEL &&
-                response_id == Gtk.ResponseType.DELETE_EVENT) {
-                dialog.hide_on_delete ();
-                text.background_pattern = dialog.bg_grid.gswitch.state ?
-                                          SourceBackgroundPatternType.GRID :
-                                          SourceBackgroundPatternType.NONE;
-                text.highlight_current_line = dialog.lhighlight.gswitch.state;
-                text.auto_indent = dialog.indent.gswitch.state;
-                text.monospace = dialog.mono_font.gswitch.state;
-            }
-            if (response_id == Gtk.ResponseType.CANCEL ||
-                response_id == Gtk.ResponseType.DELETE_EVENT) {
-                dialog.hide_on_delete ();
-            }
-        });
         // Show the dialog
         dialog.show_all ();
+        dialog.destroy.connect(() => {
+            // Save
+            dialog.save ();
+            // Reload the preferences
+            load_preferences ();
+        });
     }
     // WINDOW //
     public void quit() {
@@ -167,6 +154,16 @@ Do you really want to quit?""");
         }
     }
     // WIDGETS ///
+    private void load_preferences () {
+        GLib.Settings settings =
+            new GLib.Settings ("io.github.mibi88.MibiMdEditor");
+        text.background_pattern = settings.get_boolean ("bg-grid") ?
+                                  SourceBackgroundPatternType.GRID :
+                                  SourceBackgroundPatternType.NONE;
+        text.highlight_current_line = settings.get_boolean ("lhighlight");
+        text.auto_indent = settings.get_boolean ("auto-indent");
+        text.monospace = settings.get_boolean ("mono-font");
+    }
     private void update_saved_icon () {
         if (file_saved) {
             saved_icon.set_from_icon_name("drive-harddisk-symbolic",
@@ -200,12 +197,15 @@ Do you really want to quit?""");
         html_data = generator.generate_html (text.buffer.text);
     }
     // Update the preview
-    private void update_preview () {
-        file_saved = false;
+    private void update_webview () {
         generate_html ();
         preview.load_html (html_data, null);
         update_saved_icon ();
         update_undo_redo_buttons ();
+    }
+    private void update_preview () {
+        file_saved = false;
+        update_webview ();
     }
     // FILE //
     // Create a new file
@@ -404,14 +404,18 @@ Do you really want to open a file?""");
         language = new SourceLanguageManager ();
         // Let the user choose, if he wants to allow html.
         generator.allow_html = true;
+        // Create the box that will contain everything
+        vbox = new Box (Orientation.VERTICAL, 0);
+        vbox.expand = true;
+        vbox.halign = Gtk.Align.FILL;
         // Create the headerbar
-        headerbar = new HeaderBar ();
+        headerbar = new Hdy.HeaderBar ();
         // Set the title of the window to the TITLE const
         headerbar.set_title(TITLE);
         // Set the file name to the subtitle
         headerbar.set_subtitle(file_name);
         headerbar.set_show_close_button (true); // Show the close button
-        set_titlebar (headerbar); // Add the HeaderBar to the window
+        vbox.add (headerbar); // Add the HeaderBar to the window
         // Add buttons to the headerbar
         // New file button
         new_button = new Button.from_icon_name ("list-add-symbolic");
@@ -478,6 +482,8 @@ Do you really want to open a file?""");
         headerbar.pack_end (undo_button);
         // Create the horizontal box
         hbox = new Paned (Orientation.HORIZONTAL);
+        hbox.expand = true;
+        hbox.halign = Gtk.Align.FILL;
         // Create the SourceView
         textwindow = new ScrolledWindow (null, null);
         text_buffer = new SourceBuffer.with_language (
@@ -485,10 +491,6 @@ Do you really want to open a file?""");
         // Create a scrolled window for the text view
         text = new SourceView.with_buffer (text_buffer);
         text.wrap_mode = WrapMode.WORD; // Wrap on words
-        text.auto_indent = true;
-        text.highlight_current_line = true;
-        text.background_pattern = SourceBackgroundPatternType.GRID;
-        text.monospace = true;
         text_buffer.end_user_action.connect (update_preview);
         textwindow.add (text);
         hbox.add (textwindow); // Add it to the horizontal box
@@ -496,13 +498,18 @@ Do you really want to open a file?""");
         preview = new WebView ();
         hbox.add (preview); // Add it to the horizontal box
         // Add the horizontal box to the window
-        add (hbox);
+        vbox.add (hbox);
+        // Add the box that contains everything to the window
+        add (vbox);
         // Center the handle of hbox
         hbox.set_position(WIDTH/2);
         update_undo_redo_buttons ();
+        update_webview ();
+        load_preferences ();
     }
     public static int main (string[] args) {
         Gtk.init (ref args);
+        Hdy.init ();
         var window = new MibiMdEditor ();
         try {
             window.set_icon (new Pixbuf.from_resource (APPICON));
