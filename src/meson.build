@@ -1,4 +1,5 @@
 mibimdeditor_sources += [
+  'ui/window.vala',
   'main.vala',
   'ui/preferencesswitch.vala',
   'ui/preferences.vala',

@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk+" version="3.24"/>
+  <requires lib="gtksourceview" version="4.0"/>
+  <requires lib="libhandy" version="1.8"/>
+  <requires lib="webkit2gtk" version="4.1"/>
+  <template class="MibiMdEditor" parent="HdyApplicationWindow">
+    <property name="can-focus">False</property>
+    <property name="default-width">480</property>
+    <property name="default-height">320</property>
+    <child>
+      <object class="GtkSourceBuffer" id="text_buffer"/>
+      <object class="GtkBox" id="vbox">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="HdyHeaderBar" id="headerbar">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="title" translatable="no">MibiMdEditor</property>
+            <property name="show-close-button">True</property>
+            <!-- Widgets at the start of the headerbar -->
+            <child>
+              <!-- New file button -->
+              <object class="GtkButton" id="new_button">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="receives-default">True</property>
+                <child>
+                  <object class="GtkImage">
+                    <property name="visible">True</property>
+                    <property name="icon-name">list-add-symbolic</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="pack_type">start</property>
+              </packing>
+            </child>
+            <child>
+              <!-- Open file button -->
+              <object class="GtkButton" id="open_button">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="receives-default">True</property>
+                <child>
+                  <object class="GtkImage">
+                    <property name="visible">True</property>
+                    <property name="icon-name">document-open-symbolic</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="pack_type">start</property>
+              </packing>
+            </child>
+            <child>
+              <!-- Save menubutton -->
+              <object class="GtkMenuButton" id="save_menu">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="receives-default">True</property>
+                <property name="menu-model">save_popup</property>
+                <child>
+                  <object class="GtkImage">
+                    <property name="visible">True</property>
+                    <property name="icon-name">document-save-symbolic</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="pack_type">start</property>
+              </packing>
+            </child>
+            <child>
+              <!-- Export button -->
+              <object class="GtkButton" id="export_button">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="receives-default">True</property>
+                <child>
+                  <object class="GtkImage">
+                    <property name="visible">True</property>
+                    <property
+                      name="icon-name">x-office-document-symbolic</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="pack_type">start</property>
+              </packing>
+            </child>
+            <child>
+              <!-- Little icon to show to the user if the current document is
+              saved or not. -->
+              <object class="GtkImage" id="saved_icon">
+                <property name="visible">True</property>
+              </object>
+              <packing>
+                <property name="pack_type">start</property>
+              </packing>
+            </child>
+            <!-- Widgets at the end of the headerbar -->
+            <child>
+              <!-- Burger menubutton -->
+              <object class="GtkMenuButton" id="burger_menu">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="receives-default">True</property>
+                <property name="menu-model">burger_popup</property>
+                <child>
+                  <object class="GtkImage">
+                    <property name="visible">True</property>
+                    <property name="icon-name">open-menu-symbolic</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="pack_type">end</property>
+              </packing>
+            </child>
+            <child>
+              <!-- Redo button -->
+              <object class="GtkButton" id="redo_button">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="receives-default">True</property>
+                <child>
+                  <object class="GtkImage">
+                    <property name="visible">True</property>
+                    <property
+                      name="icon-name">edit-redo-symbolic</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="pack_type">end</property>
+              </packing>
+            </child>
+            <child>
+              <!-- Undo button -->
+              <object class="GtkButton" id="undo_button">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="receives-default">True</property>
+                <child>
+                  <object class="GtkImage">
+                    <property name="visible">True</property>
+                    <property
+                      name="icon-name">edit-undo-symbolic</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="pack_type">end</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkPaned" id="hbox">
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="double-buffered">False</property>
+            <property name="position">240</property>
+            <property name="position-set">True</property>
+            <child>
+              <object class="GtkScrolledWindow" id="textwindow">
+                <child>
+                  <object class="GtkSourceView" id="text">
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="left-margin">2</property>
+                    <property name="right-margin">2</property>
+                    <property name="buffer">text_buffer</property>
+                  </object>
+                  <packing>
+                    <property name="resize">True</property>
+                    <property name="shrink">True</property>
+                  </packing>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="WebKitWebView"
+                      type-func="webkit_web_view_get_type"
+                      id="preview">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <child>
+                  <placeholder/>
+                </child>
+              </object>
+              <packing>
+                <property name="resize">True</property>
+                <property name="shrink">True</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </template>
+  <menu id="save_popup">
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">Save</attribute>
+        <attribute name="action">win.save</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">Save as...</attribute>
+        <attribute name="action">win.save-as</attribute>
+      </item>
+    </section>
+  </menu>
+  <menu id="burger_popup">
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">Preferences</attribute>
+        <attribute name="action">win.preferences</attribute>
+      </item>
+      <item>
+        <attribute name="label"
+                  translatable="yes">About MibiMdEditor</attribute>
+        <attribute name="action">win.about</attribute>
+      </item>
+    </section>
+  </menu>
+</interface>

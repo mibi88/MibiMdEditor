@@ -3,5 +3,6 @@
   <gresource prefix="/MibiMdEditor">
     <file>icons/hicolor/scalable/apps/MibiMdEditor.svg</file>
     <file>icons/hicolor/128x128/apps/MibiMdEditor.png</file>
+    <file>window.ui</file>
   </gresource>
 </gresources>

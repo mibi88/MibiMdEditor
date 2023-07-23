@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <object class="HdyPreferencesWindow">
+    <property name="can-focus">False</property>
+    <child>
+      <object class="HdyPreferencesPage">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="title" translatable="yes">Page 1</property>
+        <child>
+          <object class="HdyPreferencesGroup">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="title" translatable="yes">Editor settings</property>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="HdyPreferencesPage">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="title" translatable="yes">Page 2</property>
+        <child>
+          <object class="HdyPreferencesGroup">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="title" translatable="yes">HTML Generators</property>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
