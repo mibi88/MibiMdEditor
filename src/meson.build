@@ -10,10 +10,10 @@ mibimdeditor_sources += [
 mibimdeditor_deps = [
   dependency('glib-2.0'),
   dependency('gobject-2.0'),
-  dependency('gtk+-3.0'),
-  dependency('webkit2gtk-4.0'),
-  dependency('gtksourceview-4'),
-  dependency('libhandy-1'),
+  dependency('gtk4'),
+  dependency('webkitgtk-6.0'),
+  dependency('gtksourceview-5'),
+  dependency('libadwaita-1'),
 ]
 
 executable('mibimdeditor', mibimdeditor_sources,

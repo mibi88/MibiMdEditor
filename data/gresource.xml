@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
   <gresource prefix="/MibiMdEditor">
-    <file>icons/hicolor/scalable/apps/MibiMdEditor.svg</file>
-    <file>icons/hicolor/128x128/apps/MibiMdEditor.png</file>
+    <file>icons/hicolor/scalable/apps/io.github.mibi88.MibiMdEditor.svg</file>
     <file>window.ui</file>
+    <file>preferencesswitch.ui</file>
   </gresource>
 </gresources>

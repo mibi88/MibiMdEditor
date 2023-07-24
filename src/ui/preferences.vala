@@ -21,9 +21,9 @@
 
 using GLib;
 using Gtk;
-using Hdy;
+using Adw;
 
-public class PreferencesDialog : Hdy.PreferencesWindow {
+public class PreferencesDialog : Adw.PreferencesWindow {
     // Editor settings
     private PreferencesPage editor;
     public PreferencesGroup text_edition;
@@ -49,16 +49,20 @@ public class PreferencesDialog : Hdy.PreferencesWindow {
         text_edition.title = "Text edition";
         // Text edition group content
         bg_grid = new PreferencesSwitch ("Grid background",
-                                         settings.get_boolean ("bg-grid"));
+                                 "Get a grid background in the text editor",
+                                 settings.get_boolean ("bg-grid"));
         text_edition.add (bg_grid);
         lhighlight = new PreferencesSwitch ("Line highlight",
-                                         settings.get_boolean ("lhighlight"));
+                                 "Highlight the line you're currently editing",
+                                 settings.get_boolean ("lhighlight"));
         text_edition.add (lhighlight);
         auto_indent = new PreferencesSwitch ("Auto indent",
-                                         settings.get_boolean ("auto-indent"));
+                                 "Automatically indent the next line",
+                                 settings.get_boolean ("auto-indent"));
         text_edition.add (auto_indent);
         mono_font = new PreferencesSwitch ("Monospace font",
-                                         settings.get_boolean ("mono-font"));
+                                   "Use a monospace font to display the text.",
+                                   settings.get_boolean ("mono-font"));
         text_edition.add (mono_font);
         // Add the text edition group
         editor.add (text_edition);

@@ -21,26 +21,25 @@
 
 using GLib;
 using Gtk;
-using Hdy;
+using Adw;
 
-public class PreferencesSwitch : Hdy.PreferencesRow {
-    private Box gbox;
-    private Label glabel;
-    public Switch gswitch;
-    public PreferencesSwitch (string name, bool b) {
+[GtkTemplate (ui = "/MibiMdEditor/preferencesswitch.ui")]
+public class PreferencesSwitch : Adw.PreferencesRow {
+    [GtkChild]
+    private unowned Box gbox;
+    [GtkChild]
+    private unowned Box glabelbox;
+    [GtkChild]
+    private unowned Label gname;
+    [GtkChild]
+    private unowned Label gdescription;
+    [GtkChild]
+    public unowned Switch gswitch;
+    public PreferencesSwitch (string name, string description, bool b) {
         this.title = name;
-        gbox = new Box (Orientation.HORIZONTAL, 0);
-        gbox.expand = true;
-        glabel = new Label (name);
-        glabel.halign = Align.START;
-        glabel.expand = true;
-        gswitch = new Switch ();
-        gswitch.halign = Align.END;
-        gswitch.expand = true;
+        gname.label = name;
+        gdescription.label = description;
         gswitch.state = b;
-        gbox.add (glabel);
-        gbox.add (gswitch);
-        add (gbox);
     }
 }
 

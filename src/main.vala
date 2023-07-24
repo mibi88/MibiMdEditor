@@ -23,23 +23,27 @@ using GLib;
 using Gtk;
 using Gdk;
 using WebKit;
-using Hdy;
+using Adw;
 
 public static int main (string[] args) {
-    Gtk.init (ref args);
-    Hdy.init ();
-    var window = new MibiMdEditor ();
-    try {
-        window.set_icon (new Pixbuf.from_resource (window.APPICON));
-    } catch (Error error) {
-        stderr.printf ("Error when setting app icon: %s\n", error.message);
-    }
-    window.delete_event.connect ((widget, event) => {
-        window.quit();
-        return true;
+    Gtk.init ();
+    Adw.init ();
+    GtkSource.init ();
+    var app = new Gtk.Application ("io.github.mibi88.MibiMdEditor",
+                                   GLib.ApplicationFlags.FLAGS_NONE);
+    app.activate.connect (() => {
+        var window = new MibiMdEditor (app);
+        try {
+            //window.set_icon (new Pixbuf.from_resource (window.APPICON));
+        } catch (Error error) {
+            stderr.printf ("Error when setting app icon: %s\n", error.message);
+        }
+        window.close_request.connect (() => {
+            window.quit();
+            return true;
+        });
+        window.present ();
     });
-    window.show_all ();
-    Gtk.main ();
-    return 0;
+    return app.run (args);
 }
 

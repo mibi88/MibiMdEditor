@@ -21,12 +21,13 @@
 
 using GLib;
 using Gtk;
+using GtkSource;
 using Gdk;
 using WebKit;
-using Hdy;
+using Adw;
 
 [GtkTemplate (ui = "/MibiMdEditor/window.ui")]
-public class MibiMdEditor : Hdy.ApplicationWindow {
+public class MibiMdEditor : Adw.ApplicationWindow {
     // Some constants of the app
     public const string TITLE = "MibiMdEditor"; // App title
     public const string APPICON =
@@ -44,17 +45,22 @@ public class MibiMdEditor : Hdy.ApplicationWindow {
     private unowned Gtk.Paned hbox;
     // SourceView that will contain the source text
     private ScrolledWindow textwindow;
-    private SourceLanguageManager language;
+    private GtkSource.LanguageManager language;
     [GtkChild]
-    private unowned SourceBuffer text_buffer;
+    private unowned GtkSource.Buffer text_buffer;
     [GtkChild]
-    private unowned SourceView text;
+    public unowned GtkSource.View text;
     // WebView that previews the rendered source text
     [GtkChild]
     private unowned WebView preview;
     // Headerbar
     [GtkChild]
-    private unowned Hdy.HeaderBar headerbar;
+    private unowned Adw.HeaderBar headerbar;
+    // Title and subtitle labels
+    [GtkChild]
+    private unowned Label title;
+    [GtkChild]
+    private unowned Label subtitle;
     // Headerbar new button
     [GtkChild]
     private unowned Button new_button;
@@ -71,7 +77,7 @@ public class MibiMdEditor : Hdy.ApplicationWindow {
     [GtkChild]
     private unowned Image saved_icon;
     // File chooser dialog
-    private FileChooserDialog file_chooser;
+    private FileDialog file_chooser;
     // Undo Button
     [GtkChild]
     private unowned Button undo_button;
@@ -93,51 +99,50 @@ public class MibiMdEditor : Hdy.ApplicationWindow {
     // The html data
     private string html_data;
     // The opened file
-    private File file = null;
+    private GLib.File file = null;
     // The html generator
     private Generator generator;
     //// METHODS ////
     // DIALOGS //
     private void about_dialog () {
-        Gtk.AboutDialog dialog = new Gtk.AboutDialog ();
+        Adw.AboutWindow dialog = new Adw.AboutWindow ();
         dialog.transient_for = this;
         dialog.modal = true;
         dialog.destroy_with_parent = true;
         dialog.artists = {"mibi88"};
-        dialog.authors = {"mibi88"};
+        dialog.developers = {"mibi88"};
         dialog.documenters = null;
         dialog.translator_credits = null;
-        dialog.program_name = TITLE;
-        try {
-            dialog.logo = new Pixbuf.from_resource (APPICON);
-        } catch (Error error) {
-            stderr.printf ("Error when loading icon: %s\n", error.message);
-        }
+        dialog.application_name = TITLE;
+        dialog.application_icon = "io.github.mibi88.MibiMdEditor";
         dialog.comments = "Prepare your texts for the web";
         dialog.copyright = "Copyright © 2023 mibi88";
         dialog.version = "v.0.4";
         dialog.license_type = Gtk.License.GPL_2_0;
-        dialog.wrap_license = false;
         dialog.website = "https://github.com/mibi88/MibiMdEditor";
-        dialog.website_label = "GitHub repository";
-        dialog.response.connect ((response_id) => {
+        dialog.issue_url = "https://github.com/mibi88/MibiMdEditor/issues/new";
+        //dialog.website_label = "GitHub repository";
+        /*dialog.response.connect ((response_id) => {
             if (response_id == Gtk.ResponseType.CANCEL ||
                 response_id == Gtk.ResponseType.DELETE_EVENT) {
                 dialog.hide_on_delete ();
             }
-        });
+        });*/
         dialog.present ();
     }
     private void preferences_dialog () {
         // Create the dialog
         PreferencesDialog dialog = new PreferencesDialog (this);
         // Show the dialog
-        dialog.show_all ();
-        dialog.destroy.connect(() => {
+        dialog.present ();
+        dialog.close_request.connect(() => {
             // Save
             dialog.save ();
             // Reload the preferences
             load_preferences ();
+            // Close the window
+            dialog.destroy ();
+            return true;
         });
     }
     // WINDOW //
@@ -153,7 +158,7 @@ Do you really want to quit?""");
             cancel_dialog.response.connect ((response_id) => {
                 switch (response_id) {
                     case Gtk.ResponseType.OK:
-                        Gtk.main_quit();
+                        destroy ();
                         break;
                     case Gtk.ResponseType.CANCEL:
                         stdout.puts ("Quit cancelled\n");
@@ -163,7 +168,7 @@ Do you really want to quit?""");
             });
             cancel_dialog.show ();
         } else {
-            Gtk.main_quit();
+            destroy ();
         }
     }
     // WIDGETS ///
@@ -171,26 +176,24 @@ Do you really want to quit?""");
         GLib.Settings settings =
             new GLib.Settings ("io.github.mibi88.MibiMdEditor");
         text.background_pattern = settings.get_boolean ("bg-grid") ?
-                                  SourceBackgroundPatternType.GRID :
-                                  SourceBackgroundPatternType.NONE;
+                                  BackgroundPatternType.GRID :
+                                  BackgroundPatternType.NONE;
         text.highlight_current_line = settings.get_boolean ("lhighlight");
         text.auto_indent = settings.get_boolean ("auto-indent");
         text.monospace = settings.get_boolean ("mono-font");
     }
     private void update_saved_icon () {
         if (file_saved) {
-            saved_icon.set_from_icon_name("drive-harddisk-symbolic",
-                                          Gtk.IconSize.BUTTON);
+            saved_icon.set_from_icon_name("drive-harddisk-symbolic");
         } else {
-            saved_icon.set_from_icon_name("document-edit-symbolic",
-                                          Gtk.IconSize.BUTTON);
+            saved_icon.set_from_icon_name("document-edit-symbolic");
         }
     }
     private void update_subtitle () {
         if (file != null) {
             file_name = file.get_path ();
         }
-        headerbar.set_subtitle (file_name);
+        subtitle.label = file_name;
     }
     private void update_undo_redo_buttons () {
         if (text_buffer.can_undo) {
@@ -259,6 +262,27 @@ Do you really want to create a new file?""");
         update_subtitle ();
     }
     // Open a file
+    private void open_file_dialog () {
+        file_chooser = new Gtk.FileDialog ();
+        file_chooser.open.begin (this, null, (obj, res) => {
+            try {
+                uint8[] contents;
+                string etag_out;
+                file = file_chooser.open.end(res);
+                file.load_contents (null, out contents,
+                                    out etag_out);
+                text.buffer.text = (string) contents;
+                file_open = true;
+                file_saved = true;
+                update_webview ();
+            } catch (Error error) {
+                stderr.printf ("Error when loading file: %s\n",
+                               error.message);
+            }
+            update_saved_icon ();
+            update_subtitle ();
+        });
+    }
     public void open_file () {
         if (!file_saved) {
             Gtk.MessageDialog cancel_dialog = new Gtk.MessageDialog (
@@ -270,33 +294,7 @@ Do you really want to open a file?""");
             cancel_dialog.response.connect ((response_id) => {
                 switch (response_id) {
                     case Gtk.ResponseType.OK:
-                        file_chooser = new Gtk.FileChooserDialog (
-                                    "Select a file to open",
-                                    this, Gtk.FileChooserAction.OPEN,
-                                    "Cancel", Gtk.ResponseType.CANCEL,
-                                    "Open", Gtk.ResponseType.ACCEPT);
-                        // The user can only open one file
-                        file_chooser.select_multiple = false;
-                        file_chooser.run ();
-                        file_chooser.close ();
-                        if (file_chooser.get_file () != null) {
-                            try {
-                                uint8[] contents;
-                                string etag_out;
-                                file = file_chooser.get_file ();
-                                file.load_contents (null, out contents,
-                                                    out etag_out);
-                                text.buffer.text = (string) contents;
-                                file_open = true;
-                                file_saved = true;
-                                update_webview ();
-                            } catch (Error error) {
-                                stderr.printf ("Error when loading file: %s\n",
-                                               error.message);
-                            }
-                        } else {
-                            stdout.puts ("Action cancelled !\n");
-                        }
+                        open_file_dialog ();
                         break;
                     case Gtk.ResponseType.CANCEL:
                         stdout.puts ("New file creation cancelled\n");
@@ -306,35 +304,8 @@ Do you really want to open a file?""");
             });
             cancel_dialog.show ();
         } else {
-            file_chooser = new Gtk.FileChooserDialog (
-                                    "Select a file to open",
-                                    this, Gtk.FileChooserAction.OPEN,
-                                    "Cancel", Gtk.ResponseType.CANCEL,
-                                    "Open", Gtk.ResponseType.ACCEPT);
-            // The user can only open one file
-            file_chooser.select_multiple = false;
-            file_chooser.run ();
-            file_chooser.close ();
-            if (file_chooser.get_file () != null) {
-                try {
-                    uint8[] contents;
-                    string etag_out;
-                    file = file_chooser.get_file ();
-                    file.load_contents (null, out contents, out etag_out);
-                    text.buffer.text = (string) contents;
-                    file_open = true;
-                    file_saved = true;
-                    update_webview ();
-                } catch (Error error) {
-                    stderr.printf ("Error when loading file: %s\n",
-                                   error.message);
-                }
-            } else {
-                stdout.puts ("Action cancelled !\n");
-            }
+            open_file_dialog ();
         }
-        update_saved_icon ();
-        update_subtitle ();
     }
     // Save the file
     public void save_file () {
@@ -354,19 +325,11 @@ Do you really want to open a file?""");
     }
     // Save as the file
     public void save_as_file () {
-        file_chooser = new Gtk.FileChooserDialog (
-                                    "Save",
-                                    this, Gtk.FileChooserAction.SAVE,
-                                    "Cancel", Gtk.ResponseType.CANCEL,
-                                    "Save", Gtk.ResponseType.ACCEPT);
-        // The user can only open one file
-        file_chooser.select_multiple = false;
-        file_chooser.do_overwrite_confirmation = true;
-        file_chooser.run ();
-        file_chooser.close ();
-        if (file_chooser.get_file () != null) {
+        file_chooser = new Gtk.FileDialog ();
+        file_chooser.save.begin (this, null, (obj, res) => {
             try {
-                file = file_chooser.get_file ();
+                GLib.File tmp_file = file_chooser.save.end (res);
+                file = tmp_file;
                 file.replace_contents (text.buffer.text.data, null, true,
                                        FileCreateFlags.NONE, null, null);
                 file_open = true;
@@ -374,51 +337,37 @@ Do you really want to open a file?""");
             } catch (Error error) {
                 stderr.printf ("Error when saving file: %s\n", error.message);
             }
-        } else {
-            stdout.puts ("Action cancelled !\n");
-        }
-        update_saved_icon ();
-        update_subtitle ();
+            update_saved_icon ();
+            update_subtitle ();
+        });
     }
     public void export_html () {
-        file_chooser = new Gtk.FileChooserDialog (
-                                    "Export",
-                                    this, Gtk.FileChooserAction.SAVE,
-                                    "Cancel", Gtk.ResponseType.CANCEL,
-                                    "Export", Gtk.ResponseType.ACCEPT);
-        // The user can only open one file
-        file_chooser.select_multiple = false;
-        file_chooser.do_overwrite_confirmation = true;
-        file_chooser.run ();
-        file_chooser.close ();
-        if (file_chooser.get_file () != null) {
+        file_chooser = new Gtk.FileDialog ();
+        file_chooser.save.begin(this, null, (obj, res) => {
             try {
-                File export_file = file_chooser.get_file ();
+                GLib.File export_file = file_chooser.save.end (res);
                 generate_html ();
                 export_file.replace_contents (html_data.data, null, true,
                                        FileCreateFlags.NONE, null, null);
             } catch (Error error) {
                 stderr.printf ("Error when saving file: %s\n", error.message);
             }
-        } else {
-            stdout.puts ("Action cancelled !\n");
-        }
-        update_saved_icon ();
-        update_subtitle ();
+        });
     }
     public void editor_undo () {
-        text.undo ();
+        text_buffer.undo ();
         update_undo_redo_buttons ();
     }
     public void editor_redo () {
-        text.redo ();
+        text_buffer.redo ();
         update_undo_redo_buttons ();
     }
-    public MibiMdEditor () {
+    public MibiMdEditor (Gtk.Application app) {
+        Object (application: app);
         this.set_default_size (WIDTH, HEIGHT);
         // TODO: Let the user choose the markup language
         generator = new Generator_MD ();
-        language = new SourceLanguageManager ();
+        language = new LanguageManager ();
         // TODO: Let the user choose, if he wants to allow html.
         generator.allow_html = true;
         // Configure the sourceview and the sourcebuffer.

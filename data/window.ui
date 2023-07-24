@@ -1,25 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <requires lib="gtk+" version="3.24"/>
+  <requires lib="gtk" version="4.10"/>
   <requires lib="gtksourceview" version="4.0"/>
-  <requires lib="libhandy" version="1.8"/>
+  <requires lib="libadwaita" version="1.3"/>
   <requires lib="webkit2gtk" version="4.1"/>
-  <template class="MibiMdEditor" parent="HdyApplicationWindow">
-    <property name="can-focus">False</property>
+  <template class="MibiMdEditor" parent="AdwApplicationWindow">
+    <property name="can-focus">True</property>
     <property name="default-width">480</property>
     <property name="default-height">320</property>
     <child>
-      <object class="GtkSourceBuffer" id="text_buffer"/>
       <object class="GtkBox" id="vbox">
         <property name="visible">True</property>
-        <property name="can-focus">False</property>
+        <property name="can-focus">True</property>
         <property name="orientation">vertical</property>
         <child>
-          <object class="HdyHeaderBar" id="headerbar">
+          <object class="AdwHeaderBar" id="headerbar">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="title" translatable="no">MibiMdEditor</property>
-            <property name="show-close-button">True</property>
+            <property name="title-widget">title_widget</property>
             <!-- Widgets at the start of the headerbar -->
             <child>
               <!-- New file button -->
@@ -34,9 +32,6 @@
                   </object>
                 </child>
               </object>
-              <packing>
-                <property name="pack_type">start</property>
-              </packing>
             </child>
             <child>
               <!-- Open file button -->
@@ -51,9 +46,6 @@
                   </object>
                 </child>
               </object>
-              <packing>
-                <property name="pack_type">start</property>
-              </packing>
             </child>
             <child>
               <!-- Save menubutton -->
@@ -69,9 +61,6 @@
                   </object>
                 </child>
               </object>
-              <packing>
-                <property name="pack_type">start</property>
-              </packing>
             </child>
             <child>
               <!-- Export button -->
@@ -87,9 +76,6 @@
                   </object>
                 </child>
               </object>
-              <packing>
-                <property name="pack_type">start</property>
-              </packing>
             </child>
             <child>
               <!-- Little icon to show to the user if the current document is
@@ -97,12 +83,9 @@
               <object class="GtkImage" id="saved_icon">
                 <property name="visible">True</property>
               </object>
-              <packing>
-                <property name="pack_type">start</property>
-              </packing>
             </child>
             <!-- Widgets at the end of the headerbar -->
-            <child>
+            <child type="end">
               <!-- Burger menubutton -->
               <object class="GtkMenuButton" id="burger_menu">
                 <property name="visible">True</property>
@@ -116,11 +99,8 @@
                   </object>
                 </child>
               </object>
-              <packing>
-                <property name="pack_type">end</property>
-              </packing>
             </child>
-            <child>
+            <child type="end">
               <!-- Redo button -->
               <object class="GtkButton" id="redo_button">
                 <property name="visible">True</property>
@@ -134,11 +114,8 @@
                   </object>
                 </child>
               </object>
-              <packing>
-                <property name="pack_type">end</property>
-              </packing>
             </child>
-            <child>
+            <child type="end">
               <!-- Undo button -->
               <object class="GtkButton" id="undo_button">
                 <property name="visible">True</property>
@@ -152,38 +129,28 @@
                   </object>
                 </child>
               </object>
-              <packing>
-                <property name="pack_type">end</property>
-              </packing>
             </child>
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
         </child>
         <child>
           <object class="GtkPaned" id="hbox">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
-            <property name="double-buffered">False</property>
             <property name="position">240</property>
             <property name="position-set">True</property>
+            <property name="vexpand">True</property>
             <child>
               <object class="GtkScrolledWindow" id="textwindow">
+                <property name="vexpand">True</property>
+                <property name="can-focus">True</property>
                 <child>
                   <object class="GtkSourceView" id="text">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
-                    <property name="left-margin">2</property>
-                    <property name="right-margin">2</property>
                     <property name="buffer">text_buffer</property>
+                    <property name="vexpand">True</property>
+                    <property name="editable">True</property>
                   </object>
-                  <packing>
-                    <property name="resize">True</property>
-                    <property name="shrink">True</property>
-                  </packing>
                 </child>
               </object>
             </child>
@@ -193,25 +160,20 @@
                       id="preview">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
+                <property name="vexpand">True</property>
                 <child>
                   <placeholder/>
                 </child>
               </object>
-              <packing>
-                <property name="resize">True</property>
-                <property name="shrink">True</property>
-              </packing>
             </child>
           </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
         </child>
       </object>
     </child>
   </template>
+  <object class="GtkSourceBuffer" id="text_buffer">
+    <property name="enable_undo">True</property>
+  </object>
   <menu id="save_popup">
     <section>
       <item>
@@ -237,4 +199,31 @@
       </item>
     </section>
   </menu>
+  <object class="GtkBox" id="title_widget">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="orientation">vertical</property>
+    <property name="spacing">0</property>
+    <property name="vexpand">True</property>
+    <child>
+      <object class="GtkLabel" id="title">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="vexpand">True</property>
+        <property name="valign">end</property>
+        <property name="label">MibiMdEditor</property>
+        <property name="css-classes">title</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkLabel" id="subtitle">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="vexpand">True</property>
+        <property name="valign">start</property>
+        <property name="label"></property>
+        <property name="css-classes">subtitle</property>
+      </object>
+    </child>
+  </object>
 </interface>
