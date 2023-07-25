@@ -40,6 +40,7 @@ public class PreferencesSwitch : Adw.PreferencesRow {
         gname.label = name;
         gdescription.label = description;
         gswitch.state = b;
+        gswitch.active = b;
     }
 }
 

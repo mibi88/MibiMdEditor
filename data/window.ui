@@ -172,7 +172,7 @@
     </child>
   </template>
   <object class="GtkSourceBuffer" id="text_buffer">
-    <property name="enable_undo">True</property>
+    <property name="enable-undo">True</property>
   </object>
   <menu id="save_popup">
     <section>

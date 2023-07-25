@@ -33,11 +33,6 @@ public static int main (string[] args) {
                                    GLib.ApplicationFlags.FLAGS_NONE);
     app.activate.connect (() => {
         var window = new MibiMdEditor (app);
-        try {
-            //window.set_icon (new Pixbuf.from_resource (window.APPICON));
-        } catch (Error error) {
-            stderr.printf ("Error when setting app icon: %s\n", error.message);
-        }
         window.close_request.connect (() => {
             window.quit();
             return true;

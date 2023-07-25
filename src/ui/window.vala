@@ -58,7 +58,7 @@ public class MibiMdEditor : Adw.ApplicationWindow {
     private unowned Adw.HeaderBar headerbar;
     // Title and subtitle labels
     [GtkChild]
-    private unowned Label title;
+    private new unowned Label title;
     [GtkChild]
     private unowned Label subtitle;
     // Headerbar new button
@@ -111,8 +111,8 @@ public class MibiMdEditor : Adw.ApplicationWindow {
         dialog.destroy_with_parent = true;
         dialog.artists = {"mibi88"};
         dialog.developers = {"mibi88"};
-        dialog.documenters = null;
-        dialog.translator_credits = null;
+        //dialog.documenters = null;
+        //dialog.translator_credits = null;
         dialog.application_name = TITLE;
         dialog.application_icon = "io.github.mibi88.MibiMdEditor";
         dialog.comments = "Prepare your texts for the web";
@@ -121,13 +121,6 @@ public class MibiMdEditor : Adw.ApplicationWindow {
         dialog.license_type = Gtk.License.GPL_2_0;
         dialog.website = "https://github.com/mibi88/MibiMdEditor";
         dialog.issue_url = "https://github.com/mibi88/MibiMdEditor/issues/new";
-        //dialog.website_label = "GitHub repository";
-        /*dialog.response.connect ((response_id) => {
-            if (response_id == Gtk.ResponseType.CANCEL ||
-                response_id == Gtk.ResponseType.DELETE_EVENT) {
-                dialog.hide_on_delete ();
-            }
-        });*/
         dialog.present ();
     }
     private void preferences_dialog () {
@@ -149,24 +142,25 @@ public class MibiMdEditor : Adw.ApplicationWindow {
     public void quit() {
         stdout.puts ("User tried to quit.\n");
         if (!file_saved) {
-            Gtk.MessageDialog cancel_dialog = new Gtk.MessageDialog (
-                    this, Gtk.DialogFlags.MODAL,
-                    Gtk.MessageType.WARNING,
-                    Gtk.ButtonsType.OK_CANCEL,
+            Gtk.AlertDialog cancel_dialog = new Gtk.AlertDialog (
                     """Your file isn't saved!
 Do you really want to quit?""");
-            cancel_dialog.response.connect ((response_id) => {
-                switch (response_id) {
-                    case Gtk.ResponseType.OK:
-                        destroy ();
-                        break;
-                    case Gtk.ResponseType.CANCEL:
+            cancel_dialog.buttons = {"Ok", "Cancel"};
+            cancel_dialog.default_button = 1;
+            cancel_dialog.cancel_button = 1;
+            cancel_dialog.choose.begin (this, null, (obj, res) => {
+                try {
+                    if (cancel_dialog.choose.end (res) ==
+                        cancel_dialog.cancel_button) {
                         stdout.puts ("Quit cancelled\n");
-                        break;
+                    } else {
+                        destroy ();
+                    }
+                } catch (Error error) {
+                    stderr.printf ("Error when loading file: %s\n",
+                                   error.message);
                 }
-                cancel_dialog.destroy();
             });
-            cancel_dialog.show ();
         } else {
             destroy ();
         }
@@ -227,29 +221,30 @@ Do you really want to quit?""");
     // Create a new file
     public void new_file () {
         if (!file_saved) {
-            Gtk.MessageDialog cancel_dialog = new Gtk.MessageDialog (
-                    this, Gtk.DialogFlags.MODAL,
-                    Gtk.MessageType.WARNING,
-                    Gtk.ButtonsType.OK_CANCEL,
-                    """Your file isn't saved!
+            Gtk.AlertDialog cancel_dialog = new Gtk.AlertDialog (
+                """Your file isn't saved!
 Do you really want to create a new file?""");
-            cancel_dialog.response.connect ((response_id) => {
-                switch (response_id) {
-                    case Gtk.ResponseType.OK:
+            cancel_dialog.buttons = {"Ok", "Cancel"};
+            cancel_dialog.default_button = 1;
+            cancel_dialog.cancel_button = 1;
+            cancel_dialog.choose.begin (this, null, (obj, res) => {
+                try {
+                    if (cancel_dialog.choose.end (res) ==
+                        cancel_dialog.cancel_button) {
+                        stdout.puts ("New file creation cancelled\n");
+                    } else {
                         text.buffer.text = "";
                         file_open = false;
                         file_saved = true;
                         file_name = NOTHING_OPEN_TEXT;
                         file = null;
                         update_webview ();
-                        break;
-                    case Gtk.ResponseType.CANCEL:
-                        stdout.puts ("New file creation cancelled\n");
-                        break;
+                    }
+                } catch (Error error) {
+                    stderr.printf ("Error when loading file: %s\n",
+                                   error.message);
                 }
-                cancel_dialog.destroy();
             });
-            cancel_dialog.show ();
         } else {
             text.buffer.text = "";
             file_open = false;
@@ -285,24 +280,24 @@ Do you really want to create a new file?""");
     }
     public void open_file () {
         if (!file_saved) {
-            Gtk.MessageDialog cancel_dialog = new Gtk.MessageDialog (
-                    this, Gtk.DialogFlags.MODAL,
-                    Gtk.MessageType.WARNING,
-                    Gtk.ButtonsType.OK_CANCEL,
-                    """Your file isn't saved!
-Do you really want to open a file?""");
-            cancel_dialog.response.connect ((response_id) => {
-                switch (response_id) {
-                    case Gtk.ResponseType.OK:
-                        open_file_dialog ();
-                        break;
-                    case Gtk.ResponseType.CANCEL:
+            Gtk.AlertDialog cancel_dialog = new Gtk.AlertDialog (
+                "Your file isn't saved!\nDo you really want to open a file?");
+            cancel_dialog.buttons = {"Ok", "Cancel"};
+            cancel_dialog.default_button = 1;
+            cancel_dialog.cancel_button = 1;
+            cancel_dialog.choose.begin (this, null, (obj, res) => {
+                try {
+                    if (cancel_dialog.choose.end (res) ==
+                        cancel_dialog.cancel_button) {
                         stdout.puts ("New file creation cancelled\n");
-                        break;
+                    } else {
+                        open_file_dialog ();
+                    }
+                } catch (Error error) {
+                    stderr.printf ("Error when loading file: %s\n",
+                                   error.message);
                 }
-                cancel_dialog.destroy();
             });
-            cancel_dialog.show ();
         } else {
             open_file_dialog ();
         }

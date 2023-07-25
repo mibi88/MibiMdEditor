@@ -12,7 +12,7 @@
 - [x] Syntax highlighting
 - [ ] 80 columns ruler?
 - [x] Preferences window
-- [ ] Save preferences
+- [x] Save preferences
 - [ ] Add custom CSS
 - [ ] Add custom elements (for example that `[TOC]` generates a table of
 contents in markdown)
