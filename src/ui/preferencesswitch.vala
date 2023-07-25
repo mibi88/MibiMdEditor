@@ -25,10 +25,12 @@ using Adw;
 
 [GtkTemplate (ui = "/MibiMdEditor/preferencesswitch.ui")]
 public class PreferencesSwitch : Adw.PreferencesRow {
-    [GtkChild]
-    private unowned Box gbox;
-    [GtkChild]
-    private unowned Box glabelbox;
+    // Some variables are commented because they are not used. Uncomment them if
+    // you need them.
+    // [GtkChild]
+    // private unowned Box gbox;
+    // [GtkChild]
+    // private unowned Box glabelbox;
     [GtkChild]
     private unowned Label gname;
     [GtkChild]

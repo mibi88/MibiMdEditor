@@ -37,14 +37,17 @@ public class MibiMdEditor : Adw.ApplicationWindow {
     // Subtitle of the window if no file is opened :
     private const string NOTHING_OPEN_TEXT = "New file";
     //// WIDGETS ////
+    // Some variables are commented because they are not used. Uncomment them if
+    // you need them.
     // Box that contains everything
-    [GtkChild]
-    private unowned Gtk.Box vbox;
+    // [GtkChild]
+    // private unowned Gtk.Box vbox;
     // All widgets are in a horizontal box, except the headerbar
     [GtkChild]
     private unowned Gtk.Paned hbox;
     // SourceView that will contain the source text
-    private ScrolledWindow textwindow;
+    // [GtkChild]
+    // private ScrolledWindow textwindow;
     private GtkSource.LanguageManager language;
     [GtkChild]
     private unowned GtkSource.Buffer text_buffer;
@@ -54,11 +57,11 @@ public class MibiMdEditor : Adw.ApplicationWindow {
     [GtkChild]
     private unowned WebView preview;
     // Headerbar
-    [GtkChild]
-    private unowned Adw.HeaderBar headerbar;
+    // [GtkChild]
+    // private unowned Adw.HeaderBar headerbar;
     // Title and subtitle labels
-    [GtkChild]
-    private new unowned Label title;
+    // [GtkChild]
+    // private new unowned Label title;
     [GtkChild]
     private unowned Label subtitle;
     // Headerbar new button
@@ -68,8 +71,8 @@ public class MibiMdEditor : Adw.ApplicationWindow {
     [GtkChild]
     private unowned Button open_button;
     // Headerbar save MenuButton
-    [GtkChild]
-    private unowned MenuButton save_menu;
+    // [GtkChild]
+    // private unowned MenuButton save_menu;
     // Export button
     [GtkChild]
     private unowned Button export_button;
@@ -85,10 +88,10 @@ public class MibiMdEditor : Adw.ApplicationWindow {
     [GtkChild]
     private unowned Button redo_button;
     // Headerbar burger
-    [GtkChild]
-    private unowned MenuButton burger_menu;
+    // [GtkChild]
+    // private unowned MenuButton burger_menu;
     // Burger Menu
-    private GLib.Menu burger_popup;
+    // private GLib.Menu burger_popup;
     //// OTHER VARIABLES ////
     // True if a file is open
     private bool file_open = false;
