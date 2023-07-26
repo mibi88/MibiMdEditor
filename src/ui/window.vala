@@ -48,9 +48,9 @@ public class MibiMdEditor : Adw.ApplicationWindow {
     // SourceView that will contain the source text
     // [GtkChild]
     // private ScrolledWindow textwindow;
-    private GtkSource.LanguageManager language;
+    public GtkSource.LanguageManager language;
     [GtkChild]
-    private unowned GtkSource.Buffer text_buffer;
+    public unowned GtkSource.Buffer text_buffer;
     [GtkChild]
     public unowned GtkSource.View text;
     // WebView that previews the rendered source text
@@ -105,42 +105,10 @@ public class MibiMdEditor : Adw.ApplicationWindow {
     private GLib.File file = null;
     // The html generator
     private Generator generator;
+    // If the window was closed
+    private bool closed = false;
     //// METHODS ////
     // DIALOGS //
-    private void about_dialog () {
-        Adw.AboutWindow dialog = new Adw.AboutWindow ();
-        dialog.transient_for = this;
-        dialog.modal = true;
-        dialog.destroy_with_parent = true;
-        dialog.artists = {"mibi88"};
-        dialog.developers = {"mibi88"};
-        //dialog.documenters = null;
-        //dialog.translator_credits = null;
-        dialog.application_name = TITLE;
-        dialog.application_icon = "io.github.mibi88.MibiMdEditor";
-        dialog.comments = "Prepare your texts for the web";
-        dialog.copyright = "Copyright © 2023 mibi88";
-        dialog.version = "v.0.4";
-        dialog.license_type = Gtk.License.GPL_2_0;
-        dialog.website = "https://github.com/mibi88/MibiMdEditor";
-        dialog.issue_url = "https://github.com/mibi88/MibiMdEditor/issues/new";
-        dialog.present ();
-    }
-    private void preferences_dialog () {
-        // Create the dialog
-        PreferencesDialog dialog = new PreferencesDialog (this);
-        // Show the dialog
-        dialog.present ();
-        dialog.close_request.connect(() => {
-            // Save
-            dialog.save ();
-            // Reload the preferences
-            load_preferences ();
-            // Close the window
-            dialog.destroy ();
-            return true;
-        });
-    }
     // WINDOW //
     public void quit() {
         stdout.puts ("User tried to quit.\n");
@@ -158,6 +126,7 @@ Do you really want to quit?""");
                         stdout.puts ("Quit cancelled\n");
                     } else {
                         destroy ();
+                        closed = true;
                     }
                 } catch (Error error) {
                     stderr.printf ("Error when loading file: %s\n",
@@ -166,10 +135,11 @@ Do you really want to quit?""");
             });
         } else {
             destroy ();
+            closed = true;
         }
     }
     // WIDGETS ///
-    private void load_preferences () {
+    public void load_preferences () {
         GLib.Settings settings =
             new GLib.Settings ("io.github.mibi88.MibiMdEditor");
         text.background_pattern = settings.get_boolean ("bg-grid") ?
@@ -192,18 +162,6 @@ Do you really want to quit?""");
         }
         subtitle.label = file_name;
     }
-    private void update_undo_redo_buttons () {
-        if (text_buffer.can_undo) {
-            undo_button.set_sensitive (true);
-        } else {
-            undo_button.set_sensitive (false);
-        }
-        if (text_buffer.can_redo) {
-            redo_button.set_sensitive (true);
-        } else {
-            redo_button.set_sensitive (false);
-        }
-    }
     // PREVIEW //
     // Generate html from source code
     private void generate_html () {
@@ -214,7 +172,6 @@ Do you really want to quit?""");
         generate_html ();
         preview.load_html (html_data, null);
         update_saved_icon ();
-        update_undo_redo_buttons ();
     }
     private void update_preview () {
         file_saved = false;
@@ -354,11 +311,9 @@ Do you really want to create a new file?""");
     }
     public void editor_undo () {
         text_buffer.undo ();
-        update_undo_redo_buttons ();
     }
     public void editor_redo () {
         text_buffer.redo ();
-        update_undo_redo_buttons ();
     }
     public MibiMdEditor (Gtk.Application app) {
         Object (application: app);
@@ -373,21 +328,15 @@ Do you really want to create a new file?""");
         text.wrap_mode = WrapMode.WORD; // Wrap on words
         text_buffer.end_user_action.connect (update_preview);
         // Add actions
-        // Save menu
-        SimpleAction save_action = new SimpleAction ("save", null);
-        save_action.activate.connect (save_file);
-        add_action (save_action);
-        SimpleAction save_as_action = new SimpleAction ("save-as", null);
-        save_as_action.activate.connect (save_as_file);
-        add_action (save_as_action);
-        // Burger menu
-        SimpleAction preferences_action = new SimpleAction ("preferences",
-                                                            null);
-        preferences_action.activate.connect (preferences_dialog);
-        add_action (preferences_action);
-        SimpleAction about_action = new SimpleAction ("about", null);
-        about_action.activate.connect (about_dialog);
-        add_action (about_action);
+        ActionEntry[] action_entries = {
+            { "new", new_file },
+            { "open", open_file },
+            { "export", export_html },
+            { "save", save_file },
+            { "save-as", save_as_file },
+            { "quit", quit }
+        };
+        add_action_entries (action_entries, this);
         // Buttons
         new_button.clicked.connect (new_file);
         open_button.clicked.connect (open_file);
@@ -396,10 +345,17 @@ Do you really want to create a new file?""");
         redo_button.clicked.connect (editor_redo);
         // Center the handle of hbox
         hbox.set_position(WIDTH/2);
-        update_undo_redo_buttons ();
         update_webview ();
         load_preferences ();
         new_file ();
+        // Set sensitive of the undo/redo buttons to can_undo and can_redo
+        undo_button.sensitive = text_buffer.can_undo;
+        redo_button.sensitive = text_buffer.can_redo;
+        // Bind properties to disable undo/redo buttons if they should.
+        text_buffer.bind_property ("can-undo", undo_button, "sensitive",
+                                   BindingFlags.DEFAULT);
+        text_buffer.bind_property ("can-redo", redo_button, "sensitive",
+                                   BindingFlags.DEFAULT);
     }
 }
 

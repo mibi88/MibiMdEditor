@@ -3,6 +3,7 @@ mibimdeditor_sources += [
   'main.vala',
   'ui/preferencesswitch.vala',
   'ui/preferences.vala',
+  'application.vala',
   'generator.vala',
   'generator_markdown.vala',
 ]

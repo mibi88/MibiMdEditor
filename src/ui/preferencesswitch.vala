@@ -24,23 +24,14 @@ using Gtk;
 using Adw;
 
 [GtkTemplate (ui = "/MibiMdEditor/preferencesswitch.ui")]
-public class PreferencesSwitch : Adw.PreferencesRow {
+public class PreferencesSwitch : Adw.ActionRow {
     // Some variables are commented because they are not used. Uncomment them if
     // you need them.
-    // [GtkChild]
-    // private unowned Box gbox;
-    // [GtkChild]
-    // private unowned Box glabelbox;
-    [GtkChild]
-    private unowned Label gname;
-    [GtkChild]
-    private unowned Label gdescription;
     [GtkChild]
     public unowned Switch gswitch;
     public PreferencesSwitch (string name, string description, bool b) {
         this.title = name;
-        gname.label = name;
-        gdescription.label = description;
+        this.subtitle = description;
         gswitch.state = b;
         gswitch.active = b;
     }

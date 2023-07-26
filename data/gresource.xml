@@ -2,7 +2,8 @@
 <gresources>
   <gresource prefix="/MibiMdEditor">
     <file>icons/hicolor/scalable/apps/io.github.mibi88.MibiMdEditor.svg</file>
-    <file>window.ui</file>
-    <file>preferencesswitch.ui</file>
+    <file preprocess="xml-stripblanks">window.ui</file>
+    <file preprocess="xml-stripblanks">preferences.ui</file>
+    <file preprocess="xml-stripblanks">preferencesswitch.ui</file>
   </gresource>
 </gresources>

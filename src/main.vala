@@ -29,16 +29,7 @@ public static int main (string[] args) {
     Gtk.init ();
     Adw.init ();
     GtkSource.init ();
-    var app = new Gtk.Application ("io.github.mibi88.MibiMdEditor",
-                                   GLib.ApplicationFlags.FLAGS_NONE);
-    app.activate.connect (() => {
-        var window = new MibiMdEditor (app);
-        window.close_request.connect (() => {
-            window.quit();
-            return true;
-        });
-        window.present ();
-    });
+    var app = new MibiMdEditorApplication ();
     return app.run (args);
 }
 

@@ -2,63 +2,18 @@
 <interface>
   <requires lib="gtk" version="4.10"/>
   <requires lib="gtksourceview" version="4.0"/>
-  <requires lib="libhandy" version="1.8"/>
+  <requires lib="libadwaita" version="1.3"/>
   <requires lib="webkit2gtk" version="4.1"/>
-  <template class="PreferencesSwitch" parent="AdwPreferencesRow">
+  <template class="PreferencesSwitch" parent="AdwActionRow">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
     <property name="vexpand">True</property>
-    <child>
-      <object class="GtkBox" id="gbox">
+    <property name="activatable-widget">gswitch</property>
+    <child type="suffix">
+      <object class="GtkSwitch" id="gswitch">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="orientation">horizontal</property>
-        <property name="spacing">0</property>
-        <property name="hexpand">True</property>
-        <child>
-          <object class="GtkBox" id="glabelbox">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="orientation">vertical</property>
-            <property name="spacing">0</property>
-            <property name="hexpand">True</property>
-            <property name="vexpand">True</property>
-            <property name="halign">start</property>
-            <property name="margin-top">8</property>
-            <property name="margin-start">12</property>
-            <property name="margin-bottom">8</property>
-            <child>
-              <object class="GtkLabel" id="gname">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="hexpand">True</property>
-                <property name="vexpand">True</property>
-                <property name="halign">start</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkLabel" id="gdescription">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="css-classes">subtitle</property>
-                <property name="hexpand">True</property>
-                <property name="vexpand">True</property>
-                <property name="halign">start</property>
-              </object>
-            </child>
-          </object>
-        </child>
-        <child>
-          <object class="GtkSwitch" id="gswitch">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="hexpand">True</property>
-            <property name="vexpand">True</property>
-            <property name="halign">end</property>
-            <property name="valign">center</property>
-            <property name="margin-end">12</property>
-          </object>
-        </child>
+        <property name="valign">center</property>
       </object>
     </child>
   </template>
