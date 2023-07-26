@@ -29,11 +29,19 @@ public class PreferencesSwitch : Adw.ActionRow {
     // you need them.
     [GtkChild]
     public unowned Switch gswitch;
+    public virtual bool state {
+        get {
+            return gswitch.state;
+        }
+        set {
+            gswitch.state = value;
+            gswitch.active = value;
+        }
+    }
     public PreferencesSwitch (string name, string description, bool b) {
         this.title = name;
         this.subtitle = description;
-        gswitch.state = b;
-        gswitch.active = b;
+        state = b;
     }
 }
 

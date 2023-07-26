@@ -1,40 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="HdyPreferencesWindow">
+  <template class="PreferencesDialog" parent="AdwPreferencesWindow">
     <property name="can-focus">False</property>
+    <property name="default-width">340</property>
+    <property name="default-height">160</property>"
     <child>
-      <object class="HdyPreferencesPage">
+      <object class="AdwPreferencesPage" id="editor">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="title" translatable="yes">Page 1</property>
+        <property name="title" translatable="yes">Editor</property>
+        <property name="icon_name">text-editor-symbolic</property>
         <child>
-          <object class="HdyPreferencesGroup">
+          <object class="AdwPreferencesGroup" id="text_edition">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="title" translatable="yes">Editor settings</property>
             <child>
-              <placeholder/>
+              <object class="PreferencesSwitch" id="bg_grid">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="title">Grid background</property>
+                <property name="subtitle">Get a grid background in the text editor</property>
+              </object>
+            </child>
+            <child>
+              <object class="PreferencesSwitch" id="lhighlight">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="title">Line highlight</property>
+                <property name="subtitle">Highlight the line you're currently editing</property>
+              </object>
+            </child>
+            <child>
+              <object class="PreferencesSwitch" id="auto_indent">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="title">Auto indent</property>
+                <property name="subtitle">Automatically indent the next line</property>
+              </object>
+            </child>
+            <child>
+              <object class="PreferencesSwitch" id="mono_font">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="title">Monospace font</property>
+                <property name="subtitle">Use a monospace font to display the text</property>
+              </object>
             </child>
           </object>
         </child>
       </object>
     </child>
     <child>
-      <object class="HdyPreferencesPage">
+      <object class="AdwPreferencesPage" id="generation">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="title" translatable="yes">Page 2</property>
+        <property name="title" translatable="yes">HTML Generation</property>
+        <property name="icon_name">x-office-document-symbolic</property>
         <child>
-          <object class="HdyPreferencesGroup">
+          <object class="AdwPreferencesGroup">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="title" translatable="yes">HTML Generators</property>
-            <child>
-              <placeholder/>
-            </child>
+            <property name="title" translatable="yes">HTML generation scripts</property>
           </object>
         </child>
       </object>
     </child>
-  </object>
+  </template>
 </interface>

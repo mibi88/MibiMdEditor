@@ -23,61 +23,44 @@ using GLib;
 using Gtk;
 using Adw;
 
+[GtkTemplate (ui = "/MibiMdEditor/preferences.ui")]
 public class PreferencesDialog : Adw.PreferencesWindow {
+    // Some variables are commented because they are not used. Uncomment them if
+    // you need them.
     // Editor settings
-    private PreferencesPage editor;
-    public PreferencesGroup text_edition;
-    public PreferencesSwitch bg_grid;
-    public PreferencesSwitch lhighlight;
-    public PreferencesSwitch auto_indent;
-    public PreferencesSwitch mono_font;
+    // [GtkChild]
+    // private unowned PreferencesPage editor;
+    [GtkChild]
+    public unowned PreferencesGroup text_edition;
+    [GtkChild]
+    public unowned PreferencesSwitch bg_grid;
+    [GtkChild]
+    public unowned PreferencesSwitch lhighlight;
+    [GtkChild]
+    public unowned PreferencesSwitch auto_indent;
+    [GtkChild]
+    public unowned PreferencesSwitch mono_font;
     // Generator settings
-    private PreferencesPage generator;
+    // [GtkChild]
+    // private unowned PreferencesPage generation;
     // Settings saving
     private GLib.Settings settings;
     public PreferencesDialog (Gtk.Window window) {
         settings = new GLib.Settings ("io.github.mibi88.MibiMdEditor");
         transient_for = window;
-        modal = true;
         destroy_with_parent = true;
         set_default_size (320, 240);
-        editor = new PreferencesPage();
-        editor.title = "Editor";
-        editor.icon_name = "text-editor-symbolic";
-        // Editor page content
-        text_edition = new PreferencesGroup ();
-        text_edition.title = "Text edition";
         // Text edition group content
-        bg_grid = new PreferencesSwitch ("Grid background",
-                                 "Get a grid background in the text editor",
-                                 settings.get_boolean ("bg-grid"));
-        text_edition.add (bg_grid);
-        lhighlight = new PreferencesSwitch ("Line highlight",
-                                 "Highlight the line you're currently editing",
-                                 settings.get_boolean ("lhighlight"));
-        text_edition.add (lhighlight);
-        auto_indent = new PreferencesSwitch ("Auto indent",
-                                 "Automatically indent the next line",
-                                 settings.get_boolean ("auto-indent"));
-        text_edition.add (auto_indent);
-        mono_font = new PreferencesSwitch ("Monospace font",
-                                   "Use a monospace font to display the text.",
-                                   settings.get_boolean ("mono-font"));
-        text_edition.add (mono_font);
-        // Add the text edition group
-        editor.add (text_edition);
-        // Add the editor page
-        add(editor);
-        generator = new PreferencesPage();
-        generator.title = "Generator";
-        generator.icon_name = "x-office-document-symbolic";
-        add(generator);
+        bg_grid.state = settings.get_boolean ("bg-grid");
+        lhighlight.state = settings.get_boolean ("lhighlight");
+        auto_indent.state = settings.get_boolean ("auto-indent");
+        mono_font.state = settings.get_boolean ("mono-font");
     }
     public void save () {
-        settings.set_boolean ("bg-grid", bg_grid.gswitch.state);
-        settings.set_boolean ("lhighlight", lhighlight.gswitch.state);
-        settings.set_boolean ("auto-indent", auto_indent.gswitch.state);
-        settings.set_boolean ("mono-font", mono_font.gswitch.state);
+        settings.set_boolean ("bg-grid", bg_grid.state);
+        settings.set_boolean ("lhighlight", lhighlight.state);
+        settings.set_boolean ("auto-indent", auto_indent.state);
+        settings.set_boolean ("mono-font", mono_font.state);
     }
 }
 

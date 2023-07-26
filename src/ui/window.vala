@@ -343,6 +343,7 @@ Do you really want to create a new file?""");
         export_button.clicked.connect (export_html);
         undo_button.clicked.connect (editor_undo);
         redo_button.clicked.connect (editor_redo);
+        // TODO: Handle reloading on the preview
         // Center the handle of hbox
         hbox.set_position(WIDTH/2);
         update_webview ();
