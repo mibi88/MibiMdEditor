@@ -1,20 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <template class="ScriptProperties" parent="GtkBox">
+  <template class="ScriptProperties" parent="AdwPreferencesGroup">
     <property name="visible">False</property>
-    <property name="can-focus">False</property>
-    <property name="orientation">vertical</property>
+    <property name="can-focus">True</property>
+    <property name="margin-top">5</property>
+    <property name="margin-bottom">5</property>
+    <property name="margin-start">5</property>
+    <property name="margin-end">5</property>
     <child>
-      <object class="AdwEntryRow" id="name">
+      <object class="AdwEntryRow" id="script_name">
         <property name="visible">True</property>
-        <property name="can-focus">False</property>
+        <property name="can-focus">True</property>
         <property name="title" translatable="yes">Script name</property>
+      </object>
+    </child>
+    <child>
+      <object class="AdwEntryRow" id="script_path">
+        <property name="visible">True</property>
+        <property name="can-focus">True</property>
+        <property name="title" translatable="yes">Path to the script</property>
+        <child>
+          <object class="GtkButton" id="select_script">
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="vexpand">False</property>
+            <property name="hexpand">False</property>
+            <property name="valign">center</property>
+            <property name="halign">center</property>
+            <property name="icon-name" translatable="yes">document-open-symbolic</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwComboRow" id="syntax_highlighting">
+        <property name="visible">True</property>
+        <property name="can-focus">True</property>
+        <property name="title" translatable="yes">Syntax highlighting</property>
       </object>
     </child>
     <child>
       <object class="GtkButton" id="create">
         <property name="visible">True</property>
-        <property name="can-focus">False</property>
+        <property name="can-focus">True</property>
+        <property name="margin-top">5</property>
         <style>
           <class name="suggested-action"/>
         </style>

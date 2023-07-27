@@ -69,7 +69,7 @@
                 <property name="title">New script</property>
                 <property name="subtitle">Create a new script to generate HTML.</property>
                 <child>
-                  <object class="ScriptProperties">
+                  <object class="ScriptProperties" id="new_script_properties">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                   </object>

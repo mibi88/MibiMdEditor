@@ -45,6 +45,8 @@ public class PreferencesDialog : Adw.PreferencesWindow {
     // private unowned PreferencesPage generation;
     //[GtkChild]
     //public unowned ExpanderRow new_script_row;
+    [GtkChild]
+    private unowned ScriptProperties new_script_properties;
     // Settings saving
     private GLib.Settings settings;
     public PreferencesDialog (Gtk.Window window) {
@@ -56,6 +58,8 @@ public class PreferencesDialog : Adw.PreferencesWindow {
         lhighlight.state = settings.get_boolean ("lhighlight");
         auto_indent.state = settings.get_boolean ("auto-indent");
         mono_font.state = settings.get_boolean ("mono-font");
+        // Set the window that contains the ScriptProperties widgets
+        new_script_properties.window = this;
     }
     public void save () {
         settings.set_boolean ("bg-grid", bg_grid.state);

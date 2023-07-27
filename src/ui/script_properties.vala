@@ -27,15 +27,41 @@ using WebKit;
 using Adw;
 
 [GtkTemplate (ui = "/MibiMdEditor/script_properties.ui")]
-class ScriptProperties : Gtk.Box {
+public class ScriptProperties : Adw.PreferencesGroup {
     [GtkChild]
-    private unowned Adw.EntryRow name;
-    private GLib.ListModel language_list;
-    public ScriptProperties () {
+    private unowned Adw.EntryRow script_name;
+    [GtkChild]
+    private unowned Adw.EntryRow script_path;
+    private Gtk.StringList language_list;
+    [GtkChild]
+    private unowned Gtk.Button select_script;
+    [GtkChild]
+    private unowned Adw.ComboRow syntax_highlighting;
+    public Gtk.Window window;
+    private void choose_script () {
+        stdout.puts ("User tried to choose a script!\n");
+        Gtk.FileDialog file_chooser = new Gtk.FileDialog ();
+        file_chooser.open.begin (window, null, (obj, res) => {
+            try {
+                GLib.File file = file_chooser.open.end(res);
+                script_path.text = file.get_path ();
+            } catch (Error error) {
+                stderr.printf ("Error when loading script: %s\n",
+                               error.message);
+            }
+        });
+    }
+    public ScriptProperties (Gtk.Window _window) {
+        window = _window;
+    }
+    construct {
         // Get all available languages and let the user choose between them for
         // the syntax highlighting ComboRow.
         LanguageManager language_manager = new LanguageManager ();
-        //language_manager.language_ids;
+        language_list = new StringList(language_manager.language_ids);
+        syntax_highlighting.model = language_list;
+        // Open a file dialog if the select_script Button is pressed
+        select_script.clicked.connect (choose_script);
     }
 }
 
