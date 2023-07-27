@@ -5,5 +5,7 @@
     <file preprocess="xml-stripblanks">window.ui</file>
     <file preprocess="xml-stripblanks">preferences.ui</file>
     <file preprocess="xml-stripblanks">preferencesswitch.ui</file>
+    <file preprocess="xml-stripblanks">script_properties.ui</file>
   </gresource>
 </gresources>
+

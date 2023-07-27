@@ -31,3 +31,7 @@ contents in markdown)
 - [ ] Hyperlinks
 - [ ] Images
 
+## GUI
+
+- [x] Use `icon-name` property instead of child `GtkImage`s in `GtkButton`s.
+

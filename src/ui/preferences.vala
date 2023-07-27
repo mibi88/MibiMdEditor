@@ -43,13 +43,14 @@ public class PreferencesDialog : Adw.PreferencesWindow {
     // Generator settings
     // [GtkChild]
     // private unowned PreferencesPage generation;
+    //[GtkChild]
+    //public unowned ExpanderRow new_script_row;
     // Settings saving
     private GLib.Settings settings;
     public PreferencesDialog (Gtk.Window window) {
         settings = new GLib.Settings ("io.github.mibi88.MibiMdEditor");
         transient_for = window;
         destroy_with_parent = true;
-        set_default_size (320, 240);
         // Text edition group content
         bg_grid.state = settings.get_boolean ("bg-grid");
         lhighlight.state = settings.get_boolean ("lhighlight");

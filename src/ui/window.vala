@@ -60,10 +60,8 @@ public class MibiMdEditor : Adw.ApplicationWindow {
     // [GtkChild]
     // private unowned Adw.HeaderBar headerbar;
     // Title and subtitle labels
-    // [GtkChild]
-    // private new unowned Label title;
     [GtkChild]
-    private unowned Label subtitle;
+    private unowned WindowTitle title_widget;
     // Headerbar new button
     [GtkChild]
     private unowned Button new_button;
@@ -160,7 +158,7 @@ Do you really want to quit?""");
         if (file != null) {
             file_name = file.get_path ();
         }
-        subtitle.label = file_name;
+        title_widget.subtitle = file_name;
     }
     // PREVIEW //
     // Generate html from source code
@@ -317,7 +315,6 @@ Do you really want to create a new file?""");
     }
     public MibiMdEditor (Gtk.Application app) {
         Object (application: app);
-        this.set_default_size (WIDTH, HEIGHT);
         // TODO: Let the user choose the markup language
         generator = new Generator_MD ();
         language = new LanguageManager ();
