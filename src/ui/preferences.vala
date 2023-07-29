@@ -52,6 +52,35 @@ public class PreferencesDialog : Adw.PreferencesWindow {
     private ScriptProperties new_script_properties;
     // Settings saving
     private GLib.Settings settings;
+    // Script list widgets
+    private Adw.ExpanderRow[] expanders;
+    private ScriptProperties[] script_properties;
+    public signal void refresh_scripts () {
+        stdout.puts ("Nothing connected to script refreshing.\n");
+    }
+    public void refresh_script_list () {
+        // Remove all childs of scripts, the widget that will contain the list
+        // of all the scripts.
+        for (int i=0;i<expanders.length;i++) {
+            scripts.remove (expanders[i]);
+            stdout.puts (@"Removed ExpanderRow $i\n");
+        }
+        // List all scripts
+        Variant names_variant = settings.get_value ("script-names");
+        int scripts_amount = (int)names_variant.n_children ();
+        expanders = {};
+        script_properties = {};
+        for (int i=0;i<scripts_amount;i++) {
+            expanders += new ExpanderRow ();
+            script_properties += new ScriptProperties (this, false, i);
+            script_properties[i].edition_end.connect (refresh_script_list);
+            expanders[i].title = script_properties[i].script_name.text;
+            expanders[i].add_row (script_properties[i]);
+            scripts.add (expanders[i]);
+            stdout.puts (@"Adding script $i\n");
+        }
+        refresh_scripts ();
+    }
     public PreferencesDialog (Gtk.Window window) {
         settings = new GLib.Settings ("io.github.mibi88.MibiMdEditor");
         transient_for = window;
@@ -64,18 +93,8 @@ public class PreferencesDialog : Adw.PreferencesWindow {
         // Set the window that contains the ScriptProperties widgets
         new_script_properties = new ScriptProperties (this, true, 0);
         new_script_row.add_row (new_script_properties);
-        // List all scripts
-        Variant names_variant = settings.get_value ("script-names");
-        int scripts_amount = (int)names_variant.n_children ();
-        for (int i=0;i<scripts_amount;i++) {
-            Adw.ExpanderRow expander = new ExpanderRow ();
-            ScriptProperties script_properties = new ScriptProperties (
-                                                            this, false, i);
-            expander.title = script_properties.script_name.text;
-            expander.add_row (script_properties);
-            scripts.add (expander);
-            stdout.puts (@"Adding script $i\n");
-        }
+        new_script_properties.edition_end.connect (refresh_script_list);
+        refresh_script_list ();
     }
     public void save () {
         settings.set_boolean ("bg-grid", bg_grid.state);

@@ -213,7 +213,7 @@ public class ScriptProperties : Adw.PreferencesGroup {
         settings.set_value ("script-files", files_variant);
         settings.set_value ("script-syntax-highlighting",
                             syntax_highlighting_variant);
-        save_end ();
+        edition_end ();
         stdout.puts ("Script saved!\n");
     }
     private void choose_script () {
@@ -237,7 +237,7 @@ public class ScriptProperties : Adw.PreferencesGroup {
         // Get all available languages and let the user choose between them for
         // the syntax highlighting ComboRow.
         language_manager = new LanguageManager ();
-        language_list = new StringList(language_manager.language_ids);
+        language_list = new StringList (language_manager.language_ids);
         syntax_highlighting.model = language_list;
         // Open a file dialog if the select_script Button is pressed
         select_script.clicked.connect (choose_script);
@@ -252,6 +252,8 @@ public class ScriptProperties : Adw.PreferencesGroup {
             // Set the current value of the script item
             Variant names_variant = settings.get_value ("script-names");
             Variant files_variant = settings.get_value ("script-files");
+            Variant syntax_highlighting_variant = settings.get_value (
+                                                "script-syntax-highlighting");
             if (names_variant.n_children () > 0) {
                 string str = names_variant.get_child_value (
                                                             script_position
@@ -261,16 +263,16 @@ public class ScriptProperties : Adw.PreferencesGroup {
                                                      script_position
                                                      ).get_string ();
                 script_path.text = str;
+                string language = syntax_highlighting_variant.get_child_value (
+                                            script_position).get_string ();
                 int i;
                 for (i=0;i<language_manager.language_ids.length;i++) {
-                    if (language_manager.language_ids[i] ==
-                        settings.get_value (
-                            "script-syntax-highlighting"
-                        ).get_string ()) {
+                    if (language_manager.language_ids[i] == language) {
                         break;
                     }
                 }
-                stdout.puts (@"$i\n");
+                if (i < 0 || i >= language_manager.language_ids.length) i = 0;
+                stdout.puts (@"Language position in list: $i\n");
                 syntax_highlighting.selected = i;
             }
         }

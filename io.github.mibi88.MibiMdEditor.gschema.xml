@@ -1,5 +1,5 @@
 <schemalist>
-  <schema id="io.github.mibi88.MibiMdEditor" path="/MibiMdEditor/">
+  <schema id="io.github.mibi88.MibiMdEditor" path="/io/github/mibi88/MibiMdEditor/">
     <key name="bg-grid" type="b">
       <default>true</default>
       <summary>Does the text editor has a grid background?</summary>
@@ -63,16 +63,6 @@
       </summary>
       <description>
         Language name for the syntax highlighting for the markup languages parsed by the scripts to generate HTML.
-      </description>
-    </key>
-
-    <key name="script-amount" type="i">
-      <default>0</default>
-      <summary>
-        Amount of the diffrent scripts to generate HTML.
-      </summary>
-      <description>
-        The amount of the diffrent scripts to generate HTML from other markup languages.
       </description>
     </key>
   </schema>

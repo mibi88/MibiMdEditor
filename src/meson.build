@@ -5,8 +5,6 @@ mibimdeditor_sources += [
   'ui/script_properties.vala',
   'ui/preferences.vala',
   'application.vala',
-  'generator.vala',
-  'generator_markdown.vala',
 ]
 
 mibimdeditor_deps = [

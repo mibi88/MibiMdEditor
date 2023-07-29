@@ -87,5 +87,6 @@ class MibiMdEditorApplication : Gtk.Application {
             dialog.destroy ();
             return true;
         });
+        dialog.refresh_scripts.connect (window.refresh_scripts_list);
     }
 }

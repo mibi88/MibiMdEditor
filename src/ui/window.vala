@@ -90,6 +90,9 @@ public class MibiMdEditor : Adw.ApplicationWindow {
     // private unowned MenuButton burger_menu;
     // Burger Menu
     // private GLib.Menu burger_popup;
+    // Actionbar
+    [GtkChild]
+    private unowned Gtk.DropDown script;
     //// OTHER VARIABLES ////
     // True if a file is open
     private bool file_open = false;
@@ -101,10 +104,14 @@ public class MibiMdEditor : Adw.ApplicationWindow {
     private string html_data;
     // The opened file
     private GLib.File file = null;
-    // The html generator
-    private Generator generator;
     // If the window was closed
     private bool closed = false;
+    // Variants of the scripts
+    public Variant names_variant;
+    public Variant files_variant;
+    public Variant syntax_highlighting_variant;
+    // Amount of scripts
+    public int script_amount;
     //// METHODS ////
     // DIALOGS //
     // WINDOW //
@@ -147,6 +154,25 @@ Do you really want to quit?""");
         text.auto_indent = settings.get_boolean ("auto-indent");
         text.monospace = settings.get_boolean ("mono-font");
     }
+    public void refresh_scripts_list () {
+        GLib.Settings settings =
+                        new GLib.Settings ("io.github.mibi88.MibiMdEditor");
+        names_variant = settings.get_value ("script-names");
+        files_variant = settings.get_value ("script-files");
+        syntax_highlighting_variant =
+                            settings.get_value ("script-syntax-highlighting");
+        script_amount = (int)names_variant.n_children ();
+        if (script_amount <= script.selected) script.selected = 0;
+        // Add all the scripts to the DropDown.
+        if (script_amount > 0) {
+            StringList script_list = new StringList (null);
+            for (int i=0;i<script_amount;i++) {
+                script_list.append (
+                        names_variant.get_child_value (i).get_string ());
+            }
+            script.model = script_list;
+        }
+    }
     private void update_saved_icon () {
         if (file_saved) {
             saved_icon.set_from_icon_name("drive-harddisk-symbolic");
@@ -163,7 +189,39 @@ Do you really want to quit?""");
     // PREVIEW //
     // Generate html from source code
     private void generate_html () {
-        html_data = generator.generate_html (text.buffer.text);
+        if (script_amount > 0) {
+            // Set the syntax highlighting language
+            Variant lang_name_variant =
+                syntax_highlighting_variant.get_child_value (script.selected);
+            text_buffer.language =
+                    language.get_language (lang_name_variant.get_string ());
+            // Get the script path
+            string script_path =
+                files_variant.get_child_value (script.selected).get_string ();
+            // Convert the text of the text box to a string that can be passed
+            // as an argument to the script.
+            string in_str = text_buffer.text.escape ("\n");
+            string command = @"$script_path \"$in_str\"";
+            stdout.puts (@"$command\n");
+            // Run the script to generate HTML
+            html_data = "";
+            try {
+                string stdout_str;
+                string stderr_str;
+                GLib.Process.spawn_command_line_sync (command,
+                                                      out stdout_str,
+                                                      out stderr_str,
+                                                      null);
+                if (stderr_str != "") html_data +=
+                                @"<code style='color: red;'>$stderr_str</code>";
+                html_data += stdout_str;
+            } catch (Error error) {
+                html_data = @"Error when running script: $(error.message)";
+            }
+        } else {
+            html_data = "Please go to Preferences > HTML Generation scripts ";
+            html_data += "and add a new script to be able to generate html.";
+        }
     }
     // Update the preview
     private void update_webview () {
@@ -315,13 +373,9 @@ Do you really want to create a new file?""");
     }
     public MibiMdEditor (Gtk.Application app) {
         Object (application: app);
-        // TODO: Let the user choose the markup language
-        generator = new Generator_MD ();
         language = new LanguageManager ();
-        // TODO: Let the user choose, if he wants to allow html.
-        generator.allow_html = true;
         // Configure the sourceview and the sourcebuffer.
-        text_buffer.language = language.get_language ("markdown");
+        text_buffer.language = language.get_language ("html");
         text.wrap_mode = WrapMode.WORD; // Wrap on words
         text_buffer.end_user_action.connect (update_preview);
         // Add actions
@@ -343,6 +397,7 @@ Do you really want to create a new file?""");
         // TODO: Handle reloading on the preview
         // Center the handle of hbox
         hbox.set_position(WIDTH/2);
+        refresh_scripts_list ();
         update_webview ();
         load_preferences ();
         new_file ();
