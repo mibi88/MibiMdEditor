@@ -35,6 +35,46 @@
         If the text editor uses a monospaced font instead of a proportional one.
       </description>
     </key>
+
+    <key name="script-names" type="as">
+      <default>[]</default>
+      <summary>
+        Names of the diffrent scripts to generate HTML.
+      </summary>
+      <description>
+        The names of the diffrent scripts to generate HTML from other markup languages.
+      </description>
+    </key>
+
+    <key name="script-files" type="as">
+      <default>[]</default>
+      <summary>
+        Files of the diffrent scripts to generate HTML.
+      </summary>
+      <description>
+        The files of the diffrent scripts to generate HTML from other markup languages.
+      </description>
+    </key>
+
+    <key name="script-syntax-highlighting" type="as">
+      <default>[]</default>
+      <summary>
+        Language name for the syntax highlighting for the markup languages parsed by the scripts to generate HTML.
+      </summary>
+      <description>
+        Language name for the syntax highlighting for the markup languages parsed by the scripts to generate HTML.
+      </description>
+    </key>
+
+    <key name="script-amount" type="i">
+      <default>0</default>
+      <summary>
+        Amount of the diffrent scripts to generate HTML.
+      </summary>
+      <description>
+        The amount of the diffrent scripts to generate HTML from other markup languages.
+      </description>
+    </key>
   </schema>
 </schemalist>
 

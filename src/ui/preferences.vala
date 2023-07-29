@@ -46,7 +46,10 @@ public class PreferencesDialog : Adw.PreferencesWindow {
     //[GtkChild]
     //public unowned ExpanderRow new_script_row;
     [GtkChild]
-    private unowned ScriptProperties new_script_properties;
+    private unowned PreferencesGroup scripts;
+    [GtkChild]
+    private unowned ExpanderRow new_script_row;
+    private ScriptProperties new_script_properties;
     // Settings saving
     private GLib.Settings settings;
     public PreferencesDialog (Gtk.Window window) {
@@ -59,7 +62,20 @@ public class PreferencesDialog : Adw.PreferencesWindow {
         auto_indent.state = settings.get_boolean ("auto-indent");
         mono_font.state = settings.get_boolean ("mono-font");
         // Set the window that contains the ScriptProperties widgets
-        new_script_properties.window = this;
+        new_script_properties = new ScriptProperties (this, true, 0);
+        new_script_row.add_row (new_script_properties);
+        // List all scripts
+        Variant names_variant = settings.get_value ("script-names");
+        int scripts_amount = (int)names_variant.n_children ();
+        for (int i=0;i<scripts_amount;i++) {
+            Adw.ExpanderRow expander = new ExpanderRow ();
+            ScriptProperties script_properties = new ScriptProperties (
+                                                            this, false, i);
+            expander.title = script_properties.script_name.text;
+            expander.add_row (script_properties);
+            scripts.add (expander);
+            stdout.puts (@"Adding script $i\n");
+        }
     }
     public void save () {
         settings.set_boolean ("bg-grid", bg_grid.state);
