@@ -1,0 +1,2 @@
+markdown>=3.4.1
+bbcode>=1.1.0

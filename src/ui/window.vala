@@ -272,10 +272,14 @@ Do you really want to quit?""");
                 });
             } catch (Error error) {
                 html_data = @"Error when running script: $(error.message)";
+                html_generation_end ();
+                generation_finished = true;
             }
         } else {
             html_data = "Please go to Preferences > HTML Generation scripts ";
             html_data += "and add a new script to be able to generate html.";
+            html_generation_end ();
+            generation_finished = true;
         }
     }
     // Update the preview
