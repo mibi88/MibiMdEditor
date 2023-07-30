@@ -93,6 +93,8 @@ public class MibiMdEditor : Adw.ApplicationWindow {
     // Actionbar
     [GtkChild]
     private unowned Gtk.DropDown script;
+    [GtkChild]
+    private unowned Gtk.Button refresh;
     //// OTHER VARIABLES ////
     // True if a file is open
     private bool file_open = false;
@@ -112,6 +114,9 @@ public class MibiMdEditor : Adw.ApplicationWindow {
     public Variant syntax_highlighting_variant;
     // Amount of scripts
     public int script_amount;
+    // The parent folder of the file we're currently editing
+    string working_dir;
+    bool generation_finished = true;
     //// METHODS ////
     // DIALOGS //
     // WINDOW //
@@ -188,7 +193,11 @@ Do you really want to quit?""");
     }
     // PREVIEW //
     // Generate html from source code
+    public signal void html_generation_end () {
+        stdout.puts ("Nothing to do at end of HTML generation.\n");
+    }
     private void generate_html () {
+        if (!generation_finished) return;
         if (script_amount > 0) {
             // Set the syntax highlighting language
             Variant lang_name_variant =
@@ -201,20 +210,66 @@ Do you really want to quit?""");
             // Convert the text of the text box to a string that can be passed
             // as an argument to the script.
             string in_str = text_buffer.text.escape ("\n");
-            string command = @"$script_path \"$in_str\"";
-            stdout.puts (@"$command\n");
+            string[] argv = {script_path, in_str};
+            working_dir = "/";
+            if (file != null) {
+                working_dir = file.get_parent ().get_path ();
+            }
+            stdout.puts (@"Working directory: $working_dir\n");
             // Run the script to generate HTML
-            html_data = "";
             try {
-                string stdout_str;
-                string stderr_str;
-                GLib.Process.spawn_command_line_sync (command,
-                                                      out stdout_str,
-                                                      out stderr_str,
-                                                      null);
-                if (stderr_str != "") html_data +=
+                string stdout_str = "";
+                string stderr_str = "";
+                int stdin_int;
+                int stdout_int;
+                int stderr_int;
+                Pid child_pid;
+                SpawnFlags flags = SpawnFlags.SEARCH_PATH |
+                                   SpawnFlags.DO_NOT_REAP_CHILD;
+                html_data = "";
+                generation_finished = false;
+                GLib.Process.spawn_async_with_pipes (working_dir,
+                                                     argv,
+                                                     Environ.get (),
+                                                     flags,
+                                                     null,
+                                                     out child_pid,
+                                                     out stdin_int,
+                                                     out stdout_int,
+                                                     out stderr_int);
+                IOChannel output = new IOChannel.unix_new (stdout_int);
+                output.add_watch (IOCondition.IN, (channel, condition) => {
+                    try {
+                        stdout.puts ("Processed stdout line.\n");
+                        string line;
+                        channel.read_line (out line, null, null);
+                        stdout_str += line;
+                        return true;
+                    } catch (Error error) {
+                        return false;
+                    }
+                });
+                IOChannel error = new IOChannel.unix_new (stderr_int);
+                error.add_watch (IOCondition.IN, (channel, condition) => {
+                    try {
+                        stdout.puts ("Processed stderr line.\n");
+                        string line;
+                        channel.read_line (out line, null, null);
+                        stderr_str += line;
+                        return true;
+                    } catch (Error error) {
+                        return false;
+                    }
+                });
+                ChildWatch.add (child_pid, (pid, status) => {
+                    Process.close_pid (pid);
+                    stdout.puts ("Finished getting HTML!\n");
+                    if (stderr_str != "") html_data +=
                                 @"<code style='color: red;'>$stderr_str</code>";
-                html_data += stdout_str;
+                    html_data += stdout_str;
+                    html_generation_end ();
+                    generation_finished = true;
+                });
             } catch (Error error) {
                 html_data = @"Error when running script: $(error.message)";
             }
@@ -224,10 +279,13 @@ Do you really want to quit?""");
         }
     }
     // Update the preview
-    private void update_webview () {
-        generate_html ();
-        preview.load_html (html_data, null);
+    private void update_webview_content () {
+        preview.load_html (html_data, @"file://$working_dir/index.html");
         update_saved_icon ();
+    }
+    private void update_webview () {
+        html_generation_end.connect (update_webview_content);
+        generate_html ();
     }
     private void update_preview () {
         file_saved = false;
@@ -352,18 +410,22 @@ Do you really want to create a new file?""");
             update_subtitle ();
         });
     }
-    public void export_html () {
+    public void export_html_dialog () {
+        html_generation_end.disconnect (export_html_dialog);
         file_chooser = new Gtk.FileDialog ();
         file_chooser.save.begin(this, null, (obj, res) => {
             try {
                 GLib.File export_file = file_chooser.save.end (res);
-                generate_html ();
                 export_file.replace_contents (html_data.data, null, true,
                                        FileCreateFlags.NONE, null, null);
             } catch (Error error) {
                 stderr.printf ("Error when saving file: %s\n", error.message);
             }
         });
+    }
+    public void export_html () {
+        html_generation_end.connect (export_html_dialog);
+        generate_html ();
     }
     public void editor_undo () {
         text_buffer.undo ();
@@ -409,6 +471,7 @@ Do you really want to create a new file?""");
                                    BindingFlags.DEFAULT);
         text_buffer.bind_property ("can-redo", redo_button, "sensitive",
                                    BindingFlags.DEFAULT);
+        refresh.clicked.connect (update_webview);
     }
 }
 

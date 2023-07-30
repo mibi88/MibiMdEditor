@@ -136,6 +136,14 @@
                 <property name="halign">center</property>
               </object>
             </child>
+            <child type="start">
+              <object class="GtkButton" id="refresh">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="halign">center</property>
+                <property name="icon-name">view-refresh-symbolic</property>
+              </object>
+            </child>
           </object>
         </child>
       </object>
