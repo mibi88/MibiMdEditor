@@ -2,9 +2,9 @@
 
 ## Main app
 
-- [ ] Add shotcuts
+- [x] Add shotcuts
 - [x] Add undo and redo
-- [ ] Allow html ToggleButton
+- [ ] Allow HTML ToggleButton
 - [x] Choose language
 - [ ] Translations
 - [x] Syntax highlighting
@@ -12,6 +12,8 @@
 - [x] Preferences window
 - [x] Save preferences
 - [ ] Add custom CSS
+- [ ] Tabs, for editing multiple files
+- [ ] Give the file to open as an argument in command line
 
 ## GUI
 
