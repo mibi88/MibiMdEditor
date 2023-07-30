@@ -238,7 +238,12 @@ Do you really want to quit?""");
                                                      out stdout_int,
                                                      out stderr_int);
                 IOChannel output = new IOChannel.unix_new (stdout_int);
-                output.add_watch (IOCondition.IN, (channel, condition) => {
+                output.add_watch (IOCondition.IN | IOCondition.HUP,
+                                  (channel, condition) => {
+                    if (condition == IOCondition.HUP) {
+                        stdout.puts ("stdout fd closed!\n");
+                        return false;
+                    }
                     try {
                         stdout.puts ("Processed stdout line.\n");
                         string line;
@@ -250,7 +255,12 @@ Do you really want to quit?""");
                     }
                 });
                 IOChannel error = new IOChannel.unix_new (stderr_int);
-                error.add_watch (IOCondition.IN, (channel, condition) => {
+                error.add_watch (IOCondition.IN | IOCondition.HUP,
+                                 (channel, condition) => {
+                    if (condition == IOCondition.HUP) {
+                        stdout.puts ("stderr fd closed!\n");
+                        return false;
+                    }
                     try {
                         stdout.puts ("Processed stderr line.\n");
                         string line;
