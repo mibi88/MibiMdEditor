@@ -207,10 +207,7 @@ Do you really want to quit?""");
             // Get the script path
             string script_path =
                 files_variant.get_child_value (script.selected).get_string ();
-            // Convert the text of the text box to a string that can be passed
-            // as an argument to the script.
-            string in_str = text_buffer.text.escape ("\n");
-            string[] argv = {script_path, in_str};
+            string[] argv = {script_path, text_buffer.text};
             working_dir = "/";
             if (file != null) {
                 working_dir = file.get_parent ().get_path ();
