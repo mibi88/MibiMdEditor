@@ -117,6 +117,7 @@ public class MibiMdEditor : Adw.ApplicationWindow {
     // The parent folder of the file we're currently editing
     string working_dir;
     bool generation_finished = true;
+    Subprocess subprocess;
     //// METHODS ////
     // DIALOGS //
     // WINDOW //
@@ -197,7 +198,7 @@ Do you really want to quit?""");
         stdout.puts ("Nothing to do at end of HTML generation.\n");
     }
     private void generate_html () {
-        if (!generation_finished) return;
+        if (!generation_finished) subprocess.force_exit ();
         if (script_amount > 0) {
             // Set the syntax highlighting language
             Variant lang_name_variant =
@@ -217,65 +218,30 @@ Do you really want to quit?""");
             try {
                 string stdout_str = "";
                 string stderr_str = "";
-                int stdin_int;
-                int stdout_int;
-                int stderr_int;
-                Pid child_pid;
-                SpawnFlags flags = SpawnFlags.SEARCH_PATH |
-                                   SpawnFlags.DO_NOT_REAP_CHILD;
                 html_data = "";
                 generation_finished = false;
-                GLib.Process.spawn_async_with_pipes (working_dir,
-                                                     argv,
-                                                     Environ.get (),
-                                                     flags,
-                                                     null,
-                                                     out child_pid,
-                                                     out stdin_int,
-                                                     out stdout_int,
-                                                     out stderr_int);
-                IOChannel output = new IOChannel.unix_new (stdout_int);
-                output.add_watch (IOCondition.IN | IOCondition.HUP,
-                                  (channel, condition) => {
-                    if (condition == IOCondition.HUP) {
-                        stdout.puts ("stdout fd closed!\n");
-                        return false;
-                    }
+                subprocess = new Subprocess.newv (argv,
+                                                  SubprocessFlags.STDOUT_PIPE |
+                                                  SubprocessFlags.STDERR_PIPE);
+                subprocess.wait_async.begin (null, (obj, res) => {
                     try {
-                        stdout.puts ("Processed stdout line.\n");
-                        string line;
-                        channel.read_line (out line, null, null);
-                        stdout_str += line;
-                        return true;
-                    } catch (Error error) {
-                        return false;
-                    }
-                });
-                IOChannel error = new IOChannel.unix_new (stderr_int);
-                error.add_watch (IOCondition.IN | IOCondition.HUP,
-                                 (channel, condition) => {
-                    if (condition == IOCondition.HUP) {
-                        stdout.puts ("stderr fd closed!\n");
-                        return false;
-                    }
-                    try {
-                        stdout.puts ("Processed stderr line.\n");
-                        string line;
-                        channel.read_line (out line, null, null);
-                        stderr_str += line;
-                        return true;
-                    } catch (Error error) {
-                        return false;
-                    }
-                });
-                ChildWatch.add (child_pid, (pid, status) => {
-                    Process.close_pid (pid);
-                    stdout.puts ("Finished getting HTML!\n");
-                    if (stderr_str != "") html_data +=
+                        if (!subprocess.wait_async.end (res)) {
+                            subprocess.force_exit ();
+                        }
+                        subprocess.communicate_utf8 (null, null, out stdout_str,
+                                                     out stderr_str);
+                        stdout.puts ("Finished getting HTML!\n");
+                        if (stderr_str != "") html_data +=
                                 @"<code style='color: red;'>$stderr_str</code>";
-                    html_data += stdout_str;
-                    html_generation_end ();
-                    generation_finished = true;
+                        html_data += stdout_str;
+                        html_generation_end ();
+                    } catch (Error error) {
+                        stderr.printf (
+                                    "Error when waiting for script exit: %s\n",
+                                    error.message);
+                        subprocess.force_exit ();
+                        generation_finished = true;
+                    }
                 });
             } catch (Error error) {
                 html_data = @"Error when running script: $(error.message)";
