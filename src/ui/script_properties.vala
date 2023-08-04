@@ -103,7 +103,7 @@ public class ScriptProperties : Adw.PreferencesGroup {
         if (new_script) return;
         Gtk.AlertDialog cancel_dialog = new Gtk.AlertDialog (
                     "Do you really want to remove this script?");
-        cancel_dialog.buttons = {"Ok", "Cancel"};
+        cancel_dialog.buttons = {_("OK"), _("Cancel")};
         cancel_dialog.default_button = 1;
         cancel_dialog.cancel_button = 1;
         cancel_dialog.choose.begin (window, null, (obj, res) => {

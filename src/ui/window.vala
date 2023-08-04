@@ -127,7 +127,7 @@ public class MibiMdEditor : Adw.ApplicationWindow {
             Gtk.AlertDialog cancel_dialog = new Gtk.AlertDialog (
                     """Your file isn't saved!
 Do you really want to quit?""");
-            cancel_dialog.buttons = {"Ok", "Cancel"};
+            cancel_dialog.buttons = {_("OK"), _("Cancel")};
             cancel_dialog.default_button = 1;
             cancel_dialog.cancel_button = 1;
             cancel_dialog.choose.begin (this, null, (obj, res) => {
@@ -275,7 +275,7 @@ Do you really want to quit?""");
             Gtk.AlertDialog cancel_dialog = new Gtk.AlertDialog (
                 """Your file isn't saved!
 Do you really want to create a new file?""");
-            cancel_dialog.buttons = {"Ok", "Cancel"};
+            cancel_dialog.buttons = {_("OK"), _("Cancel")};
             cancel_dialog.default_button = 1;
             cancel_dialog.cancel_button = 1;
             cancel_dialog.choose.begin (this, null, (obj, res) => {
@@ -333,7 +333,7 @@ Do you really want to create a new file?""");
         if (!file_saved) {
             Gtk.AlertDialog cancel_dialog = new Gtk.AlertDialog (
                 "Your file isn't saved!\nDo you really want to open a file?");
-            cancel_dialog.buttons = {"Ok", "Cancel"};
+            cancel_dialog.buttons = {_("OK"), _("Cancel")};
             cancel_dialog.default_button = 1;
             cancel_dialog.cancel_button = 1;
             cancel_dialog.choose.begin (this, null, (obj, res) => {
