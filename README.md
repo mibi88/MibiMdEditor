@@ -27,6 +27,8 @@ This project requires
 * Vala
 * GTK 4
 * libadwaita 1
+* webkitgtk-6.0
+* gtksourceview-5
 
 Compile it using meson :
 
