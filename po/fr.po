@@ -1,0 +1,41 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2023-08-07 12:15+0200\n"
+"PO-Revision-Date: 2023-08-07 22:52+0200\n"
+"Last-Translator: Mibi88 <mbcontact50@gmail.com>\n"
+"Language-Team: \n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.3.1\n"
+"X-Poedit-Basepath: .\n"
+
+#: src/ui/window.ui:158
+msgid "Save"
+msgstr "Enregistrer"
+
+#: src/ui/window.ui:162
+msgid "Save as..."
+msgstr "Enregistrer sous..."
+
+#: src/ui/window.ui:170
+msgid "Preferences"
+msgstr "Préférences"
+
+#: src/ui/window.ui:175
+msgid "About MibiMdEditor"
+msgstr "À propos de MibiMdEditor"
+
+#: src/ui/window.vala:38
+msgid "New file"
+msgstr "Nouveau fichier"
+
+#: src/ui/window.vala:130
+msgid "Ok"
+msgstr "Ok"
+
+#: src/ui/window.vala:130
+msgid "Cancel"
+msgstr "Annuler"

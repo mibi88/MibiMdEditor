@@ -5,20 +5,16 @@ project('MibiMdEditor', ['c', 'vala'],
 )
 
 schemas_dir = get_option('prefix')/get_option('datadir')/'glib-2.0'/'schemas'
-settings_schemas = [ 'io.github.mibi88.MibiMdEditor.gschema.xml' ]
-
-install_data(settings_schemas, install_dir: schemas_dir)
 
 gnome = import('gnome')
+i18n = import('i18n')
 
-gnome.compile_schemas(
-    depend_files: files(settings_schemas))
-mibimdeditor_sources = gnome.compile_resources(
-    'mibimdeditor-resources',
-    'data/gresource.xml',
-    source_dir: 'data',
-)
-
-meson.add_install_script(find_program('glib-compile-schemas'), schemas_dir)
-
+subdir('data')
 subdir('src')
+subdir('po')
+
+gnome.post_install(
+  glib_compile_schemas: true,
+  gtk_update_icon_cache: true,
+  update_desktop_database: true,
+)

@@ -35,7 +35,7 @@ public class MibiMdEditor : Adw.ApplicationWindow {
     private const int WIDTH = 640;
     private const int HEIGHT = 480;
     // Subtitle of the window if no file is opened :
-    private const string NOTHING_OPEN_TEXT = "New file";
+    private const string NOTHING_OPEN_TEXT = _("New file");
     //// WIDGETS ////
     // Some variables are commented because they are not used. Uncomment them if
     // you need them.
@@ -127,7 +127,7 @@ public class MibiMdEditor : Adw.ApplicationWindow {
             Gtk.AlertDialog cancel_dialog = new Gtk.AlertDialog (
                     """Your file isn't saved!
 Do you really want to quit?""");
-            cancel_dialog.buttons = {"Ok", "Cancel"};
+            cancel_dialog.buttons = {_("Ok"), _("Cancel")};
             cancel_dialog.default_button = 1;
             cancel_dialog.cancel_button = 1;
             cancel_dialog.choose.begin (this, null, (obj, res) => {
@@ -275,7 +275,7 @@ Do you really want to quit?""");
             Gtk.AlertDialog cancel_dialog = new Gtk.AlertDialog (
                 """Your file isn't saved!
 Do you really want to create a new file?""");
-            cancel_dialog.buttons = {"Ok", "Cancel"};
+            cancel_dialog.buttons = {_("Ok"), _("Cancel")};
             cancel_dialog.default_button = 1;
             cancel_dialog.cancel_button = 1;
             cancel_dialog.choose.begin (this, null, (obj, res) => {
@@ -333,7 +333,7 @@ Do you really want to create a new file?""");
         if (!file_saved) {
             Gtk.AlertDialog cancel_dialog = new Gtk.AlertDialog (
                 "Your file isn't saved!\nDo you really want to open a file?");
-            cancel_dialog.buttons = {"Ok", "Cancel"};
+            cancel_dialog.buttons = {_("Ok"), _("Cancel")};
             cancel_dialog.default_button = 1;
             cancel_dialog.cancel_button = 1;
             cancel_dialog.choose.begin (this, null, (obj, res) => {

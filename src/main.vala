@@ -25,10 +25,19 @@ using Gdk;
 using WebKit;
 using Adw;
 
+[CCode(cname="GETTEXT_PACKAGE")]
+extern const string GETTEXT_PACKAGE;
+[CCode(cname="LOCALE_INSTALL_DIR")]
+extern const string LOCALE_INSTALL_DIR;
+
 public static int main (string[] args) {
     Gtk.init ();
     Adw.init ();
     GtkSource.init ();
+    Intl.setlocale (LocaleCategory.ALL, "");
+    Intl.bindtextdomain (GETTEXT_PACKAGE, LOCALE_INSTALL_DIR);
+    Intl.bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
+    Intl.textdomain (GETTEXT_PACKAGE);
     var app = new MibiMdEditorApplication ();
     return app.run (args);
 }

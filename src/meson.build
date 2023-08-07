@@ -17,7 +17,12 @@ mibimdeditor_deps = [
 ]
 
 executable('mibimdeditor', mibimdeditor_sources,
-  vala_args: '--target-glib=2.58',  dependencies: mibimdeditor_deps,
+  vala_args: '--target-glib=2.58',
+  c_args: [
+    '-DGETTEXT_PACKAGE="'+meson.project_name()+'"',
+    '-DLOCALE_INSTALL_DIR="'+get_option('prefix')/get_option('localedir')+'"',
+  ],
+  dependencies: mibimdeditor_deps,
   install: true,
 )
 

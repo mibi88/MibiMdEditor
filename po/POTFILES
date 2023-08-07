@@ -1,0 +1,4 @@
+src/window.vala
+data/window.ui
+data/preferences.ui
+data/script_properties.ui
