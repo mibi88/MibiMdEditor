@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2023-08-07 12:15+0200\n"
-"PO-Revision-Date: 2023-08-08 10:53+0200\n"
+"PO-Revision-Date: 2023-08-08 23:39+0200\n"
 "Last-Translator: Mibi88 <mbcontact50@gmail.com>\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -71,3 +71,48 @@ msgid ""
 msgstr ""
 "Diese Datei ist nicht gespeichert\n"
 "Wollen Sie wirklich MibiMdEditor schließen?"
+
+msgid "Do you really want to remove this script?"
+msgstr "Wollen sie wirklich dieses Skript löschen?"
+
+msgid "Script named \"$name\" already exists."
+msgstr ""
+
+msgid "Grid background"
+msgstr ""
+
+msgid "Get a grid background in the text editor"
+msgstr ""
+
+msgid "Line highlight"
+msgstr ""
+
+msgid "Highlight the line you're currently editing"
+msgstr ""
+
+msgid "Auto indent"
+msgstr ""
+
+msgid "Automatically indent the next line"
+msgstr ""
+
+msgid "Monospace font"
+msgstr ""
+
+msgid "Use a monospace font to display the text"
+msgstr ""
+
+msgid "HTML generation scripts"
+msgstr ""
+
+msgid "New HTML generation script"
+msgstr ""
+
+msgid "New script"
+msgstr ""
+
+msgid "Create a new script to generate HTML"
+msgstr ""
+
+msgid "Delete"
+msgstr ""

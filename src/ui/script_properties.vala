@@ -102,8 +102,8 @@ public class ScriptProperties : Adw.PreferencesGroup {
     private void delete_script () {
         if (new_script) return;
         Gtk.AlertDialog cancel_dialog = new Gtk.AlertDialog (
-                    "Do you really want to remove this script?");
-        cancel_dialog.buttons = {"Ok", "Cancel"};
+                    _("Do you really want to remove this script?"));
+        cancel_dialog.buttons = {_("Ok"), _("Cancel")};
         cancel_dialog.default_button = 1;
         cancel_dialog.cancel_button = 1;
         cancel_dialog.choose.begin (window, null, (obj, res) => {

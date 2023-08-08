@@ -54,3 +54,48 @@ msgstr ""
 
 msgid "Your file isn't saved!\nDo you really want to quit?"
 msgstr ""
+
+msgid "Do you really want to remove this script?"
+msgstr ""
+
+msgid "Script named \"$name\" already exists."
+msgstr ""
+
+msgid "Grid background"
+msgstr ""
+
+msgid "Get a grid background in the text editor"
+msgstr ""
+
+msgid "Line highlight"
+msgstr ""
+
+msgid "Highlight the line you're currently editing"
+msgstr ""
+
+msgid "Auto indent"
+msgstr ""
+
+msgid "Automatically indent the next line"
+msgstr ""
+
+msgid "Monospace font"
+msgstr ""
+
+msgid "Use a monospace font to display the text"
+msgstr ""
+
+msgid "HTML generation scripts"
+msgstr ""
+
+msgid "New HTML generation script"
+msgstr ""
+
+msgid "New script"
+msgstr ""
+
+msgid "Create a new script to generate HTML"
+msgstr ""
+
+msgid "Delete"
+msgstr ""

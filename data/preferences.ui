@@ -19,32 +19,32 @@
               <object class="PreferencesSwitch" id="bg_grid">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="title">Grid background</property>
-                <property name="subtitle">Get a grid background in the text editor</property>
+                <property name="title" translatable="yes">Grid background</property>
+                <property name="subtitle" translatable="yes">Get a grid background in the text editor</property>
               </object>
             </child>
             <child>
               <object class="PreferencesSwitch" id="lhighlight">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="title">Line highlight</property>
-                <property name="subtitle">Highlight the line you're currently editing</property>
+                <property name="title" translatable="yes">Line highlight</property>
+                <property name="subtitle" translatable="yes">Highlight the line you're currently editing</property>
               </object>
             </child>
             <child>
               <object class="PreferencesSwitch" id="auto_indent">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="title">Auto indent</property>
-                <property name="subtitle">Automatically indent the next line</property>
+                <property name="title" translatable="yes">Auto indent</property>
+                <property name="subtitle" translatable="yes">Automatically indent the next line</property>
               </object>
             </child>
             <child>
               <object class="PreferencesSwitch" id="mono_font">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="title">Monospace font</property>
-                <property name="subtitle">Use a monospace font to display the text</property>
+                <property name="title" translatable="yes">Monospace font</property>
+                <property name="subtitle" translatable="yes">Use a monospace font to display the text</property>
               </object>
             </child>
           </object>
@@ -55,7 +55,7 @@
       <object class="AdwPreferencesPage" id="generation">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="title" translatable="yes">HTML Generation scripts</property>
+        <property name="title" translatable="yes">HTML generation scripts</property>
         <property name="icon_name">x-office-document-symbolic</property>
         <child>
           <object class="AdwPreferencesGroup">
@@ -66,8 +66,8 @@
               <object class="AdwExpanderRow" id="new_script_row">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="title">New script</property>
-                <property name="subtitle">Create a new script to generate HTML.</property>
+                <property name="title" translatable="yes">New script</property>
+                <property name="subtitle" translatable="yes">Create a new script to generate HTML</property>
               </object>
             </child>
           </object>

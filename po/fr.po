@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2023-08-07 12:15+0200\n"
-"PO-Revision-Date: 2023-08-08 10:54+0200\n"
+"PO-Revision-Date: 2023-08-08 23:37+0200\n"
 "Last-Translator: Mibi88 <mbcontact50@gmail.com>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -68,3 +68,48 @@ msgid ""
 msgstr ""
 "Ce fichier n'est pas enregistré.\n"
 "Voulez-vous vraiment quitter ?"
+
+msgid "Do you really want to remove this script?"
+msgstr "Voulez vous vraiment supprimer ce script ?"
+
+msgid "Script named \"$name\" already exists."
+msgstr "Un script nommé \"$name\" éxiste déjà."
+
+msgid "Grid background"
+msgstr "Arrière plan de grille"
+
+msgid "Get a grid background in the text editor"
+msgstr "Afficher une grille en arrière plan de l'éditeur de texte"
+
+msgid "Line highlight"
+msgstr "Surlignage de la ligne"
+
+msgid "Highlight the line you're currently editing"
+msgstr "Mise en évidence de la ligne en cours d'édition"
+
+msgid "Auto indent"
+msgstr "Indentation automatique"
+
+msgid "Automatically indent the next line"
+msgstr "Indentation automatique des nouvelles lignes"
+
+msgid "Monospace font"
+msgstr "Police d'écriture à chasse fixe"
+
+msgid "Use a monospace font to display the text"
+msgstr "Afficher le texte dans une police d'écriture à chasse fixe"
+
+msgid "HTML generation scripts"
+msgstr "Génération du code HTML"
+
+msgid "New HTML generation script"
+msgstr "Nouveau script de génération de code HTML"
+
+msgid "New script"
+msgstr "Nouveau script"
+
+msgid "Create a new script to generate HTML"
+msgstr "Créer un nouveau script pour générer du code HTML"
+
+msgid "Delete"
+msgstr "Supprimer"
