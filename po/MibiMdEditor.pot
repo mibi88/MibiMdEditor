@@ -41,3 +41,16 @@ msgstr ""
 #: src/ui/window.vala:130
 msgid "Cancel"
 msgstr ""
+
+#: src/ui/window.vala:252
+msgid "Please go to Preferences > HTML Generation scripts and add a new script to be able to generate html."
+msgstr ""
+
+msgid "Your file isn't saved!\nDo you really want to create a new file?"
+msgstr ""
+
+msgid "Your file isn't saved!\nDo you really want to open a file?"
+msgstr ""
+
+msgid "Your file isn't saved!\nDo you really want to quit?"
+msgstr ""

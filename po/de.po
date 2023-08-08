@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2023-08-07 12:15+0200\n"
-"PO-Revision-Date: 2023-08-07 22:56+0200\n"
+"PO-Revision-Date: 2023-08-08 10:53+0200\n"
 "Last-Translator: Mibi88 <mbcontact50@gmail.com>\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -39,3 +39,35 @@ msgstr "Ok"
 #: src/ui/window.vala:130
 msgid "Cancel"
 msgstr "Abbrechen"
+
+#: src/ui/window.vala:252
+#, fuzzy
+msgid ""
+"Please go to Preferences > HTML Generation scripts and add a new script to "
+"be able to generate html."
+msgstr ""
+"Bitte gehen Sie in Einstellungen > HTML-Erstellung und fügen Sie ein neues "
+"Skript hinzu."
+
+#, fuzzy
+msgid ""
+"Your file isn't saved!\n"
+"Do you really want to create a new file?"
+msgstr ""
+"Diese Datei ist nicht gespeichert\n"
+"Wollen Sie wirklich eine neue erstellen?"
+
+msgid ""
+"Your file isn't saved!\n"
+"Do you really want to open a file?"
+msgstr ""
+"Diese Datei ist nicht gespeichert\n"
+"Wollen Sie wirklich eine öffnen?"
+
+#, fuzzy
+msgid ""
+"Your file isn't saved!\n"
+"Do you really want to quit?"
+msgstr ""
+"Diese Datei ist nicht gespeichert\n"
+"Wollen Sie wirklich MibiMdEditor schließen?"

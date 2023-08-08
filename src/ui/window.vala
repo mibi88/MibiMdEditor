@@ -125,8 +125,8 @@ public class MibiMdEditor : Adw.ApplicationWindow {
         stdout.puts ("User tried to quit.\n");
         if (!file_saved) {
             Gtk.AlertDialog cancel_dialog = new Gtk.AlertDialog (
-                    """Your file isn't saved!
-Do you really want to quit?""");
+                    _("""Your file isn't saved!
+Do you really want to quit?"""));
             cancel_dialog.buttons = {_("Ok"), _("Cancel")};
             cancel_dialog.default_button = 1;
             cancel_dialog.cancel_button = 1;
@@ -249,8 +249,8 @@ Do you really want to quit?""");
                 generation_finished = true;
             }
         } else {
-            html_data = "Please go to Preferences > HTML Generation scripts ";
-            html_data += "and add a new script to be able to generate html.";
+            html_data = _("Please go to Preferences > HTML Generation " +
+            "scripts and add a new script to be able to generate html.");
             html_generation_end ();
             generation_finished = true;
         }
@@ -273,8 +273,8 @@ Do you really want to quit?""");
     public void new_file () {
         if (!file_saved) {
             Gtk.AlertDialog cancel_dialog = new Gtk.AlertDialog (
-                """Your file isn't saved!
-Do you really want to create a new file?""");
+                _("""Your file isn't saved!
+Do you really want to create a new file?"""));
             cancel_dialog.buttons = {_("Ok"), _("Cancel")};
             cancel_dialog.default_button = 1;
             cancel_dialog.cancel_button = 1;
@@ -332,7 +332,8 @@ Do you really want to create a new file?""");
     public void open_file () {
         if (!file_saved) {
             Gtk.AlertDialog cancel_dialog = new Gtk.AlertDialog (
-                "Your file isn't saved!\nDo you really want to open a file?");
+                _("Your file isn't saved!\nDo you really want to open a file?")
+                );
             cancel_dialog.buttons = {_("Ok"), _("Cancel")};
             cancel_dialog.default_button = 1;
             cancel_dialog.cancel_button = 1;
