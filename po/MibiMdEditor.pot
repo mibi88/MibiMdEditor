@@ -99,3 +99,15 @@ msgstr ""
 
 msgid "Delete"
 msgstr ""
+
+msgid "Syntax highlighting"
+msgstr ""
+
+msgid "Path to the script"
+msgstr ""
+
+msgid "Script name"
+msgstr ""
+
+msgid "Editor"
+msgstr ""

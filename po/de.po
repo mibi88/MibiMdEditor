@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2023-08-07 12:15+0200\n"
-"PO-Revision-Date: 2023-08-08 23:39+0200\n"
+"PO-Revision-Date: 2023-08-09 11:59+0200\n"
 "Last-Translator: Mibi88 <mbcontact50@gmail.com>\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -75,8 +75,9 @@ msgstr ""
 msgid "Do you really want to remove this script?"
 msgstr "Wollen sie wirklich dieses Skript löschen?"
 
+#, fuzzy
 msgid "Script named \"$name\" already exists."
-msgstr ""
+msgstr "Ein Skript mit dem Namen \"$name\" existiert schon."
 
 msgid "Grid background"
 msgstr ""
@@ -91,28 +92,46 @@ msgid "Highlight the line you're currently editing"
 msgstr ""
 
 msgid "Auto indent"
-msgstr ""
+msgstr "Automatische Einrückung"
 
+#, fuzzy
 msgid "Automatically indent the next line"
-msgstr ""
+msgstr "Automatisch die neue Linien Einrücken"
 
 msgid "Monospace font"
-msgstr ""
+msgstr "Nichtproportionale Schriftart"
 
+#, fuzzy
 msgid "Use a monospace font to display the text"
-msgstr ""
+msgstr "Den Text mit einer nichtproportionale Schriftart anzeigen"
 
+#, fuzzy
 msgid "HTML generation scripts"
-msgstr ""
+msgstr "HTML erstellung Skripte"
 
+#, fuzzy
 msgid "New HTML generation script"
-msgstr ""
+msgstr "Neues HTML erstellung Skript"
 
 msgid "New script"
-msgstr ""
+msgstr "Neues Skript"
 
+#, fuzzy
 msgid "Create a new script to generate HTML"
-msgstr ""
+msgstr "Ein neues Skript erstellen um HTML zu erstellen"
 
 msgid "Delete"
-msgstr ""
+msgstr "Löschen"
+
+msgid "Syntax highlighting"
+msgstr "Syntaxhervorhebung"
+
+msgid "Path to the script"
+msgstr "Pfadname des Skripts"
+
+msgid "Script name"
+msgstr "Name des Skripts"
+
+#, fuzzy
+msgid "Editor"
+msgstr "Editor"
