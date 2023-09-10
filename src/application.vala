@@ -62,11 +62,14 @@ class MibiMdEditorApplication : Gtk.Application {
         dialog.artists = {"mibi88"};
         dialog.developers = {"mibi88"};
         //dialog.documenters = null;
-        //dialog.translator_credits = null;
+
+        // Translators: Please enter your credits here
+        // (format: "Name https://example.com" or "Name <email@example.com>", no quotes, one name per line)
+        dialog.translator_credits = _("translator-credits");
         dialog.application_name = MibiMdEditor.TITLE;
         dialog.application_icon = "io.github.mibi88.MibiMdEditor";
-        dialog.comments = "Prepare your texts for the web";
-        dialog.copyright = "Copyright © 2023 mibi88";
+        dialog.comments = _("Prepare your texts for the web");
+        dialog.copyright = _("Copyright © 2023 mibi88");
         dialog.version = "v.0.4";
         dialog.license_type = Gtk.License.GPL_2_0;
         dialog.website = "https://github.com/mibi88/MibiMdEditor";
