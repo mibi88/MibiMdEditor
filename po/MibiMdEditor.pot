@@ -1,7 +1,14 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
-"POT-Creation-Date: 2023-08-07 12:15+0200\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-09-10 16:09+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10,104 +17,216 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/ui/window.ui:158
+#: data/io.github.mibi88.MibiMdEditor.desktop.in:3
+msgid "MibiMdEditor"
+msgstr ""
+
+#: data/io.github.mibi88.MibiMdEditor.appdata.xml.in:7
+msgid "Prepare your texts for the web."
+msgstr ""
+
+#: data/io.github.mibi88.MibiMdEditor.gschema.xml:5
+msgid "Does the text editor has a grid background?"
+msgstr ""
+
+#: data/io.github.mibi88.MibiMdEditor.gschema.xml:6
+msgid "If the text editor has a grid background."
+msgstr ""
+
+#: data/io.github.mibi88.MibiMdEditor.gschema.xml:13
+msgid "Is current line highlighted in the text editor?"
+msgstr ""
+
+#: data/io.github.mibi88.MibiMdEditor.gschema.xml:14
+msgid "If current line is highlighted in the text editor."
+msgstr ""
+
+#: data/io.github.mibi88.MibiMdEditor.gschema.xml:21
+msgid "Does the text editor indents automatically the new line?"
+msgstr ""
+
+#: data/io.github.mibi88.MibiMdEditor.gschema.xml:24
+msgid "If the text editor indents automatically a new line."
+msgstr ""
+
+#: data/io.github.mibi88.MibiMdEditor.gschema.xml:31
+msgid "Does the text editor uses a monospaced font to display his content?"
+msgstr ""
+
+#: data/io.github.mibi88.MibiMdEditor.gschema.xml:34
+msgid ""
+"If the text editor uses a monospaced font instead of a proportional one."
+msgstr ""
+
+#: data/io.github.mibi88.MibiMdEditor.gschema.xml:41
+msgid "Names of the different scripts to generate HTML."
+msgstr ""
+
+#: data/io.github.mibi88.MibiMdEditor.gschema.xml:44
+msgid ""
+"The names of the different scripts to generate HTML from other markup "
+"languages."
+msgstr ""
+
+#: data/io.github.mibi88.MibiMdEditor.gschema.xml:51
+msgid "Files of the different scripts to generate HTML."
+msgstr ""
+
+#: data/io.github.mibi88.MibiMdEditor.gschema.xml:54
+msgid ""
+"The files of the different scripts to generate HTML from other markup "
+"languages."
+msgstr ""
+
+#: data/io.github.mibi88.MibiMdEditor.gschema.xml:61
+#: data/io.github.mibi88.MibiMdEditor.gschema.xml:64
+msgid ""
+"Language name for the syntax highlighting for the markup languages parsed by "
+"the scripts to generate HTML."
+msgstr ""
+
+#: data/preferences.ui:11
+msgid "Editor"
+msgstr ""
+
+#: data/preferences.ui:17
+msgid "Editor settings"
+msgstr ""
+
+#: data/preferences.ui:22
+msgid "Grid background"
+msgstr ""
+
+#: data/preferences.ui:23
+msgid "Get a grid background in the text editor"
+msgstr ""
+
+#: data/preferences.ui:30
+msgid "Line highlight"
+msgstr ""
+
+#: data/preferences.ui:31
+msgid "Highlight the line you're currently editing"
+msgstr ""
+
+#: data/preferences.ui:38
+msgid "Auto indent"
+msgstr ""
+
+#: data/preferences.ui:39
+msgid "Automatically indent the next line"
+msgstr ""
+
+#: data/preferences.ui:46
+msgid "Monospace font"
+msgstr ""
+
+#: data/preferences.ui:47
+msgid "Use a monospace font to display the text"
+msgstr ""
+
+#: data/preferences.ui:58 data/preferences.ui:79
+msgid "HTML generation scripts"
+msgstr ""
+
+#: data/preferences.ui:64
+msgid "New HTML generation script"
+msgstr ""
+
+#: data/preferences.ui:69
+msgid "New script"
+msgstr ""
+
+#: data/preferences.ui:70
+msgid "Create a new script to generate HTML"
+msgstr ""
+
+#: data/script_properties.ui:14
+msgid "Script name"
+msgstr ""
+
+#: data/script_properties.ui:21
+msgid "Path to the script"
+msgstr ""
+
+#: data/script_properties.ui:39
+msgid "Syntax highlighting"
+msgstr ""
+
+#: data/script_properties.ui:50 data/window.ui:158
 msgid "Save"
 msgstr ""
 
-#: src/ui/window.ui:162
+#: data/script_properties.ui:61
+msgid "Delete"
+msgstr ""
+
+#: data/window.ui:162
 msgid "Save as..."
 msgstr ""
 
-#: src/ui/window.ui:162
-msgid "Save as..."
-msgstr ""
-
-#: src/ui/window.ui:170
+#: data/window.ui:170
 msgid "Preferences"
 msgstr ""
 
-#: src/ui/window.ui:175
+#: data/window.ui:175
 msgid "About MibiMdEditor"
 msgstr ""
 
+#. dialog.documenters = null;
+#. Translators: Please enter your credits here
+#. (format: "Name https://example.com" or "Name <email@example.com>", no quotes, one name per line)
+#: src/application.vala:68
+msgid "translator-credits"
+msgstr ""
+
+#: src/application.vala:71
+msgid "Prepare your texts for the web"
+msgstr ""
+
+#: src/application.vala:72
+msgid "Copyright © 2023 mibi88"
+msgstr ""
+
+#: src/ui/script_properties.vala:105
+msgid "Do you really want to remove this script?"
+msgstr ""
+
+#: src/ui/script_properties.vala:106 src/ui/window.vala:130
+#: src/ui/window.vala:278 src/ui/window.vala:337
+msgid "OK"
+msgstr ""
+
+#: src/ui/script_properties.vala:106 src/ui/window.vala:130
+#: src/ui/window.vala:278 src/ui/window.vala:337
+msgid "Cancel"
+msgstr ""
+
+#. Subtitle of the window if no file is opened :
 #: src/ui/window.vala:38
 msgid "New file"
 msgstr ""
 
-#: src/ui/window.vala:130
-msgid "Ok"
-msgstr ""
-
-#: src/ui/window.vala:130
-msgid "Cancel"
+#: src/ui/window.vala:128
+msgid ""
+"Your file isn't saved!\n"
+"Do you really want to quit?"
 msgstr ""
 
 #: src/ui/window.vala:252
-msgid "Please go to Preferences > HTML Generation scripts and add a new script to be able to generate html."
+msgid ""
+"Please go to Preferences > HTML Generation scripts and add a new script to "
+"be able to generate html."
 msgstr ""
 
-msgid "Your file isn't saved!\nDo you really want to create a new file?"
+#: src/ui/window.vala:276
+msgid ""
+"Your file isn't saved!\n"
+"Do you really want to create a new file?"
 msgstr ""
 
-msgid "Your file isn't saved!\nDo you really want to open a file?"
-msgstr ""
-
-msgid "Your file isn't saved!\nDo you really want to quit?"
-msgstr ""
-
-msgid "Do you really want to remove this script?"
-msgstr ""
-
-msgid "Script named \"$name\" already exists."
-msgstr ""
-
-msgid "Grid background"
-msgstr ""
-
-msgid "Get a grid background in the text editor"
-msgstr ""
-
-msgid "Line highlight"
-msgstr ""
-
-msgid "Highlight the line you're currently editing"
-msgstr ""
-
-msgid "Auto indent"
-msgstr ""
-
-msgid "Automatically indent the next line"
-msgstr ""
-
-msgid "Monospace font"
-msgstr ""
-
-msgid "Use a monospace font to display the text"
-msgstr ""
-
-msgid "HTML generation scripts"
-msgstr ""
-
-msgid "New HTML generation script"
-msgstr ""
-
-msgid "New script"
-msgstr ""
-
-msgid "Create a new script to generate HTML"
-msgstr ""
-
-msgid "Delete"
-msgstr ""
-
-msgid "Syntax highlighting"
-msgstr ""
-
-msgid "Path to the script"
-msgstr ""
-
-msgid "Script name"
-msgstr ""
-
-msgid "Editor"
+#: src/ui/window.vala:335
+msgid ""
+"Your file isn't saved!\n"
+"Do you really want to open a file?"
 msgstr ""
