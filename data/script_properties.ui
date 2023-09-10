@@ -28,6 +28,7 @@
             <property name="valign">center</property>
             <property name="halign">center</property>
             <property name="icon-name">document-open-symbolic</property>
+            <property name="tooltip-text" translatable="yes">Open</property>
           </object>
         </child>
       </object>
