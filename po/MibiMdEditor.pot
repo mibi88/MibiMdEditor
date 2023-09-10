@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-10 16:09+0300\n"
+"POT-Creation-Date: 2023-09-10 18:05+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -149,27 +149,55 @@ msgstr ""
 msgid "Path to the script"
 msgstr ""
 
-#: data/script_properties.ui:39
+#: data/script_properties.ui:31 data/window.ui:39
+msgid "Open"
+msgstr ""
+
+#: data/script_properties.ui:40
 msgid "Syntax highlighting"
 msgstr ""
 
-#: data/script_properties.ui:50 data/window.ui:158
+#: data/script_properties.ui:51 data/window.ui:50 data/window.ui:166
 msgid "Save"
 msgstr ""
 
-#: data/script_properties.ui:61
+#: data/script_properties.ui:62
 msgid "Delete"
 msgstr ""
 
-#: data/window.ui:162
-msgid "Save as..."
+#: data/window.ui:29
+msgid "Add"
+msgstr ""
+
+#: data/window.ui:60
+msgid "Export"
+msgstr ""
+
+#: data/window.ui:79
+msgid "Main Menu"
+msgstr ""
+
+#: data/window.ui:89
+msgid "Redo"
+msgstr ""
+
+#: data/window.ui:99
+msgid "Undo"
+msgstr ""
+
+#: data/window.ui:152
+msgid "Refresh"
 msgstr ""
 
 #: data/window.ui:170
+msgid "Save as..."
+msgstr ""
+
+#: data/window.ui:178
 msgid "Preferences"
 msgstr ""
 
-#: data/window.ui:175
+#: data/window.ui:183
 msgid "About MibiMdEditor"
 msgstr ""
 
