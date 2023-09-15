@@ -39,20 +39,20 @@
     <key name="script-names" type="as">
       <default>[]</default>
       <summary>
-        Names of the diffrent scripts to generate HTML.
+        Names of the different scripts to generate HTML.
       </summary>
       <description>
-        The names of the diffrent scripts to generate HTML from other markup languages.
+        The names of the different scripts to generate HTML from other markup languages.
       </description>
     </key>
 
     <key name="script-files" type="as">
       <default>[]</default>
       <summary>
-        Files of the diffrent scripts to generate HTML.
+        Files of the different scripts to generate HTML.
       </summary>
       <description>
-        The files of the diffrent scripts to generate HTML from other markup languages.
+        The files of the different scripts to generate HTML from other markup languages.
       </description>
     </key>
 

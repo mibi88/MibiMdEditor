@@ -1,82 +1,90 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Turkish translation for MibiMdEditor.
+# Copyright (C) 2023 MibiMdEditor's COPYRIGHT HOLDER
+# This file is distributed under the same license as the MibiMdEditor package.
 #
-#, fuzzy
+# Sabri Ünal <libreajans@gmail.com>, 2023.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-10 18:05+0300\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2023-09-10 17:50+0300\n"
+"PO-Revision-Date: 2023-09-10 18:01+0300\n"
+"Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
+"Language-Team: Türkçe <takim@gnome.org.tr>\n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.3.1\n"
 
 #: data/io.github.mibi88.MibiMdEditor.desktop.in:3
 msgid "MibiMdEditor"
-msgstr ""
+msgstr "MibiMdEditor"
 
 #: data/io.github.mibi88.MibiMdEditor.appdata.xml.in:7
 msgid "Prepare your texts for the web."
-msgstr ""
+msgstr "Metinlerinizi web için hazırlayın."
 
 #: data/io.github.mibi88.MibiMdEditor.gschema.xml:5
 msgid "Does the text editor has a grid background?"
-msgstr ""
+msgstr "Metin düzenleyici ızgara arka plan kullansın mı?"
 
 #: data/io.github.mibi88.MibiMdEditor.gschema.xml:6
 msgid "If the text editor has a grid background."
-msgstr ""
+msgstr "Metin düzenleyicinin ızgara arka plan kullanma durumu."
 
 #: data/io.github.mibi88.MibiMdEditor.gschema.xml:13
 msgid "Is current line highlighted in the text editor?"
-msgstr ""
+msgstr "Geçerli satır metin düzenleyicide vurgulansın mı?"
 
 #: data/io.github.mibi88.MibiMdEditor.gschema.xml:14
 msgid "If current line is highlighted in the text editor."
-msgstr ""
+msgstr "Geçerli satırın metin düzenleyicide vurgulanma durumu."
 
 #: data/io.github.mibi88.MibiMdEditor.gschema.xml:21
 msgid "Does the text editor indents automatically the new line?"
-msgstr ""
+msgstr "Metin düzenleyici yeni satırı kendiliğinden girintilesin mi?"
 
 #: data/io.github.mibi88.MibiMdEditor.gschema.xml:24
 msgid "If the text editor indents automatically a new line."
-msgstr ""
+msgstr "Metin düzenleyicinin yeni satırı kendiliğinden girintileme durumu."
 
 #: data/io.github.mibi88.MibiMdEditor.gschema.xml:31
 msgid "Does the text editor uses a monospaced font to display his content?"
 msgstr ""
+"Metin düzenliyici içeriğini göstermek için eş aralıklı yazı tipi kullansın "
+"mı?"
 
 #: data/io.github.mibi88.MibiMdEditor.gschema.xml:34
 msgid ""
 "If the text editor uses a monospaced font instead of a proportional one."
-msgstr ""
+msgstr "Metin düzenleyicinin eş aralıklı yazı tipi kullanma durumu."
 
 #: data/io.github.mibi88.MibiMdEditor.gschema.xml:41
 msgid "Names of the different scripts to generate HTML."
-msgstr ""
+msgstr "HTML oluşturmak için kullanılan farklı betiklerin adları."
 
 #: data/io.github.mibi88.MibiMdEditor.gschema.xml:44
 msgid ""
 "The names of the different scripts to generate HTML from other markup "
 "languages."
 msgstr ""
+"Diğer işaretleme dillerinden HTML oluşturmak için kullanılan farklı komut "
+"dosyalarının adları."
 
 #: data/io.github.mibi88.MibiMdEditor.gschema.xml:51
 msgid "Files of the different scripts to generate HTML."
-msgstr ""
+msgstr "HTML oluşturmak için kullanılan farklı betiklerin dosyaları."
 
 #: data/io.github.mibi88.MibiMdEditor.gschema.xml:54
 msgid ""
 "The files of the different scripts to generate HTML from other markup "
 "languages."
 msgstr ""
+"Diğer işaretleme dillerinden HTML oluşturmak için betik dosyalarının "
+"dosyaları."
 
 #: data/io.github.mibi88.MibiMdEditor.gschema.xml:61
 #: data/io.github.mibi88.MibiMdEditor.gschema.xml:64
@@ -84,177 +92,190 @@ msgid ""
 "Language name for the syntax highlighting for the markup languages parsed by "
 "the scripts to generate HTML."
 msgstr ""
+"HTML oluşturmak için betikler tarafından ayrıştırılan biçimlendirme "
+"dillerine yönelik söz dizimi vurgulamasının dil adı."
 
 #: data/preferences.ui:11
 msgid "Editor"
-msgstr ""
+msgstr "Düzenleyici"
 
 #: data/preferences.ui:17
 msgid "Editor settings"
-msgstr ""
+msgstr "Düzenleyici Ayarları"
 
 #: data/preferences.ui:22
 msgid "Grid background"
-msgstr ""
+msgstr "Izgara Arka Plan"
 
 #: data/preferences.ui:23
 msgid "Get a grid background in the text editor"
-msgstr ""
+msgstr "Metin düzenleyicide ızgara arka plan kullan"
 
 #: data/preferences.ui:30
 msgid "Line highlight"
-msgstr ""
+msgstr "Satır Vurgusu"
 
 #: data/preferences.ui:31
 msgid "Highlight the line you're currently editing"
-msgstr ""
+msgstr "Düzenlenmekte olan satırı vurgula"
 
 #: data/preferences.ui:38
 msgid "Auto indent"
-msgstr ""
+msgstr "Kendiliğinden Girintile"
 
 #: data/preferences.ui:39
 msgid "Automatically indent the next line"
-msgstr ""
+msgstr "Sonraki satırı kendiliğinden girintile"
 
 #: data/preferences.ui:46
 msgid "Monospace font"
-msgstr ""
+msgstr "Eş Aralıklı Yazı Tipi"
 
 #: data/preferences.ui:47
 msgid "Use a monospace font to display the text"
-msgstr ""
+msgstr "Metinleri görüntelemek için eş aralıklı yazı tipi kullan"
 
 #: data/preferences.ui:58 data/preferences.ui:79
 msgid "HTML generation scripts"
-msgstr ""
+msgstr "HTML Oluşturma Betikleri"
 
 #: data/preferences.ui:64
 msgid "New HTML generation script"
-msgstr ""
+msgstr "Yeni HTML Oluşturma Betiği"
 
 #: data/preferences.ui:69
 msgid "New script"
-msgstr ""
+msgstr "Yeni Betik"
 
 #: data/preferences.ui:70
 msgid "Create a new script to generate HTML"
-msgstr ""
+msgstr "HTML Oluşturmak İçin Yeni Betik Oluştur"
 
 #: data/script_properties.ui:14
 msgid "Script name"
-msgstr ""
+msgstr "Betik Adı"
 
 #: data/script_properties.ui:21
 msgid "Path to the script"
-msgstr ""
+msgstr "Betik Yolu"
 
 #: data/script_properties.ui:31 data/window.ui:39
 msgid "Open"
-msgstr ""
+msgstr "Aç"
 
 #: data/script_properties.ui:40
 msgid "Syntax highlighting"
-msgstr ""
+msgstr "Sözdizimi Vurgulaması"
 
 #: data/script_properties.ui:51 data/window.ui:50 data/window.ui:166
 msgid "Save"
-msgstr ""
+msgstr "Kaydet"
 
 #: data/script_properties.ui:62
 msgid "Delete"
-msgstr ""
+msgstr "Sil"
 
 #: data/window.ui:29
 msgid "Add"
-msgstr ""
+msgstr "Ekle"
 
 #: data/window.ui:60
 msgid "Export"
-msgstr ""
+msgstr "Dışa Aktar"
 
 #: data/window.ui:79
 msgid "Main Menu"
-msgstr ""
+msgstr "Ana Menü"
 
 #: data/window.ui:89
 msgid "Redo"
-msgstr ""
+msgstr "Yinele"
 
 #: data/window.ui:99
 msgid "Undo"
-msgstr ""
+msgstr "Geri Al"
 
 #: data/window.ui:152
 msgid "Refresh"
-msgstr ""
+msgstr "Yenile"
 
 #: data/window.ui:170
 msgid "Save as..."
-msgstr ""
+msgstr "Farklı Kaydet..."
 
 #: data/window.ui:178
 msgid "Preferences"
-msgstr ""
+msgstr "Tercihler"
 
 #: data/window.ui:183
 msgid "About MibiMdEditor"
-msgstr ""
+msgstr "MibiMdEditor Hakkında"
 
 #. dialog.documenters = null;
 #. Translators: Please enter your credits here
 #. (format: "Name https://example.com" or "Name <email@example.com>", no quotes, one name per line)
 #: src/application.vala:68
 msgid "translator-credits"
-msgstr ""
+msgstr "Sabri Ünal <libreajans@gmail.com>"
 
 #: src/application.vala:71
 msgid "Prepare your texts for the web"
-msgstr ""
+msgstr "Metinlerinizi web için hazırlayın"
 
 #: src/application.vala:72
 msgid "Copyright © 2023 mibi88"
-msgstr ""
+msgstr "Telif Hakkı © 2023 mibi88"
 
 #: src/ui/script_properties.vala:105
 msgid "Do you really want to remove this script?"
-msgstr ""
+msgstr "Bu betiği kaldırmak istediğinizden emin misiniz?"
 
 #: src/ui/script_properties.vala:106 src/ui/window.vala:130
 #: src/ui/window.vala:278 src/ui/window.vala:337
 msgid "OK"
-msgstr ""
+msgstr "Tamam"
 
 #: src/ui/script_properties.vala:106 src/ui/window.vala:130
 #: src/ui/window.vala:278 src/ui/window.vala:337
 msgid "Cancel"
-msgstr ""
+msgstr "İptal"
 
 #. Subtitle of the window if no file is opened :
 #: src/ui/window.vala:38
 msgid "New file"
-msgstr ""
+msgstr "Yeni Dosya"
 
 #: src/ui/window.vala:128
 msgid ""
 "Your file isn't saved!\n"
 "Do you really want to quit?"
 msgstr ""
+"Dosyanız kaydedilmemiş!\n"
+"Çıkmak istediğinize emin misiniz?"
 
 #: src/ui/window.vala:252
 msgid ""
 "Please go to Preferences > HTML Generation scripts and add a new script to "
 "be able to generate html."
 msgstr ""
+"Lütfen Tercihler > HTML Oluşturma betiklerine gidin ve HTML oluşturabilmek "
+"için yeni bir betik ekleyin."
 
 #: src/ui/window.vala:276
 msgid ""
 "Your file isn't saved!\n"
 "Do you really want to create a new file?"
 msgstr ""
+"Dosyanız kaydedilmemiş!\n"
+"Yeni dosya oluşturmak istediğinize emin misiniz?"
 
 #: src/ui/window.vala:335
 msgid ""
 "Your file isn't saved!\n"
 "Do you really want to open a file?"
 msgstr ""
+"Dosyanız kaydedilmemiş!\n"
+"Yeni dosya açmak istediğinize emin misiniz?"
+
+#~ msgid "Script named \"$name\" already exists."
+#~ msgstr "\"$name\" adlı betik zaten var."

@@ -1,4 +1,9 @@
-src/window.vala
-data/window.ui
+data/io.github.mibi88.MibiMdEditor.desktop.in
+data/io.github.mibi88.MibiMdEditor.appdata.xml.in
+data/io.github.mibi88.MibiMdEditor.gschema.xml
 data/preferences.ui
 data/script_properties.ui
+data/window.ui
+src/application.vala
+src/ui/script_properties.vala
+src/ui/window.vala

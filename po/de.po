@@ -33,8 +33,8 @@ msgid "New file"
 msgstr "Neue datei"
 
 #: src/ui/window.vala:130
-msgid "Ok"
-msgstr "Ok"
+msgid "OK"
+msgstr "OK"
 
 #: src/ui/window.vala:130
 msgid "Cancel"
