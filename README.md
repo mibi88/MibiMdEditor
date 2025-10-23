@@ -41,11 +41,14 @@ $ meson install
 
 Then just run the binary in bin/src/.
 
-To get the preview working, you should add or write scripts as explained below. If you don't want to write a script yourself, you can try out the example scripts located in the example_script folder.
+To get the preview working, you should add or write scripts as explained below.
+
+**If you don't want to write a script yourself, you can try out the example scripts located in the example_script folder.**
 
 ## Writing a script to generate HTML
 
-* The input text is in the first argument (the 2nd string of argv in C)
+* The input text is passed via stdin
+* The filename is passed in argv[1] (it usually isn't needed)
 * The output HTML will be grabbed from stdout
 
 When you finished your script

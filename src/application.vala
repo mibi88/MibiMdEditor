@@ -29,7 +29,7 @@ class MibiMdEditorApplication : Gtk.Application {
     private MibiMdEditor window;
     public MibiMdEditorApplication () {
         Object (application_id: "io.github.mibi88.MibiMdEditor",
-                flags: ApplicationFlags.FLAGS_NONE);
+                flags: ApplicationFlags.DEFAULT_FLAGS);
         ActionEntry[] action_entries = {
             { "about", this.about_dialog },
             { "preferences", this.preferences_dialog },
@@ -55,17 +55,16 @@ class MibiMdEditorApplication : Gtk.Application {
         }
     }
     private void about_dialog () {
-        Adw.AboutWindow dialog = new Adw.AboutWindow ();
-        dialog.transient_for = window;
-        dialog.modal = true;
-        dialog.destroy_with_parent = true;
+        Adw.AboutDialog dialog = new Adw.AboutDialog ();
         dialog.artists = {"mibi88"};
         dialog.developers = {"mibi88"};
         //dialog.documenters = null;
 
         // Translators: Please enter your credits here
-        // (format: "Name https://example.com" or "Name <email@example.com>", no quotes, one name per line)
-        dialog.translator_credits = _("translator-credits");
+        // (format: "Name https://example.com" or "Name <email@example.com>", no
+        //  quotes, one name per line)
+        dialog.translator_credits = "Mibi88 https://mibi88.github.io\n" +
+                                    "Sabri Ünal https://www.yakusha.net";
         dialog.application_name = MibiMdEditor.TITLE;
         dialog.application_icon = "io.github.mibi88.MibiMdEditor";
         dialog.comments = _("Prepare your texts for the web");
@@ -74,7 +73,7 @@ class MibiMdEditorApplication : Gtk.Application {
         dialog.license_type = Gtk.License.GPL_2_0;
         dialog.website = "https://github.com/mibi88/MibiMdEditor";
         dialog.issue_url = "https://github.com/mibi88/MibiMdEditor/issues/new";
-        dialog.present ();
+        dialog.present (window);
     }
     private void preferences_dialog () {
         // Create the dialog

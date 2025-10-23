@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <template class="PreferencesDialog" parent="AdwPreferencesWindow">
-    <property name="can-focus">False</property>
+    <property name="can-focus">True</property>
     <property name="default-width">560</property>
     <property name="default-height">420</property>
     <child>
@@ -54,18 +54,18 @@
     <child>
       <object class="AdwPreferencesPage" id="generation">
         <property name="visible">True</property>
-        <property name="can-focus">False</property>
+        <property name="can-focus">True</property>
         <property name="title" translatable="yes">HTML generation scripts</property>
         <property name="icon_name">x-office-document-symbolic</property>
         <child>
           <object class="AdwPreferencesGroup">
             <property name="visible">True</property>
-            <property name="can-focus">False</property>
+            <property name="can-focus">True</property>
             <property name="title" translatable="yes">New HTML generation script</property>
             <child>
               <object class="AdwExpanderRow" id="new_script_row">
                 <property name="visible">True</property>
-                <property name="can-focus">False</property>
+                <property name="can-focus">True</property>
                 <property name="title" translatable="yes">New script</property>
                 <property name="subtitle" translatable="yes">Create a new script to generate HTML</property>
               </object>
@@ -75,7 +75,7 @@
         <child>
           <object class="AdwPreferencesGroup" id="scripts">
             <property name="visible">True</property>
-            <property name="can-focus">False</property>
+            <property name="can-focus">True</property>
             <property name="title" translatable="yes">HTML generation scripts</property>
           </object>
         </child>

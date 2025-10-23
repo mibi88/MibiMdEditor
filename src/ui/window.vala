@@ -149,7 +149,7 @@ Do you really want to quit?"""));
             closed = true;
         }
     }
-    // WIDGETS ///
+    /// WIDGETS ///
     public void load_preferences () {
         GLib.Settings settings =
             new GLib.Settings ("io.github.mibi88.MibiMdEditor");
@@ -198,7 +198,10 @@ Do you really want to quit?"""));
         stdout.puts ("Nothing to do at end of HTML generation.\n");
     }
     private void generate_html () {
-        if (!generation_finished) subprocess.force_exit ();
+        if (!generation_finished) {
+            stdout.puts ("Killed the script!\n");
+            subprocess.force_exit ();
+        }
         if (script_amount > 0) {
             // Set the syntax highlighting language
             Variant lang_name_variant =
@@ -208,7 +211,7 @@ Do you really want to quit?"""));
             // Get the script path
             string script_path =
                 files_variant.get_child_value (script.selected).get_string ();
-            string[] argv = {script_path, text_buffer.text};
+            string[] argv = {script_path};
             working_dir = "/";
             if (file != null) {
                 working_dir = file.get_parent ().get_path ();
@@ -221,6 +224,7 @@ Do you really want to quit?"""));
                 html_data = "";
                 generation_finished = false;
                 subprocess = new Subprocess.newv (argv,
+                                                  SubprocessFlags.STDIN_PIPE |
                                                   SubprocessFlags.STDOUT_PIPE |
                                                   SubprocessFlags.STDERR_PIPE);
                 subprocess.wait_async.begin (null, (obj, res) => {
@@ -228,7 +232,8 @@ Do you really want to quit?"""));
                         if (!subprocess.wait_async.end (res)) {
                             subprocess.force_exit ();
                         }
-                        subprocess.communicate_utf8 (null, null, out stdout_str,
+                        subprocess.communicate_utf8 (text_buffer.text, null,
+                                                     out stdout_str,
                                                      out stderr_str);
                         stdout.puts ("Finished getting HTML!\n");
                         if (stderr_str != "") html_data +=
