@@ -1,47 +1,254 @@
+#
+# Mibi88 <mbcontact50@gmail.com>, 2025.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
-"POT-Creation-Date: 2023-08-07 12:15+0200\n"
-"PO-Revision-Date: 2023-08-09 11:59+0200\n"
+"Project-Id-Version: unnamed project\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-23 18:24+0200\n"
+"PO-Revision-Date: 2025-10-23 18:25+0200\n"
 "Last-Translator: Mibi88 <mbcontact50@gmail.com>\n"
 "Language-Team: \n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.3.1\n"
+"X-Generator: Gtranslator 48.0\n"
 "X-Poedit-Basepath: .\n"
 
-#: src/ui/window.ui:158
+#: data/io.github.mibi88.MibiMdEditor.desktop.in:2
+msgid "MibiMdEditor"
+msgstr "MibiMdEditor"
+
+#: data/io.github.mibi88.MibiMdEditor.appdata.xml.in:7
+msgid "Prepare your texts for the web."
+msgstr ""
+
+#: data/io.github.mibi88.MibiMdEditor.gschema.xml:5
+msgid "Does the text editor has a grid background?"
+msgstr ""
+
+#: data/io.github.mibi88.MibiMdEditor.gschema.xml:6
+msgid "If the text editor has a grid background."
+msgstr ""
+
+#: data/io.github.mibi88.MibiMdEditor.gschema.xml:13
+msgid "Is current line highlighted in the text editor?"
+msgstr ""
+
+#: data/io.github.mibi88.MibiMdEditor.gschema.xml:14
+msgid "If current line is highlighted in the text editor."
+msgstr ""
+
+#: data/io.github.mibi88.MibiMdEditor.gschema.xml:21
+msgid "Does the text editor indents automatically the new line?"
+msgstr ""
+
+#: data/io.github.mibi88.MibiMdEditor.gschema.xml:24
+msgid "If the text editor indents automatically a new line."
+msgstr ""
+
+#: data/io.github.mibi88.MibiMdEditor.gschema.xml:31
+msgid "Does the text editor uses a monospaced font to display his content?"
+msgstr ""
+
+#: data/io.github.mibi88.MibiMdEditor.gschema.xml:34
+msgid ""
+"If the text editor uses a monospaced font instead of a proportional one."
+msgstr ""
+
+#: data/io.github.mibi88.MibiMdEditor.gschema.xml:41
+msgid "Names of the different scripts to generate HTML."
+msgstr ""
+
+#: data/io.github.mibi88.MibiMdEditor.gschema.xml:44
+msgid ""
+"The names of the different scripts to generate HTML from other markup "
+"languages."
+msgstr ""
+
+#: data/io.github.mibi88.MibiMdEditor.gschema.xml:51
+msgid "Files of the different scripts to generate HTML."
+msgstr ""
+
+#: data/io.github.mibi88.MibiMdEditor.gschema.xml:54
+msgid ""
+"The files of the different scripts to generate HTML from other markup "
+"languages."
+msgstr ""
+
+#: data/io.github.mibi88.MibiMdEditor.gschema.xml:61
+#: data/io.github.mibi88.MibiMdEditor.gschema.xml:64
+msgid ""
+"Language name for the syntax highlighting for the markup languages parsed by "
+"the scripts to generate HTML."
+msgstr ""
+
+#: data/preferences.ui:11
+#, fuzzy
+msgid "Editor"
+msgstr "Editor"
+
+#: data/preferences.ui:17
+msgid "Editor settings"
+msgstr ""
+
+#: data/preferences.ui:22
+msgid "Grid background"
+msgstr ""
+
+#: data/preferences.ui:23
+msgid "Get a grid background in the text editor"
+msgstr ""
+
+#: data/preferences.ui:30
+msgid "Line highlight"
+msgstr "Linie hervorheben"
+
+#: data/preferences.ui:31
+msgid "Highlight the line you're currently editing"
+msgstr ""
+
+#: data/preferences.ui:38
+msgid "Auto indent"
+msgstr "Automatische Einrückung"
+
+#: data/preferences.ui:39
+msgid "Automatically indent the next line"
+msgstr "Automatisch die neue Linien einrücken"
+
+#: data/preferences.ui:46
+msgid "Monospace font"
+msgstr "Nichtproportionale Schriftart"
+
+#: data/preferences.ui:47
+msgid "Use a monospace font to display the text"
+msgstr "Den Text mit einer nichtproportionalen Schriftart anzeigen"
+
+#: data/preferences.ui:58 data/preferences.ui:79
+msgid "HTML generation scripts"
+msgstr "HTML herstellungs-Skripte"
+
+#: data/preferences.ui:64
+msgid "New HTML generation script"
+msgstr "Neues HTML herstellungs-Skript"
+
+#: data/preferences.ui:69
+msgid "New script"
+msgstr "Neues Skript"
+
+#: data/preferences.ui:70
+msgid "Create a new script to generate HTML"
+msgstr "Ein neues Skript erstellen um HTML herzustellen"
+
+#: data/script_properties.ui:14
+msgid "Script name"
+msgstr "Name des Skripts"
+
+#: data/script_properties.ui:21
+msgid "Path to the script"
+msgstr "Pfadname des Skripts"
+
+#: data/script_properties.ui:31 data/window.ui:39
+msgid "Open"
+msgstr "Aufmachen"
+
+#: data/script_properties.ui:40
+msgid "Syntax highlighting"
+msgstr "Syntaxhervorhebung"
+
+#: data/script_properties.ui:51 data/window.ui:50 data/window.ui:166
 msgid "Save"
 msgstr "Speichern"
 
-#: src/ui/window.ui:162
+#: data/script_properties.ui:62
+msgid "Delete"
+msgstr "Löschen"
+
+#: data/window.ui:29
+msgid "Add"
+msgstr "Hinzufügen"
+
+#: data/window.ui:60
+msgid "Export"
+msgstr "Exportieren"
+
+#: data/window.ui:79
+msgid "Main Menu"
+msgstr ""
+
+#: data/window.ui:89
+msgid "Redo"
+msgstr ""
+
+#: data/window.ui:99
+msgid "Undo"
+msgstr ""
+
+#: data/window.ui:152
+msgid "Refresh"
+msgstr ""
+
+#: data/window.ui:170
 msgid "Save as..."
 msgstr "Speichern unter..."
 
-#: src/ui/window.ui:170
+#: data/window.ui:178
+msgid "New Window"
+msgstr "Neues fenster"
+
+#: data/window.ui:182
 msgid "Preferences"
 msgstr "Einstellungen"
 
-#: src/ui/window.ui:175
+#: data/window.ui:187
 msgid "About MibiMdEditor"
 msgstr "Info zu MibiMdEditor"
 
+#. dialog.documenters = null;
+#. Translators: Please enter your credits here
+#. (format: "Name https://example.com" or "Name <email@example.com>", no
+#. quotes, one name per line)
+#: src/application.vala:69
+msgid "translator-credits"
+msgstr "Mibi88 <mbcontact50@gmail.com>"
+
+#: src/application.vala:72
+msgid "Prepare your texts for the web"
+msgstr ""
+
+#: src/application.vala:73
+msgid "Copyright © 2023 mibi88"
+msgstr "Copyright © 2023 mibi88"
+
+#: src/ui/script_properties.vala:105
+msgid "Do you really want to remove this script?"
+msgstr "Wollen sie wirklich dieses Skript löschen?"
+
+#: src/ui/script_properties.vala:106 src/ui/window.vala:130
+#: src/ui/window.vala:283 src/ui/window.vala:342
+msgid "OK"
+msgstr "OK"
+
+#: src/ui/script_properties.vala:106 src/ui/window.vala:130
+#: src/ui/window.vala:283 src/ui/window.vala:342
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#. Subtitle of the window if no file is opened :
 #: src/ui/window.vala:38
 msgid "New file"
 msgstr "Neue datei"
 
-#: src/ui/window.vala:130
-msgid "OK"
-msgstr "OK"
+#: src/ui/window.vala:128
+msgid ""
+"Your file isn't saved!\n"
+"Do you really want to quit?"
+msgstr ""
+"Diese Datei ist nicht gespeichert\n"
+"Wollen Sie wirklich MibiMdEditor schließen?"
 
-#: src/ui/window.vala:130
-msgid "Cancel"
-msgstr "Abbrechen"
-
-#: src/ui/window.vala:252
-#, fuzzy
+#: src/ui/window.vala:257
 msgid ""
 "Please go to Preferences > HTML Generation scripts and add a new script to "
 "be able to generate html."
@@ -49,7 +256,7 @@ msgstr ""
 "Bitte gehen Sie in Einstellungen > HTML-Erstellung und fügen Sie ein neues "
 "Skript hinzu."
 
-#, fuzzy
+#: src/ui/window.vala:281
 msgid ""
 "Your file isn't saved!\n"
 "Do you really want to create a new file?"
@@ -57,6 +264,7 @@ msgstr ""
 "Diese Datei ist nicht gespeichert\n"
 "Wollen Sie wirklich eine neue erstellen?"
 
+#: src/ui/window.vala:340
 msgid ""
 "Your file isn't saved!\n"
 "Do you really want to open a file?"
@@ -65,73 +273,5 @@ msgstr ""
 "Wollen Sie wirklich eine öffnen?"
 
 #, fuzzy
-msgid ""
-"Your file isn't saved!\n"
-"Do you really want to quit?"
-msgstr ""
-"Diese Datei ist nicht gespeichert\n"
-"Wollen Sie wirklich MibiMdEditor schließen?"
-
-msgid "Do you really want to remove this script?"
-msgstr "Wollen sie wirklich dieses Skript löschen?"
-
-#, fuzzy
-msgid "Script named \"$name\" already exists."
-msgstr "Ein Skript mit dem Namen \"$name\" existiert schon."
-
-msgid "Grid background"
-msgstr ""
-
-msgid "Get a grid background in the text editor"
-msgstr ""
-
-msgid "Line highlight"
-msgstr ""
-
-msgid "Highlight the line you're currently editing"
-msgstr ""
-
-msgid "Auto indent"
-msgstr "Automatische Einrückung"
-
-#, fuzzy
-msgid "Automatically indent the next line"
-msgstr "Automatisch die neue Linien Einrücken"
-
-msgid "Monospace font"
-msgstr "Nichtproportionale Schriftart"
-
-#, fuzzy
-msgid "Use a monospace font to display the text"
-msgstr "Den Text mit einer nichtproportionale Schriftart anzeigen"
-
-#, fuzzy
-msgid "HTML generation scripts"
-msgstr "HTML erstellung Skripte"
-
-#, fuzzy
-msgid "New HTML generation script"
-msgstr "Neues HTML erstellung Skript"
-
-msgid "New script"
-msgstr "Neues Skript"
-
-#, fuzzy
-msgid "Create a new script to generate HTML"
-msgstr "Ein neues Skript erstellen um HTML zu erstellen"
-
-msgid "Delete"
-msgstr "Löschen"
-
-msgid "Syntax highlighting"
-msgstr "Syntaxhervorhebung"
-
-msgid "Path to the script"
-msgstr "Pfadname des Skripts"
-
-msgid "Script name"
-msgstr "Name des Skripts"
-
-#, fuzzy
-msgid "Editor"
-msgstr "Editor"
+#~ msgid "Script named \"$name\" already exists."
+#~ msgstr "Ein Skript mit dem Namen \"$name\" existiert schon."

@@ -4,7 +4,7 @@
 
 - [x] Add shotcuts
 - [x] Add undo and redo
-- [ ] Allow HTML ToggleButton
+- [ ] ~~Allow HTML ToggleButton~~ Scripts will handle it by themselves instead.
 - [x] Choose language
 - [ ] Translations
 - [x] Syntax highlighting

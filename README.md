@@ -30,6 +30,13 @@ This project requires
 * webkitgtk 6.0
 * gtksourceview 5
 
+The example scripts require:
+
+* python3
+* some pip packages (see `example_scripts/requirements.txt`)
+    * `markdown` (for the md.py script)
+    * `bbcode` (for the bb.py script)
+
 Compile it using meson :
 
 ```

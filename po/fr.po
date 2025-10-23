@@ -1,67 +1,252 @@
+#
+# Mibi88 <mbcontact50@gmail.com>, 2025.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
-"POT-Creation-Date: 2023-08-07 12:15+0200\n"
-"PO-Revision-Date: 2023-08-09 11:42+0200\n"
+"Project-Id-Version: unnamed project\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-23 18:24+0200\n"
+"PO-Revision-Date: 2025-10-23 18:25+0200\n"
 "Last-Translator: Mibi88 <mbcontact50@gmail.com>\n"
 "Language-Team: \n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.3.1\n"
+"X-Generator: Gtranslator 48.0\n"
 "X-Poedit-Basepath: .\n"
 
-#: src/ui/window.ui:158
+#: data/io.github.mibi88.MibiMdEditor.desktop.in:2
+msgid "MibiMdEditor"
+msgstr "MibiMdEditor"
+
+#: data/io.github.mibi88.MibiMdEditor.appdata.xml.in:7
+msgid "Prepare your texts for the web."
+msgstr "Préparez vos textes pour le web !"
+
+#: data/io.github.mibi88.MibiMdEditor.gschema.xml:5
+msgid "Does the text editor has a grid background?"
+msgstr "L'éditeur de texte a-t-il une grille en arrière-plan ?"
+
+#: data/io.github.mibi88.MibiMdEditor.gschema.xml:6
+msgid "If the text editor has a grid background."
+msgstr "Si l'éditeur de texte a une grille en arrière-plan."
+
+#: data/io.github.mibi88.MibiMdEditor.gschema.xml:13
+msgid "Is current line highlighted in the text editor?"
+msgstr "La ligne actuelle est-elle surlignée dans l'éditeur de texte ?"
+
+#: data/io.github.mibi88.MibiMdEditor.gschema.xml:14
+msgid "If current line is highlighted in the text editor."
+msgstr "Si la ligne actuelle est surlignée dans l'éditeur de texte."
+
+#: data/io.github.mibi88.MibiMdEditor.gschema.xml:21
+msgid "Does the text editor indents automatically the new line?"
+msgstr "L'indentation automatique est-elle activée dans l'éditeur ?"
+
+#: data/io.github.mibi88.MibiMdEditor.gschema.xml:24
+msgid "If the text editor indents automatically a new line."
+msgstr "Si l'indentation automatique est activée dans l'éditeur."
+
+#: data/io.github.mibi88.MibiMdEditor.gschema.xml:31
+msgid "Does the text editor uses a monospaced font to display his content?"
+msgstr ""
+"L'éditeur utilise-t-il une police à chasse fixe pour afficher le texte ?"
+
+#: data/io.github.mibi88.MibiMdEditor.gschema.xml:34
+msgid ""
+"If the text editor uses a monospaced font instead of a proportional one."
+msgstr "Si l'éditeur utilise une police à chasse fixe pour afficher le texte."
+
+#: data/io.github.mibi88.MibiMdEditor.gschema.xml:41
+msgid "Names of the different scripts to generate HTML."
+msgstr "Noms des différents scripts pour générer du HTML."
+
+#: data/io.github.mibi88.MibiMdEditor.gschema.xml:44
+msgid ""
+"The names of the different scripts to generate HTML from other markup "
+"languages."
+msgstr ""
+"Le noms des différents scripts pour générer du HTML à partir d'autres "
+"langages de balisage."
+
+#: data/io.github.mibi88.MibiMdEditor.gschema.xml:51
+msgid "Files of the different scripts to generate HTML."
+msgstr "Fichiers des différents scripts pour générer du HTML."
+
+#: data/io.github.mibi88.MibiMdEditor.gschema.xml:54
+msgid ""
+"The files of the different scripts to generate HTML from other markup "
+"languages."
+msgstr ""
+"Les fichiers des différents scripts pour générer du HTML à partir d'autres "
+"langages de balisage."
+
+#: data/io.github.mibi88.MibiMdEditor.gschema.xml:61
+#: data/io.github.mibi88.MibiMdEditor.gschema.xml:64
+msgid ""
+"Language name for the syntax highlighting for the markup languages parsed by "
+"the scripts to generate HTML."
+msgstr ""
+"Nom du langage pour la coloration syntaxique pour les langages de balisage "
+"lus par les scripts pour générer du HTML."
+
+#: data/preferences.ui:11
+msgid "Editor"
+msgstr "Éditeur"
+
+#: data/preferences.ui:17
+msgid "Editor settings"
+msgstr "Préférences de l'éditeur"
+
+#: data/preferences.ui:22
+msgid "Grid background"
+msgstr "Arrière plan de grille"
+
+#: data/preferences.ui:23
+msgid "Get a grid background in the text editor"
+msgstr "Afficher une grille en arrière plan de l'éditeur de texte"
+
+#: data/preferences.ui:30
+msgid "Line highlight"
+msgstr "Surlignage de la ligne"
+
+#: data/preferences.ui:31
+msgid "Highlight the line you're currently editing"
+msgstr "Mise en évidence de la ligne en cours d'édition"
+
+#: data/preferences.ui:38
+msgid "Auto indent"
+msgstr "Indentation automatique"
+
+#: data/preferences.ui:39
+msgid "Automatically indent the next line"
+msgstr "Indentation automatique des nouvelles lignes"
+
+#: data/preferences.ui:46
+msgid "Monospace font"
+msgstr "Police d'écriture à chasse fixe"
+
+#: data/preferences.ui:47
+msgid "Use a monospace font to display the text"
+msgstr "Afficher le texte dans une police d'écriture à chasse fixe"
+
+#: data/preferences.ui:58 data/preferences.ui:79
+msgid "HTML generation scripts"
+msgstr "Génération du code HTML"
+
+#: data/preferences.ui:64
+msgid "New HTML generation script"
+msgstr "Nouveau script de génération de code HTML"
+
+#: data/preferences.ui:69
+msgid "New script"
+msgstr "Nouveau script"
+
+#: data/preferences.ui:70
+msgid "Create a new script to generate HTML"
+msgstr "Créer un nouveau script pour générer du code HTML"
+
+#: data/script_properties.ui:14
+msgid "Script name"
+msgstr "Nom du script"
+
+#: data/script_properties.ui:21
+msgid "Path to the script"
+msgstr "Chemin vers le script"
+
+#: data/script_properties.ui:31 data/window.ui:39
+msgid "Open"
+msgstr "Ouvrir"
+
+#: data/script_properties.ui:40
+msgid "Syntax highlighting"
+msgstr "Coloration syntaxique"
+
+#: data/script_properties.ui:51 data/window.ui:50 data/window.ui:166
 msgid "Save"
 msgstr "Enregistrer"
 
-#: src/ui/window.ui:162
+#: data/script_properties.ui:62
+msgid "Delete"
+msgstr "Supprimer"
+
+#: data/window.ui:29
+msgid "Add"
+msgstr "Ajouter"
+
+#: data/window.ui:60
+msgid "Export"
+msgstr "Exporter"
+
+#: data/window.ui:79
+msgid "Main Menu"
+msgstr "Menu principal"
+
+#: data/window.ui:89
+msgid "Redo"
+msgstr "Refaire"
+
+#: data/window.ui:99
+msgid "Undo"
+msgstr "Défaire"
+
+#: data/window.ui:152
+msgid "Refresh"
+msgstr "Mettre à jour"
+
+#: data/window.ui:170
 msgid "Save as..."
 msgstr "Enregistrer sous..."
 
-#: src/ui/window.ui:170
+#: data/window.ui:178
+msgid "New Window"
+msgstr "Nouvelle fenêtre"
+
+#: data/window.ui:182
 msgid "Preferences"
 msgstr "Préférences"
 
-#: src/ui/window.ui:175
+#: data/window.ui:187
 msgid "About MibiMdEditor"
 msgstr "À propos de MibiMdEditor"
 
+#. dialog.documenters = null;
+#. Translators: Please enter your credits here
+#. (format: "Name https://example.com" or "Name <email@example.com>", no
+#. quotes, one name per line)
+#: src/application.vala:69
+msgid "translator-credits"
+msgstr "Mibi88 <mbcontact50@gmail.com>"
+
+#: src/application.vala:72
+msgid "Prepare your texts for the web"
+msgstr "Préparez vos textes pour le web !"
+
+#: src/application.vala:73
+msgid "Copyright © 2023 mibi88"
+msgstr "Copyright © 2023 mibi88"
+
+#: src/ui/script_properties.vala:105
+msgid "Do you really want to remove this script?"
+msgstr "Voulez vous vraiment supprimer ce script ?"
+
+#: src/ui/script_properties.vala:106 src/ui/window.vala:130
+#: src/ui/window.vala:283 src/ui/window.vala:342
+msgid "OK"
+msgstr "OK"
+
+#: src/ui/script_properties.vala:106 src/ui/window.vala:130
+#: src/ui/window.vala:283 src/ui/window.vala:342
+msgid "Cancel"
+msgstr "Annuler"
+
+#. Subtitle of the window if no file is opened :
 #: src/ui/window.vala:38
 msgid "New file"
 msgstr "Nouveau fichier"
 
-#: src/ui/window.vala:130
-msgid "OK"
-msgstr "OK"
-
-#: src/ui/window.vala:130
-msgid "Cancel"
-msgstr "Annuler"
-
-#: src/ui/window.vala:252
-msgid ""
-"Please go to Preferences > HTML Generation scripts and add a new script to "
-"be able to generate html."
-msgstr ""
-"Allez dans Préférences > Génération du HTML et ajoutez un nouveau script "
-"pour pouvoir en générer."
-
-msgid ""
-"Your file isn't saved!\n"
-"Do you really want to create a new file?"
-msgstr ""
-"Ce fichier n'est pas enregistré.\n"
-"Voulez-vous vraiment créer un nouveau fichier ?"
-
-msgid ""
-"Your file isn't saved!\n"
-"Do you really want to open a file?"
-msgstr ""
-"Ce fichier n'est pas enregistré.\n"
-"Voulez-vous ouvrir un fichier ?"
-
+#: src/ui/window.vala:128
 msgid ""
 "Your file isn't saved!\n"
 "Do you really want to quit?"
@@ -69,59 +254,29 @@ msgstr ""
 "Ce fichier n'est pas enregistré.\n"
 "Voulez-vous vraiment quitter ?"
 
-msgid "Do you really want to remove this script?"
-msgstr "Voulez vous vraiment supprimer ce script ?"
+#: src/ui/window.vala:257
+msgid ""
+"Please go to Preferences > HTML Generation scripts and add a new script to "
+"be able to generate html."
+msgstr ""
+"Allez dans Préférences > Génération du HTML et ajoutez un nouveau script "
+"pour pouvoir en générer."
 
-msgid "Script named \"$name\" already exists."
-msgstr "Un script nommé \"$name\" éxiste déjà."
+#: src/ui/window.vala:281
+msgid ""
+"Your file isn't saved!\n"
+"Do you really want to create a new file?"
+msgstr ""
+"Ce fichier n'est pas enregistré.\n"
+"Voulez-vous vraiment créer un nouveau fichier ?"
 
-msgid "Grid background"
-msgstr "Arrière plan de grille"
+#: src/ui/window.vala:340
+msgid ""
+"Your file isn't saved!\n"
+"Do you really want to open a file?"
+msgstr ""
+"Ce fichier n'est pas enregistré.\n"
+"Voulez-vous ouvrir un fichier ?"
 
-msgid "Get a grid background in the text editor"
-msgstr "Afficher une grille en arrière plan de l'éditeur de texte"
-
-msgid "Line highlight"
-msgstr "Surlignage de la ligne"
-
-msgid "Highlight the line you're currently editing"
-msgstr "Mise en évidence de la ligne en cours d'édition"
-
-msgid "Auto indent"
-msgstr "Indentation automatique"
-
-msgid "Automatically indent the next line"
-msgstr "Indentation automatique des nouvelles lignes"
-
-msgid "Monospace font"
-msgstr "Police d'écriture à chasse fixe"
-
-msgid "Use a monospace font to display the text"
-msgstr "Afficher le texte dans une police d'écriture à chasse fixe"
-
-msgid "HTML generation scripts"
-msgstr "Génération du code HTML"
-
-msgid "New HTML generation script"
-msgstr "Nouveau script de génération de code HTML"
-
-msgid "New script"
-msgstr "Nouveau script"
-
-msgid "Create a new script to generate HTML"
-msgstr "Créer un nouveau script pour générer du code HTML"
-
-msgid "Delete"
-msgstr "Supprimer"
-
-msgid "Syntax highlighting"
-msgstr "Coloration syntaxique"
-
-msgid "Path to the script"
-msgstr "Chemin vers le script"
-
-msgid "Script name"
-msgstr "Nom du script"
-
-msgid "Editor"
-msgstr "Éditeur"
+#~ msgid "Script named \"$name\" already exists."
+#~ msgstr "Un script nommé \"$name\" éxiste déjà."

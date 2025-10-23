@@ -175,6 +175,10 @@
   <menu id="burger_popup">
     <section>
       <item>
+        <attribute name="label" translatable="yes">New Window</attribute>
+        <attribute name="action">app.new-window</attribute>
+      </item>
+      <item>
         <attribute name="label" translatable="yes">Preferences</attribute>
         <attribute name="action">app.preferences</attribute>
       </item>

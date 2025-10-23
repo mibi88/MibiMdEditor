@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-10 17:50+0300\n"
+"POT-Creation-Date: 2025-10-23 17:57+0200\n"
 "PO-Revision-Date: 2023-09-10 18:01+0300\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Türkçe <takim@gnome.org.tr>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 3.3.1\n"
 
-#: data/io.github.mibi88.MibiMdEditor.desktop.in:3
+#: data/io.github.mibi88.MibiMdEditor.desktop.in:2
 msgid "MibiMdEditor"
 msgstr "MibiMdEditor"
 
@@ -204,10 +204,14 @@ msgid "Save as..."
 msgstr "Farklı Kaydet..."
 
 #: data/window.ui:178
+msgid "New Window"
+msgstr ""
+
+#: data/window.ui:182
 msgid "Preferences"
 msgstr "Tercihler"
 
-#: data/window.ui:183
+#: data/window.ui:187
 msgid "About MibiMdEditor"
 msgstr "MibiMdEditor Hakkında"
 
@@ -218,11 +222,11 @@ msgstr "MibiMdEditor Hakkında"
 msgid "translator-credits"
 msgstr "Sabri Ünal <libreajans@gmail.com>"
 
-#: src/application.vala:71
+#: src/application.vala:73
 msgid "Prepare your texts for the web"
 msgstr "Metinlerinizi web için hazırlayın"
 
-#: src/application.vala:72
+#: src/application.vala:74
 msgid "Copyright © 2023 mibi88"
 msgstr "Telif Hakkı © 2023 mibi88"
 
@@ -231,12 +235,12 @@ msgid "Do you really want to remove this script?"
 msgstr "Bu betiği kaldırmak istediğinizden emin misiniz?"
 
 #: src/ui/script_properties.vala:106 src/ui/window.vala:130
-#: src/ui/window.vala:278 src/ui/window.vala:337
+#: src/ui/window.vala:283 src/ui/window.vala:342
 msgid "OK"
 msgstr "Tamam"
 
 #: src/ui/script_properties.vala:106 src/ui/window.vala:130
-#: src/ui/window.vala:278 src/ui/window.vala:337
+#: src/ui/window.vala:283 src/ui/window.vala:342
 msgid "Cancel"
 msgstr "İptal"
 
@@ -253,7 +257,7 @@ msgstr ""
 "Dosyanız kaydedilmemiş!\n"
 "Çıkmak istediğinize emin misiniz?"
 
-#: src/ui/window.vala:252
+#: src/ui/window.vala:257
 msgid ""
 "Please go to Preferences > HTML Generation scripts and add a new script to "
 "be able to generate html."
@@ -261,7 +265,7 @@ msgstr ""
 "Lütfen Tercihler > HTML Oluşturma betiklerine gidin ve HTML oluşturabilmek "
 "için yeni bir betik ekleyin."
 
-#: src/ui/window.vala:276
+#: src/ui/window.vala:281
 msgid ""
 "Your file isn't saved!\n"
 "Do you really want to create a new file?"
@@ -269,7 +273,7 @@ msgstr ""
 "Dosyanız kaydedilmemiş!\n"
 "Yeni dosya oluşturmak istediğinize emin misiniz?"
 
-#: src/ui/window.vala:335
+#: src/ui/window.vala:340
 msgid ""
 "Your file isn't saved!\n"
 "Do you really want to open a file?"

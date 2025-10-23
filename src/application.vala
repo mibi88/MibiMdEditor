@@ -26,16 +26,17 @@ using WebKit;
 using Adw;
 
 class MibiMdEditorApplication : Gtk.Application {
-    private MibiMdEditor window;
     public MibiMdEditorApplication () {
         Object (application_id: "io.github.mibi88.MibiMdEditor",
                 flags: ApplicationFlags.DEFAULT_FLAGS);
         ActionEntry[] action_entries = {
+            { "new-window", this.new_window },
             { "about", this.about_dialog },
             { "preferences", this.preferences_dialog },
         };
         this.add_action_entries (action_entries, this);
         this.set_accels_for_action ("app.preferences", {"<primary>comma"});
+        set_accels_for_action ("app.new-window", {"<primary><Shift>n"});
         set_accels_for_action ("win.new", {"<primary>n"});
         set_accels_for_action ("win.open", {"<primary>o"});
         set_accels_for_action ("win.export", {"<primary>e"});
@@ -45,14 +46,16 @@ class MibiMdEditorApplication : Gtk.Application {
     }
     public override void activate () {
         base.activate ();
-        if (this.active_window == null) {
-            window = new MibiMdEditor (this);
-            window.close_request.connect (() => {
-                window.quit();
-                return true;
-            });
-            window.present ();
-        }
+        new_window ();
+    }
+    private void new_window () {
+        MibiMdEditor window = new MibiMdEditor (this);
+        window.close_request.connect (() => {
+            window.quit();
+            return true;
+        });
+        window.present ();
+        add_window (window);
     }
     private void about_dialog () {
         Adw.AboutDialog dialog = new Adw.AboutDialog ();
@@ -63,8 +66,7 @@ class MibiMdEditorApplication : Gtk.Application {
         // Translators: Please enter your credits here
         // (format: "Name https://example.com" or "Name <email@example.com>", no
         //  quotes, one name per line)
-        dialog.translator_credits = "Mibi88 https://mibi88.github.io\n" +
-                                    "Sabri Ünal https://www.yakusha.net";
+        dialog.translator_credits = _("translator-credits");
         dialog.application_name = MibiMdEditor.TITLE;
         dialog.application_icon = "io.github.mibi88.MibiMdEditor";
         dialog.comments = _("Prepare your texts for the web");
@@ -73,22 +75,27 @@ class MibiMdEditorApplication : Gtk.Application {
         dialog.license_type = Gtk.License.GPL_2_0;
         dialog.website = "https://github.com/mibi88/MibiMdEditor";
         dialog.issue_url = "https://github.com/mibi88/MibiMdEditor/issues/new";
-        dialog.present (window);
+        dialog.present (this.active_window);
     }
     private void preferences_dialog () {
         // Create the dialog
-        PreferencesDialog dialog = new PreferencesDialog (window);
+        PreferencesDialog dialog = new PreferencesDialog (this.active_window);
         // Show the dialog
         dialog.present ();
         dialog.close_request.connect(() => {
             // Save
             dialog.save ();
             // Reload the preferences
-            window.load_preferences ();
+            get_windows().foreach ((window) => {
+                ((MibiMdEditor)window).load_preferences ();
+            });
             // Close the window
             dialog.destroy ();
             return true;
         });
-        dialog.refresh_scripts.connect (window.refresh_scripts_list);
+        get_windows().foreach ((window) => {
+            dialog.refresh_scripts
+                  .connect (((MibiMdEditor)window).refresh_scripts_list);
+        });
     }
 }

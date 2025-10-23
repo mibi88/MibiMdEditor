@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the MibiMdEditor package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: MibiMdEditor\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-10 18:05+0300\n"
+"POT-Creation-Date: 2025-10-23 18:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: data/io.github.mibi88.MibiMdEditor.desktop.in:3
+#: data/io.github.mibi88.MibiMdEditor.desktop.in:2
 msgid "MibiMdEditor"
 msgstr ""
 
@@ -194,25 +194,30 @@ msgid "Save as..."
 msgstr ""
 
 #: data/window.ui:178
+msgid "New Window"
+msgstr ""
+
+#: data/window.ui:182
 msgid "Preferences"
 msgstr ""
 
-#: data/window.ui:183
+#: data/window.ui:187
 msgid "About MibiMdEditor"
 msgstr ""
 
 #. dialog.documenters = null;
 #. Translators: Please enter your credits here
-#. (format: "Name https://example.com" or "Name <email@example.com>", no quotes, one name per line)
-#: src/application.vala:68
+#. (format: "Name https://example.com" or "Name <email@example.com>", no
+#. quotes, one name per line)
+#: src/application.vala:69
 msgid "translator-credits"
 msgstr ""
 
-#: src/application.vala:71
+#: src/application.vala:72
 msgid "Prepare your texts for the web"
 msgstr ""
 
-#: src/application.vala:72
+#: src/application.vala:73
 msgid "Copyright © 2023 mibi88"
 msgstr ""
 
@@ -221,12 +226,12 @@ msgid "Do you really want to remove this script?"
 msgstr ""
 
 #: src/ui/script_properties.vala:106 src/ui/window.vala:130
-#: src/ui/window.vala:278 src/ui/window.vala:337
+#: src/ui/window.vala:283 src/ui/window.vala:342
 msgid "OK"
 msgstr ""
 
 #: src/ui/script_properties.vala:106 src/ui/window.vala:130
-#: src/ui/window.vala:278 src/ui/window.vala:337
+#: src/ui/window.vala:283 src/ui/window.vala:342
 msgid "Cancel"
 msgstr ""
 
@@ -241,19 +246,19 @@ msgid ""
 "Do you really want to quit?"
 msgstr ""
 
-#: src/ui/window.vala:252
+#: src/ui/window.vala:257
 msgid ""
 "Please go to Preferences > HTML Generation scripts and add a new script to "
 "be able to generate html."
 msgstr ""
 
-#: src/ui/window.vala:276
+#: src/ui/window.vala:281
 msgid ""
 "Your file isn't saved!\n"
 "Do you really want to create a new file?"
 msgstr ""
 
-#: src/ui/window.vala:335
+#: src/ui/window.vala:340
 msgid ""
 "Your file isn't saved!\n"
 "Do you really want to open a file?"
